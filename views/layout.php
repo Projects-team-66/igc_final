@@ -26,14 +26,14 @@
         }
 
         .navbar-brand {
-            font-size: 1.75rem;
+            font-size: 3rem;
             color: #fff;
             font-weight: bold;
         }
 
         .navbar-nav .nav-link {
             color: #ddd;
-            transition: color 0.3s ease;
+            transition: color 0.4s ease;
         }
 
         .navbar-nav .nav-link:hover {
@@ -53,7 +53,7 @@
         }
 
         .container-fluid {
-            padding: 20px;
+            padding: 15px;
         }
 
         footer {
@@ -77,7 +77,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <a class="navbar-brand" href="/igc_final/">
-                <img src="<?= asset('images/pop.jpg') ?>" width="35" alt="Logo">
+                <!-- <img src="<?= asset('images/escudo1.png') ?>" width="35" alt="Logo"> -->
                 I G C
             </a>
             <div class="collapse navbar-collapse" id="navbarToggler">
@@ -87,7 +87,7 @@
                     </li>
                     <div class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="bi bi-person-vcard-fill"></i>Alumnos
+                            <i class="bi bi-person-vcard-fill"></i> Alumnos
                         </a>
                         <ul class="dropdown-menu" style="margin: 0;">
                             <li>
