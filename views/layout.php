@@ -101,7 +101,7 @@
                         </a>
                         <ul class="dropdown-menu" style="margin: 0;">
                             <li>
-                                <a class="dropdown-item" href="/aplicaciones/nueva"><i class="bi bi-plus-circle me-2"></i>Registro</a>
+                                <a class="dropdown-item" href="/igc_final/tutor"><i class="bi bi-plus-circle me-2"></i>Registro</a>
                             </li>
                         </ul>
                     </div>
