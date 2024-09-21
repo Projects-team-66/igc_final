@@ -69,14 +69,15 @@ Este archivo deberá contener la información según el entorno en que se ejecut
 
 ```
 DEBUG_MODE = 1
-DB_HOST=host.docker.internal
-DB_SERVICE=9088
-DB_USER=informix
-DB_PASS=in4mix
-DB_NAME=tienda
-DB_SERVER=informix
+DB_HOST=192.168.73.30
+DB_SERVICE=1526
+DB_USER=656207
+DB_CONEXION=INFORMIX
+DB_PASS=franciso656207
+DB_NAME=instituto
+DB_SERVER=atila_tcp
 
-APP_NAME = "_chart"
+APP_NAME = "igc_final"
 ```
 
 ###  6. Instalar paquetes de node
