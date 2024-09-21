@@ -4,7 +4,7 @@ namespace Model;
 
 class Alumno extends ActiveRecord{
     protected static $tabla = 'alumnos';
-    protected static $columnasDB = ['alumno_nombre','alumno_apellido','alumno_fecha_nacimiento','alumno_direccion','alumno_telefono','alumno_email','alumno_situacion'];
+    protected static $columnasDB = ['alumno_nombre','alumno_apellido','alumno_fecha_nacimiento','alumno_direccion','alumno_telefono','alumno_email','alumno_situacion','tutor_id'];
     protected static $idTabla = 'alumno_id';
     
     public $alumno_id;
@@ -15,6 +15,7 @@ class Alumno extends ActiveRecord{
     public $alumno_telefono;
     public $alumno_email;
     public $alumno_situacion;
+    public $tutor_id;
 
     public function __construct($args = [])
     {
@@ -26,5 +27,6 @@ class Alumno extends ActiveRecord{
         $this->alumno_telefono = $args['alumno_telefono'] ?? '';
         $this->alumno_email = $args['alumno_email'] ?? '';
         $this->alumno_situacion = $args['alumno_situacion'] ?? 1;
+        $this->tutor_id = $args['tutor_id'] ?? '';
     }
 }

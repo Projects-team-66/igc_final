@@ -23,11 +23,12 @@ let datatable = new DataTable('#tablaAlumnos', {
         { title: 'Dirección', data: 'alumno_direccion' },
         { title: 'Teléfono', data: 'alumno_telefono' },
         { title: 'Email', data: 'alumno_email' },
+        { title: 'Tutor', data: 'tutor_id' },
         {
             title: 'Acciones', data: 'id', render: (data, type, row) => `
             <button class='btn btn-warning modificar' data-id="${data}" data-nombre="${row.alumno_nombre}" data-apellido="${row.alumno_apellido}"
                 data-fecha_nacimiento="${row.alumno_fecha_nacimiento}" data-direccion="${row.alumno_direccion}"
-                data-telefono="${row.alumno_telefono}" data-email="${row.alumno_email}">
+                data-telefono="${row.alumno_telefono}" data-email="${row.alumno_email}"data-tutor="${row.tutor_id}">
                 <i class='bi bi-pencil-square'></i>Modificar
             </button>
             <button class='btn btn-danger eliminar' data-id="${data}">Eliminar</button>
@@ -92,6 +93,7 @@ const traerDatos = (e) => {
     formulario.alumno_direccion.value = elemento.direccion;
     formulario.alumno_telefono.value = elemento.telefono;
     formulario.alumno_email.value = elemento.email;
+    formulario.tutor_id.value = elemento.tutor_id;
     btnGuardar.parentElement.style.display = 'none';
     btnModificar.parentElement.style.display = '';
     btnCancelar.parentElement.style.display = '';

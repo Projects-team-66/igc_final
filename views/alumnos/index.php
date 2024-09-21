@@ -33,6 +33,12 @@
                     <input type="email" name="alumno_email" id="alumno_email" class="form-control">
                 </div>
             </div>
+            <div class="col mb-4">
+                <label for="tutor_id" class="form-label">Tutor</label>
+                <select name="tutor_id" id="tutor_id" class="form-control">
+                    <option value="">Seleccione un tutor</option>
+                </select>
+            </div>
             <div class="row text-center">
                 <div class="col">
                     <button type="submit" form="formularioAlumnos" id="btnGuardar" class="btn btn-primary w-100">Guardar</button>
