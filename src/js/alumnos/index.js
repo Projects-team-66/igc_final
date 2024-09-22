@@ -4,175 +4,284 @@ import Swal from "sweetalert2";
 import DataTable from "datatables.net-bs5";
 import { lenguaje } from "../lenguaje";
 
-const formulario = document.getElementById('formularioAlumnos');
-const tabla = document.getElementById('tablaAlumnos');
-const btnGuardar = document.getElementById('btnGuardar');
-const btnModificar = document.getElementById('btnModificar');
-const btnCancelar = document.getElementById('btnCancelar');
 
-let datatable = new DataTable('#tablaAlumnos', {
+const formulario = document.getElementById('formularioAlumnos')
+const tabla = document.getElementById('tablaAlumnos')
+const btnGuardar = document.getElementById('btnGuardar')
+const btnModificar = document.getElementById('btnModificar')
+const btnCancelar = document.getElementById('btnCancelar')
+
+let contador = 1;
+const datatable = new DataTable('#tablaAlumnos', {
     data: null,
     language: lenguaje,
-    pageLength: 15,
+    pageLength: '15',
     lengthMenu: [3, 9, 11, 25, 100],
     columns: [
-        { title: 'No.', data: 'id', width: '2%', render: (data, type, row, meta) => meta.row + 1 },
-        { title: 'Nombre', data: 'alumno_nombre' },
-        { title: 'Apellido', data: 'alumno_apellido' },
-        { title: 'Nacimiento', data: 'alumno_fecha_nacimiento' },
-        { title: 'Dirección', data: 'alumno_direccion' },
-        { title: 'Teléfono', data: 'alumno_telefono' },
-        { title: 'Email', data: 'alumno_email' },
-        { title: 'Tutor', data: 'tutor_id' },
         {
-            title: 'Acciones', data: 'id', render: (data, type, row) => `
-            <button class='btn btn-warning modificar' data-id="${data}" data-nombre="${row.alumno_nombre}" data-apellido="${row.alumno_apellido}"
-                data-fecha_nacimiento="${row.alumno_fecha_nacimiento}" data-direccion="${row.alumno_direccion}"
-                data-telefono="${row.alumno_telefono}" data-email="${row.alumno_email}"data-tutor="${row.tutor_id}">
-                <i class='bi bi-pencil-square'></i>Modificar
-            </button>
-            <button class='btn btn-danger eliminar' data-id="${data}">Eliminar</button>
-        ` }
-    ]
-});
+            title: 'No.',
+            data: 'alumno_id',
+            width: '2%',
+            render: (data, type, row, meta) => {
+                // console.log(meta.ro);
+                return meta.row + 1;
+            }
+        },
+        {
+            title: 'Nombre',
+            data: 'alumno_nombre'
+        },
+        {
+            title: 'Apellido',
+            data: 'alumno_apellido'
+        },
+        {
+            title: 'Fecha de Nacimiento',
+            data: 'alumno_fecha_nacimiento'
+        },
+        {
+            title: 'Direccion',
+            data: 'alumno_direccion'
+        },
+        {
+            title: 'Telefono',
+            data: 'alumno_telefono'
+        },
+        {
+            title: 'Email',
+            data: 'alumno_email'
+        },
+        {
+            title: 'Tutor',
+            data: 'alumno_tutor'
+        },
+        {
+            title: 'Acciones',
+            data: 'alumno_id',
+            searchable: false,
+            orderable: false,
+            render: (data, type, row, meta) => {
+                let html = `
+                <button class='btn btn-warning modificar' 
+                data-alumno_id="${data}" 
+                data-alumno_nombre="${row.alumno_nombre}" 
+                data-alumno_apellido="${row.alumno_apellido}"  
+                data-alumno_fecha_nacimiento="${row.alumno_fecha_nacimiento}" 
+                data-alumno_direccion="${row.alumno_direccion}" 
+                data-alumno_telefono="${row.alumno_telefono}"
+                data-alumno_email="${row.alumno_email}"  
+                data-alumno_tutor="${row.alumno_tutor}"<i class='bi bi-pencil-square'></i>Modificar</button>
+                <button class='btn btn-danger eliminar' data-alumno_id="${data}">Eliminar</button>
+                `
+                return html;
+            }
+        },
 
-btnModificar.parentElement.style.display = 'none';
-btnModificar.disabled = true;
-btnCancelar.parentElement.style.display = 'none';
-btnCancelar.disabled = true;
+    ]
+})
+
+btnModificar.parentElement.style.display = 'none'
+btnModificar.disabled = true
+btnCancelar.parentElement.style.display = 'none'
+btnCancelar.disabled = true
 
 const guardar = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
+
     if (!validarFormulario(formulario, ['alumno_id'])) {
         Swal.fire({
-            title: "Campos vacíos",
+            title: "Campos vacios",
             text: "Debe llenar todos los campos",
             icon: "info"
-        });
-        return;
+        })
+        return
     }
 
     try {
-        const body = new FormData(formulario);
-        const url = "/igc_final/API/alumnos/guardar";
-        const config = { method: 'POST', body };
+        const body = new FormData(formulario)
+        const url = "/igc_final/API/alumnos/guardar"
+        const config = {
+            method: 'POST',
+            body
+        }
+
         const respuesta = await fetch(url, config);
         const data = await respuesta.json();
-        const { codigo, mensaje } = data;
+        const { codigo, mensaje, detalle } = data;
+        let icon = 'info'
         if (codigo == 1) {
-            Toast.fire({ icon: 'success', title: mensaje });
+            icon = 'success'
             formulario.reset();
             buscar();
         } else {
-            Toast.fire({ icon: 'error', title: mensaje });
+            icon = 'error'
+            console.log(detalle);
         }
+
+        Toast.fire({
+            icon: icon,
+            title: mensaje
+        })
+
     } catch (error) {
         console.log(error);
     }
-};
+}
+
 
 const buscar = async () => {
     try {
-        const url = "/igc_final/API/alumnos/buscar";
-        const respuesta = await fetch(url);
-        const data = await respuesta.json();
-        const { datos } = data;
-        datatable.clear().draw();
-        if (datos) datatable.rows.add(datos).draw();
-    } catch (error) {
-        console.log(error);
-    }
-};
+        const url = "/igc_final/API/alumnos/buscar"
+        const config = {
+            method: 'GET',
+        }
 
-const traerDatos = (e) => {
-    const elemento = e.currentTarget.dataset;
-    formulario.alumno_id.value = elemento.id;
-    formulario.alumno_nombre.value = elemento.nombre;
-    formulario.alumno_apellido.value = elemento.apellido;
-    formulario.alumno_fecha_nacimiento.value = elemento.fecha_nacimiento;
-    formulario.alumno_direccion.value = elemento.direccion;
-    formulario.alumno_telefono.value = elemento.telefono;
-    formulario.alumno_email.value = elemento.email;
-    formulario.tutor_id.value = elemento.tutor_id;
-    btnGuardar.parentElement.style.display = 'none';
-    btnModificar.parentElement.style.display = '';
-    btnCancelar.parentElement.style.display = '';
-};
-
-const cancelar = () => {
-    formulario.reset();
-    btnGuardar.parentElement.style.display = '';
-    btnModificar.parentElement.style.display = 'none';
-    btnCancelar.parentElement.style.display = 'none';
-};
-
-const modificar = async (e) => {
-    e.preventDefault();
-    if (!validarFormulario(formulario)) {
-        Swal.fire({
-            title: "Campos vacíos",
-            text: "Debe llenar todos los campos",
-            icon: "info"
-        });
-        return;
-    }
-
-    try {
-        const body = new FormData(formulario);
-        const url = "/igc_final/API/alumnos/modificar";
-        const config = { method: 'POST', body };
         const respuesta = await fetch(url, config);
         const data = await respuesta.json();
-        const { codigo, mensaje } = data;
-        if (codigo == 1) {
-            Toast.fire({ icon: 'success', title: mensaje });
-            buscar();
-            cancelar();
-        } else {
-            Toast.fire({ icon: 'error', title: mensaje });
+        const { codigo, mensaje, detalle, datos } = data;
+
+        // tabla.tBodies[0].innerHTML = ''
+        // const fragment = document.createDocumentFragment();
+        console.log(datos);
+        datatable.clear().draw();
+
+        if (datos) {
+            datatable.rows.add(datos).draw();
         }
     } catch (error) {
         console.log(error);
     }
-};
+}
+buscar();
+
+const traerDatos = (e) => {
+    const elemento = e.currentTarget.dataset
+
+    formulario.alumno_id.value = elemento.alumno_id
+    formulario.alumno_nombre.value = elemento.alumno_nombre
+    formulario.alumno_apellido.value = elemento.alumno_apellido
+    formulario.alumno_fecha_nacimiento.value = elemento.alumno_fecha_nacimiento
+    formulario.alumno_direccion.value = elemento.alumno_direccion
+    formulario.alumno_telefono.value = elemento.alumno_telefono
+    formulario.alumno_email.value = elemento.alumno_email
+    formulario.alumno_tutor.value = elemento.alumno_tutor
+    tabla.parentElement.parentElement.style.display = 'none'
+
+    btnGuardar.parentElement.style.display = 'none'
+    btnGuardar.disabled = true
+    btnModificar.parentElement.style.display = ''
+    btnModificar.disabled = false
+    btnCancelar.parentElement.style.display = ''
+    btnCancelar.disabled = false
+}
+
+const cancelar = () => {
+    tabla.parentElement.parentElement.style.display = ''
+    formulario.reset();
+    btnGuardar.parentElement.style.display = ''
+    btnGuardar.disabled = false
+    btnModificar.parentElement.style.display = 'none'
+    btnModificar.disabled = true
+    btnCancelar.parentElement.style.display = 'none'
+    btnCancelar.disabled = true
+}
+
+const modificar = async (e) => {
+    e.preventDefault()
+
+    if (!validarFormulario(formulario)) {
+        Swal.fire({
+            title: "Campos vacios",
+            text: "Debe llenar todos los campos",
+            icon: "info"
+        })
+        return
+    }
+
+    try {
+        const body = new FormData(formulario)
+        const url = "/igc_final/API/alumnos/modificar"
+        const config = {
+            method: 'POST',
+            body
+        }
+
+        const respuesta = await fetch(url, config);
+        const data = await respuesta.json();
+        const { codigo, mensaje, detalle } = data;
+        console.log(data);
+        let icon = 'info'
+        if (codigo == 1) {
+            icon = 'success'
+            formulario.reset();
+            buscar();
+            cancelar();
+        } else {
+            icon = 'error'
+            console.log(detalle);
+        }
+
+        Toast.fire({
+            icon: icon,
+            title: mensaje
+        })
+
+    } catch (error) {
+        console.log(error);
+    }
+}
 
 const eliminar = async (e) => {
-    const id = e.currentTarget.dataset.id;
+    const alumno_id = e.currentTarget.dataset.alumno_id
+
     let confirmacion = await Swal.fire({
         icon: 'question',
-        title: 'Confirmación',
-        text: '¿Está seguro que desea eliminar este registro?',
+        title: 'Confirmacion',
+        text: '¿Esta seguro que desea eliminar este registro?',
         showCancelButton: true,
-        confirmButtonText: 'Sí, eliminar',
+        confirmButtonText: 'Si, eliminar',
         cancelButtonText: 'No, cancelar',
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-    });
+        // input: 'text'
+    })
+    console.log(confirmacion);
     if (confirmacion.isConfirmed) {
         try {
-            const body = new FormData();
-            body.append('id', id);
-            const url = "/igc_final/API/alumnos/eliminar";
-            const config = { method: 'POST', body };
+            const body = new FormData()
+            body.append('alumno_id', alumno_id)
+            const url = "/igc_final/API/alumnos/eliminar"
+            const config = {
+                method: 'POST',
+                body
+            }
+
             const respuesta = await fetch(url, config);
             const data = await respuesta.json();
-            const { codigo, mensaje } = data;
+            const { codigo, mensaje, detalle } = data;
+            let icon = 'info'
             if (codigo == 1) {
+                icon = 'success'
+                formulario.reset();
                 buscar();
+            } else {
+                icon = 'error'
+                console.log(detalle);
             }
-            Toast.fire({ icon: codigo == 1 ? 'success' : 'error', title: mensaje });
+
+            Toast.fire({
+                icon: icon,
+                title: mensaje
+            })
         } catch (error) {
             console.log(error);
         }
     }
-};
 
-formulario.addEventListener('submit', guardar);
-btnCancelar.addEventListener('click', cancelar);
-btnModificar.addEventListener('click', modificar);
-document.addEventListener('click', (e) => {
-    if (e.target.matches('.eliminar')) eliminar(e);
-    if (e.target.matches('.modificar')) traerDatos(e);
-});
+}
 
-buscar();
+formulario.addEventListener('submit', guardar)
+btnCancelar.addEventListener('click', cancelar)
+btnModificar.addEventListener('click', modificar)
+datatable.on('click', '.modificar', traerDatos)
+datatable.on('click', '.eliminar', eliminar)
