@@ -4,15 +4,21 @@ import Swal from "sweetalert2";
 import DataTable from "datatables.net-bs5";
 import { lenguaje } from "../lenguaje";
 
-
-const formulario = document.getElementById('formularioAlumnos')
-const tabla = document.getElementById('tablaAlumnos')
+const formulario = document.getElementById('formularioProfesor');
+const tabla = document.getElementById('tablaProfesor')
 const btnGuardar = document.getElementById('btnGuardar')
 const btnModificar = document.getElementById('btnModificar')
 const btnCancelar = document.getElementById('btnCancelar')
+const btnBuscar = document.getElementById('btnBuscar')
 
 let contador = 1;
-const datatable = new DataTable('#tablaAlumnos', {
+btnModificar.disabled = true;
+btnModificar.parentElement.style.display = 'none';
+btnCancelar.disabled = true;
+btnCancelar.parentElement.style.display = 'none'
+
+
+const datatable = new DataTable('#tablaProfesor', {
     data: null,
     language: lenguaje,
     pageLength: '15',
@@ -20,7 +26,7 @@ const datatable = new DataTable('#tablaAlumnos', {
     columns: [
         {
             title: 'No.',
-            data: 'alumno_id',
+            data: 'profesor_id',
             width: '2%',
             render: (data, type, row, meta) => {
                 // console.log(meta.ro);
@@ -29,66 +35,54 @@ const datatable = new DataTable('#tablaAlumnos', {
         },
         {
             title: 'Nombre',
-            data: 'alumno_nombre'
+            data: 'profesor_nombre'
         },
         {
             title: 'Apellido',
-            data: 'alumno_apellido'
-        },
-        {
-            title: 'Fecha de Nacimiento',
-            data: 'alumno_fecha_nacimiento'
-        },
-        {
-            title: 'Direccion',
-            data: 'alumno_direccion'
+            data: 'profesor_apellido'
+        }, {
+            title: 'Correo Electrónico',
+            data: 'profesor_email'
         },
         {
             title: 'Telefono',
-            data: 'alumno_telefono'
+            data: 'profesor_telefono'
         },
         {
-            title: 'Email',
-            data: 'alumno_email'
-        },
-        {
-            title: 'Tutor',
-            data: 'alumno_tutor'
+            title: 'Dirección',
+            data: 'profesor_direccion'
         },
         {
             title: 'Acciones',
-            data: 'alumno_id',
+            data: 'profesor_id',
             searchable: false,
             orderable: false,
             render: (data, type, row, meta) => {
                 let html = `
-                <button class='btn btn-warning modificar' 
-                data-alumno_id="${data}" 
-                data-alumno_nombre="${row.alumno_nombre}" 
-                data-alumno_apellido="${row.alumno_apellido}"  
-                data-alumno_fecha_nacimiento="${row.alumno_fecha_nacimiento}" 
-                data-alumno_direccion="${row.alumno_direccion}" 
-                data-alumno_telefono="${row.alumno_telefono}"
-                data-alumno_email="${row.alumno_email}"  
-                data-alumno_tutor="${row.alumno_tutor}"<i class='bi bi-pencil-square'></i>Modificar</button>
-                <button class='btn btn-danger eliminar' data-alumno_id="${data}">Eliminar</button>
+                <button class='btn btn-warning modificar' data-profesor_id="${data}" data-profesor_nombre="${row.profesor_nombre}" data-profesor_apellido="${row.profesor_apellido}"  data-profesor_telefono="${row.profesor_telefono}" data-profesor_email="${row.profesor_email}" data-profesor_direccion="${row.profesor_direccion}"  <i class='bi bi-pencil-square'></i>Modificar</button>
+                <button class='btn btn-danger eliminar' data-profesor_id="${data}">Eliminar</button>
+
                 `
                 return html;
             }
         },
 
     ]
-})
+}
+);
+
 
 btnModificar.parentElement.style.display = 'none'
 btnModificar.disabled = true
 btnCancelar.parentElement.style.display = 'none'
 btnCancelar.disabled = true
 
+
+
 const guardar = async (e) => {
     e.preventDefault()
 
-    if (!validarFormulario(formulario, ['alumno_id'])) {
+    if (!validarFormulario(formulario, ['profesor_id'])) {
         Swal.fire({
             title: "Campos vacios",
             text: "Debe llenar todos los campos",
@@ -99,7 +93,7 @@ const guardar = async (e) => {
 
     try {
         const body = new FormData(formulario)
-        const url = "/igc_final/API/alumnos/guardar"
+        const url = "/igc_final/API/profesores/guardar"
         const config = {
             method: 'POST',
             body
@@ -129,9 +123,10 @@ const guardar = async (e) => {
 }
 
 
+
 const buscar = async () => {
     try {
-        const url = "/igc_final/API/alumnos/buscar"
+        const url = "/igc_final/API/profesores/buscar"
         const config = {
             method: 'GET',
         }
@@ -148,6 +143,51 @@ const buscar = async () => {
         if (datos) {
             datatable.rows.add(datos).draw();
         }
+        // if (codigo == 1) {
+        //     let counter = 1;
+        //     datos.forEach(producto => {
+        //         const tr = document.createElement('tr');
+        //         const td1 = document.createElement('td');
+        //         const td2 = document.createElement('td');
+        //         const td3 = document.createElement('td');
+        //         const td4 = document.createElement('td');
+        //         const buttonModificar = document.createElement('button');
+        //         const buttonEliminar = document.createElement('button');
+        //         td1.innerText = counter
+        //         td2.innerText = producto.nombre
+        //         td3.innerText = producto.precio
+
+        //         buttonModificar.classList.add('btn', 'btn-warning')
+        //         buttonEliminar.classList.add('btn', 'btn-danger')
+        //         buttonModificar.innerText = 'Modificar'
+        //         buttonEliminar.innerText = 'Eliminar'
+
+        //         buttonModificar.addEventListener('click', () => traerDatos(producto))
+        //         buttonEliminar.addEventListener('click', () => eliminar(producto))
+
+        //         td4.appendChild(buttonModificar)
+        //         td4.appendChild(buttonEliminar)
+
+        //         counter++
+
+        //         tr.appendChild(td1)
+        //         tr.appendChild(td2)
+        //         tr.appendChild(td3)
+        //         tr.appendChild(td4)
+        //         fragment.appendChild(tr)
+        //     })
+        // } else {
+        //     const tr = document.createElement('tr');
+        //     const td = document.createElement('td');
+        //     td.innerText = "No hay productos"
+        //     td.colSpan = 4
+
+        //     tr.appendChild(td)
+        //     fragment.appendChild(tr)
+        // }
+
+        // tabla.tBodies[0].appendChild(fragment)
+
     } catch (error) {
         console.log(error);
     }
@@ -157,18 +197,18 @@ buscar();
 const traerDatos = (e) => {
     const elemento = e.currentTarget.dataset
 
-    formulario.alumno_id.value = elemento.alumno_id
-    formulario.alumno_nombre.value = elemento.alumno_nombre
-    formulario.alumno_apellido.value = elemento.alumno_apellido
-    formulario.alumno_fecha_nacimiento.value = elemento.alumno_fecha_nacimiento
-    formulario.alumno_direccion.value = elemento.alumno_direccion
-    formulario.alumno_telefono.value = elemento.alumno_telefono
-    formulario.alumno_email.value = elemento.alumno_email
-    formulario.alumno_tutor.value = elemento.alumno_tutor
+    formulario.profesor_id.value = elemento.profesor_id
+    formulario.profesor_nombre.value = elemento.profesor_nombre
+    formulario.profesor_apellido.value = elemento.profesor_apellido
+    formulario.profesor_telefono.value = elemento.profesor_telefono
+    formulario.profesor_email.value = elemento.profesor_email
+    formulario.profesor_direccion.value = elemento.profesor_direccion
     tabla.parentElement.parentElement.style.display = 'none'
 
     btnGuardar.parentElement.style.display = 'none'
     btnGuardar.disabled = true
+    btnBuscar.parentElement.style.display = 'none'
+    btnBuscar.disabled = true
     btnModificar.parentElement.style.display = ''
     btnModificar.disabled = false
     btnCancelar.parentElement.style.display = ''
@@ -186,6 +226,8 @@ const cancelar = () => {
     btnCancelar.disabled = true
 }
 
+
+
 const modificar = async (e) => {
     e.preventDefault()
 
@@ -200,7 +242,7 @@ const modificar = async (e) => {
 
     try {
         const body = new FormData(formulario)
-        const url = "/igc_final/API/alumnos/modificar"
+        const url = "/igc_final/API/profesores/modificar"
         const config = {
             method: 'POST',
             body
@@ -231,9 +273,9 @@ const modificar = async (e) => {
     }
 }
 
-const eliminar = async (e) => {
-    const alumno_id = e.currentTarget.dataset.alumno_id
 
+const eliminar = async (e) => {
+    const profesor_id = e.currentTarget.dataset.id
     let confirmacion = await Swal.fire({
         icon: 'question',
         title: 'Confirmacion',
@@ -249,8 +291,8 @@ const eliminar = async (e) => {
     if (confirmacion.isConfirmed) {
         try {
             const body = new FormData()
-            body.append('alumno_id', alumno_id)
-            const url = "/igc_final/API/alumnos/eliminar"
+            body.append('profesor_id', profesor_id)
+            const url = "/igc_final/API/profesores/eliminar"
             const config = {
                 method: 'POST',
                 body
