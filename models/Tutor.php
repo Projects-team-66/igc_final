@@ -34,5 +34,4 @@ class Tutor extends ActiveRecord
         $sql = "SELECT * FROM tutor where tutor_situacion = 1";
         return self::fetchArray($sql);
     }
-
 }

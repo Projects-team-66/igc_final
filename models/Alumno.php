@@ -2,11 +2,12 @@
 
 namespace Model;
 
-class Alumno extends ActiveRecord{
+class Alumno extends ActiveRecord
+{
     protected static $tabla = 'alumnos';
-    protected static $columnasDB = ['alumno_nombre','alumno_apellido','alumno_fecha_nacimiento','alumno_direccion','alumno_telefono','alumno_email','alumno_situacion','tutor_id'];
     protected static $idTabla = 'alumno_id';
-    
+    protected static $columnasDB = ['alumno_nombre', 'alumno_apellido', 'alumno_fecha_nacimiento', 'alumno_direccion', 'alumno_telefono', 'alumno_email', 'alumno_situacion', 'alumno_tutor'];
+
     public $alumno_id;
     public $alumno_nombre;
     public $alumno_apellido;
@@ -15,7 +16,8 @@ class Alumno extends ActiveRecord{
     public $alumno_telefono;
     public $alumno_email;
     public $alumno_situacion;
-    public $tutor_id;
+    public $alumno_tutor;
+
 
     public function __construct($args = [])
     {
@@ -27,6 +29,12 @@ class Alumno extends ActiveRecord{
         $this->alumno_telefono = $args['alumno_telefono'] ?? '';
         $this->alumno_email = $args['alumno_email'] ?? '';
         $this->alumno_situacion = $args['alumno_situacion'] ?? 1;
-        $this->tutor_id = $args['tutor_id'] ?? '';
+        $this->alumno_tutor = $args['alumno_tutor'] ?? '';
+    }
+
+    public static function obtenerAlumnosconQuery()
+    {
+        $sql = "SELECT * FROM alumnos where alumno_situacion = 1";
+        return self::fetchArray($sql);
     }
 }
