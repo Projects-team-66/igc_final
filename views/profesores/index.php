@@ -1,4 +1,4 @@
-<h1 class="text-center">INGRESE DATOS PARA REGISTRAR A UN PROFESOR</h1>
+<h1 class="text-center">Registro Profesores</h1>
 <div class="row justify-content-center mb-5">
 <form id="formularioProfesor" class="border shadow p-4 col-lg-10">
         <input type="hidden" name="profesor_id" id="profesor_id">
@@ -45,7 +45,7 @@
     </form>
 </div>
 
-<h2 class="text-center">PROFESORES ACTUALMENTE REGISTRADOS</h2>
+<h2 class="text-center">Profesores Registrados</h2>
 <div class="row justify-content-center">
     <div class="col table-responsive">
         <table id="tablaProfesor" class="table table-bordered table-hover">
