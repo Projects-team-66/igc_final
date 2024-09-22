@@ -33,4 +33,4 @@
     </div>
 </div>
 
-<script src="<?= asset('./build/js/tutor/index.js') ?>"></script>
+<script src="<?= asset('./build/js/seccion/index.js') ?>"></script>
