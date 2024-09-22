@@ -27,7 +27,7 @@ class Asistencia extends ActiveRecord
         $this->asistencia_alumno = $args['asistencia_alumno'] ?? null;
         $this->asistencia_curso = $args['asistencia_curso'] ?? null;
         $this->asistencia_fecha = $args['asistencia_fecha'] ?? '';
-        $this->asistencia_estado = $args['asistencia_estado'] ?? 1;
+        $this->asistencia_estado = $args['asistencia_estado'] ?? null;
         $this->asistencia_situacion = $args['asistencia_situacion'] ?? 1;
     }
 
