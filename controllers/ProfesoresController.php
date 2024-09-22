@@ -22,8 +22,8 @@ class ProfesoresController
     {
         $_POST['profesor_nombre'] = htmlspecialchars($_POST['profesor_nombre']);
         try {
-            $aplicacion = new Profesores($_POST);
-            $resultado = $aplicacion->crear();
+            $profesor = new Profesores($_POST);
+            $resultado = $profesor->crear();
             http_response_code(200);
             echo json_encode([
                 'codigo' => 1,

@@ -16,8 +16,8 @@ $router->get('/', [AppController::class,'index']);
 $router->get('/profesores', [ProfesoresController::class,'index']);
 $router->post('/API/profesores/guardar', [ProfesoresController::class,'guardarAPI']);
 $router->get('/API/profesores/buscar', [ProfesoresController::class,'buscarAPI']);
-$router->get('/API/profesores/modificar', [ProfesoresController::class,'modificarAPI']);
-$router->get('/API/profesores/eliminar', [ProfesoresController::class,'eliminarAPI']);
+$router->post('/API/profesores/modificar', [ProfesoresController::class,'modificarAPI']);
+$router->post('/API/profesores/eliminar', [ProfesoresController::class,'eliminarAPI']);
 
 
 
