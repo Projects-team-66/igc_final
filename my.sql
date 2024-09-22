@@ -1,0 +1,10 @@
+INSERT INTO alumnos (alumno_nombre, alumno_apellido, alumno_fecha_nacimiento, alumno_direccion, alumno_telefono, alumno_email, alumno_tutor) 
+VALUES ('Pedro', 'Pérez', '2010-05-15', 'Calle 10, Ciudad', '111222333', 'pedro.perez@example.com', 1);
+INSERT INTO alumnos (alumno_nombre, alumno_apellido, alumno_fecha_nacimiento, alumno_direccion, alumno_telefono, alumno_email, alumno_tutor) 
+VALUES ('Sofía', 'Gómez', '2012-08-20', 'Calle 20, Ciudad', '444555666', 'sofia.gomez@example.com', 2);
+INSERT INTO alumnos (alumno_nombre, alumno_apellido, alumno_fecha_nacimiento, alumno_direccion, alumno_telefono, alumno_email, alumno_tutor) 
+VALUES ('Andrés', 'Hernández', '2011-02-10', 'Calle 30, Ciudad', '777888999', 'andres.hernandez@example.com', 3);
+INSERT INTO alumnos (alumno_nombre, alumno_apellido, alumno_fecha_nacimiento, alumno_direccion, alumno_telefono, alumno_email, alumno_tutor) 
+VALUES ('Laura', 'López', '2009-12-05', 'Calle 40, Ciudad', '222333444', 'laura.lopez@example.com', 4);
+INSERT INTO alumnos (alumno_nombre, alumno_apellido, alumno_fecha_nacimiento, alumno_direccion, alumno_telefono, alumno_email, alumno_tutor) 
+VALUES ('Diego', 'Martínez', '2013-07-25', 'Calle 50, Ciudad', '888999000', 'diego.martinez@example.com', 5);
