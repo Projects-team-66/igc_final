@@ -4,14 +4,20 @@ namespace Controllers;
 
 use Exception;
 use Model\Alumno;
+use Model\Tutor;
 use MVC\Router;
 
 class AlumnoController
 {
     public static function index(Router $router)
     {
-        $sql = "SELECT * FROM tutor where tutor_situacion = 1";
-        $router->render('alumnos/index', []);
+        // Usar el método del modelo para obtener los tutores
+        $tutores = Tutor::obtenertutorconQuery(); // Usar el método del modelo que ya implementaste
+
+        // Pasar los tutores a la vista
+        $router->render('alumnos/index', [
+            'tutores' => $tutores
+        ]);
     }
 
     public static function guardarAPI()

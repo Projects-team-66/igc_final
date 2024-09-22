@@ -38,7 +38,7 @@
                 <select name="alumno_tutor" id="alumno_tutor" class="form-control">
                     <option value="#">Seleccione...</option>
                     <?php foreach ($tutores as $tutor) : ?>
-                        <option value="<?= $tutor['tutor_id'] ?>"> <?= $tutor['tutor_nombre'] ?></option>';
+                        <option value="<?= $tutor['tutor_id'] ?>"> <?= $tutor['tutor_nombre'] ?> <?= $tutor['tutor_apellido'] ?></option>';
                     <?php endforeach ?>
                 </select>
             </div>
