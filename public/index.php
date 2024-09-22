@@ -6,6 +6,7 @@ use MVC\Router;
 use Controllers\AppController;
 use Controllers\ProfesoresController;
 use Controllers\AlumnoController;
+use Controllers\AsistenciaController;
 use Controllers\TutorController;
 
 $router = new Router();
@@ -33,6 +34,13 @@ $router->post('/API/profesores/guardar', [ProfesoresController::class,'guardarAP
 $router->get('/API/profesores/buscar', [ProfesoresController::class,'buscarAPI']);
 $router->post('/API/profesores/modificar', [ProfesoresController::class,'modificarAPI']);
 $router->post('/API/profesores/eliminar', [ProfesoresController::class,'eliminarAPI']);
+
+//ASISTENCIA
+$router->get('/asistencia', [AsistenciaController::class, 'index']);
+$router->post('/API/asistencia/guardar', [AsistenciaController::class, 'guardarAPI']);
+$router->get('/API/asistencia/buscar', [AsistenciaController::class, 'buscarAPI']);
+$router->post('/API/asistencia/modificar', [AsistenciaController::class, 'modificarAPI']);
+$router->post('/API/asistencia/eliminar', [AsistenciaController::class, 'eliminarAPI']);
 
 
 
