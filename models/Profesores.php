@@ -2,7 +2,7 @@
 
 namespace Model;
 
-class Profesoes extends ActiveRecord
+class Profesores extends ActiveRecord
 {
     protected static $tabla = 'profesor';
     protected static $columnasDB = ['profesor_nombre', 'profesor_apellido', 'profesor_email', 'profesor_telefono', 'profesor_direccion', 'profesor_situacion'];
@@ -25,5 +25,12 @@ class Profesoes extends ActiveRecord
         $this->profesor_telefono = $args['profesor_telefono'] ?? '';
         $this->profesor_nombre = $args['profesor_direccion'] ?? '';
         $this->profesor_situacion = $args['profesor_situacion'] ?? 1;
+    }
+
+    
+    public static function obtenerProfesores()
+    {
+        $sql = "SELECT * FROM profesor where profesor_situacion = 1";
+        return self::fetchArray($sql);
     }
 }
