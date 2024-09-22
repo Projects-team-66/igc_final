@@ -91,7 +91,7 @@
                         </a>
                         <ul class="dropdown-menu" style="margin: 0;">
                             <li>
-                                <a class="dropdown-item" href="/aplicaciones/nueva"><i class="bi bi-plus-circle me-2"></i>Registro</a>
+                                <a class="dropdown-item" href="/igc_final/alumnos"><i class="bi bi-person-plus"></i> Registro</a>
                             </li>
                         </ul>
                     </div>
@@ -101,7 +101,7 @@
                         </a>
                         <ul class="dropdown-menu" style="margin: 0;">
                             <li>
-                                <a class="dropdown-item" href="/igc_final/tutor"><i class="bi bi-plus-circle me-2"></i>Registro</a>
+                                <a class="dropdown-item" href="/igc_final/tutor"><i class="bi bi-person-plus"></i> Registro</a>
                             </li>
                         </ul>
                     </div>
@@ -111,7 +111,7 @@
                         </a>
                         <ul class="dropdown-menu" style="margin: 0;">
                             <li>
-                                <a class="dropdown-item" href="/aplicaciones/nueva"><i class="bi bi-plus-circle me-2"></i>Registro</a>
+                                <a class="dropdown-item" href="/aplicaciones/nueva"><i class="bi bi-person-plus"></i> Registro</a>
                             </li>
                         </ul>
                     </div>
@@ -121,11 +121,21 @@
                         </a>
                         <ul class="dropdown-menu" style="margin: 0;">
                             <li>
-                                <a class="dropdown-item" href="/aplicaciones/nueva"><i class="bi bi-plus-circle me-2"></i>Registro</a>
+                                <a class="dropdown-item" href="/igc_final/grado"><i class="bi bi-clipboard2-check"></i> Grados</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="/igc_final/seccion"><i class="bi bi-clipboard2-check-fill"></i> Secciones</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="/igc_final/grados"><i class="bi bi-person-check-fill"></i> Asignación Alumnos</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="/igc_final/grados"><i class="bi bi-briefcase-fill"></i> Asignación Profesores</a>
                             </li>
                         </ul>
                     </div>
                 </ul>
+                
                 <div class="col-lg-1 d-grid mb-lg-0 mb-2">
                     <a href="/menu/" class="btn btn-danger"><i class="bi bi-arrow-bar-left"></i> MENÚ</a>
                 </div>

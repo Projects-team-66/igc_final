@@ -1,6 +1,6 @@
-<h1 class="text-center mb-4">Registro de Alumnos</h1>
-<div class="container">
-    <div class="row justify-content-center mb-5">
+<h1 class="text-center">Registro de Alumnos</h1>
+<div class="row justify-content-center mb-4">
+    <form id="formularioAlumnos" class="border shadow p-4 col-lg-10">
         <form class="col-lg-8 border rounded-3 bg-light shadow p-4" id="formularioAlumnos" accept-charset="UTF-8">
             <input type="hidden" name="alumno_id" id="alumno_id">
             <div class="row mb-3">
