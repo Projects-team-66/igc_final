@@ -20,26 +20,36 @@ class AsistenciaController
         ]);
     }
 
-    public static function guardarAPI()
-    {
-        $_POST['asistencia_fecha'] = htmlspecialchars($_POST['asistencia_fecha']);
-        try {
-            $asistencia = new Asistencia($_POST);
-            $resultado = $asistencia->crear();
+ public static function guardarAPI()
+{
+    $_POST['asistencia_fecha'] = htmlspecialchars($_POST['asistencia_fecha']);
+    $_POST['asistencia_alumno'] = filter_var($_POST['asistencia_alumno'], FILTER_SANITIZE_NUMBER_INT);
+    $_POST['asistencia_curso'] = filter_var($_POST['asistencia_curso'], FILTER_SANITIZE_NUMBER_INT);
+    $_POST['asistencia_estado'] = htmlspecialchars($_POST['asistencia_estado']);
+
+    try {
+        $asistencia = new Asistencia($_POST);
+        $resultado = $asistencia->crear();
+        if ($resultado) {
             http_response_code(200);
             echo json_encode([
                 'codigo' => 1,
                 'mensaje' => 'Asistencia registrada exitosamente',
             ]);
-        } catch (Exception $e) {
-            http_response_code(500);
-            echo json_encode([
-                'codigo' => 0,
-                'mensaje' => 'Error al registrar asistencia',
-                'detalle' => $e->getMessage(),
-            ]);
+        } else {
+            throw new Exception('Error al guardar en la base de datos');
         }
+    } catch (Exception $e) {
+        http_response_code(500);
+        echo json_encode([
+            'codigo' => 0,
+            'mensaje' => 'Error al registrar asistencia',
+            'detalle' => $e->getMessage(),
+            'trace' => $e->getTraceAsString() // Agrega esto para más información
+        ]);
     }
+}
+
 
     public static function buscarAPI()
     {
