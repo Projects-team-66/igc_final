@@ -163,7 +163,6 @@ class ActiveRecord {
 
         $idQuery = static::$idTabla ?? 'id';
         $query = "DELETE FROM "  . static::$tabla . " WHERE $idQuery = " . self::$db->quote($this->$idQuery);
-
         $resultado = self::$db->exec($query);
         return $resultado;
     }
