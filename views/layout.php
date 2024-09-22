@@ -85,12 +85,27 @@
                     <li class="nav-item">
                         <a class="nav-link" aria-current="page" href="/igc_final/"><i class="bi bi-house-fill me-2"></i> Inicio</a>
                     </li>
-                    <div class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="bi bi-person-vcard-fill"></i> Alumnos
+  
+                    <div class="nav-item dropdown " >
+                        <a class="nav-link dropdown-toggle" href="/igc_final/profesores" data-bs-toggle="dropdown">
+                            <i class="bi bi-gear me-2"></i>PROFESORES
                         </a>
                         <ul class="dropdown-menu" style="margin: 0;">
                             <li>
+                                <a class="dropdown-item nav-link text-white " href="/igc_final/profesores"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>REGISTRO DE PROFESORES</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item nav-link text-white " href="/igc_final/asistencia"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>ASISTENCIA DE ALUMNOS</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item nav-link text-white " href="/igc_final/pdfconductas"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>GENERAR REPORTE CONDUCTA</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item nav-link text-white " href="/igc_final/actividades"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>INGRESAR ACTIVIDADES</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item nav-link text-white " href="/igc_final/pdfasistencias"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>GENERAR REPORTE ASISTENCIA</a>
+                              
                                 <a class="dropdown-item" href="/aplicaciones/nueva"><i class="bi bi-plus-circle me-2"></i>Registro</a>
                             </li>
                         </ul>
