@@ -28,17 +28,26 @@
                     </li>
   
                     <div class="nav-item dropdown " >
-                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
-                            <i class="bi bi-gear me-2"></i>Dropdown
+                        <a class="nav-link dropdown-toggle" href="/igc_final/profesores" data-bs-toggle="dropdown">
+                            <i class="bi bi-gear me-2"></i>PROFESORES
                         </a>
                         <ul class="dropdown-menu  dropdown-menu-dark "id="dropwdownRevision" style="margin: 0;">
                             <!-- <h6 class="dropdown-header">Información</h6> -->
                             <li>
-                                <a class="dropdown-item nav-link text-white " href="/aplicaciones/nueva"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>Subitem</a>
+                                <a class="dropdown-item nav-link text-white " href="/igc_final/profesores"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>REGISTRO DE PROFESORES</a>
                             </li>
-                        
-                    
-                        
+                            <li>
+                                <a class="dropdown-item nav-link text-white " href="/igc_final/asistencia"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>ASISTENCIA DE ALUMNOS</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item nav-link text-white " href="/igc_final/pdfconductas"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>GENERAR REPORTE CONDUCTA</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item nav-link text-white " href="/igc_final/actividades"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>INGRESAR ACTIVIDADES</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item nav-link text-white " href="/igc_final/pdfasistencias"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>GENERAR REPORTE ASISTENCIA</a>
+                            </li>
                         </ul>
                     </div> 
 
