@@ -105,15 +105,28 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="bi bi-book-half"></i> Profesores
+                    <div class="nav-item dropdown ">
+                        <a class="nav-link dropdown-toggle" href="/igc_final/profesores" data-bs-toggle="dropdown">
+                            <i class="bi bi-person-video3"></i> Profesores
                         </a>
                         <ul class="dropdown-menu" style="margin: 0;">
                             <li>
-                                <a class="dropdown-item" href="/aplicaciones/nueva"><i class="bi bi-person-plus"></i> Registro</a>
+                                <a class="dropdown-item nav-link text-white " href="/igc_final/profesores"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>REGISTRO DE PROFESORES</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item nav-link text-white " href="/igc_final/asistencia"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>ASISTENCIA DE ALUMNOS</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item nav-link text-white " href="/igc_final/pdfconductas"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>GENERAR REPORTE CONDUCTA</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item nav-link text-white " href="/igc_final/actividades"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>INGRESAR ACTIVIDADES</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item nav-link text-white " href="/igc_final/pdfasistencias"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>GENERAR REPORTE ASISTENCIA</a>
                             </li>
                         </ul>
+                                  
                     </div>
                     <div class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">
@@ -135,7 +148,7 @@
                         </ul>
                     </div>
                 </ul>
-                
+
                 <div class="col-lg-1 d-grid mb-lg-0 mb-2">
                     <a href="/menu/" class="btn btn-danger"><i class="bi bi-arrow-bar-left"></i> MENÚ</a>
                 </div>
