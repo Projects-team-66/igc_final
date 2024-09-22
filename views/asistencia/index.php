@@ -9,18 +9,16 @@
                     <select name="asistencia_alumno" id="asistencia_alumno" class="form-control">
                         <option value="">Seleccione un alumno</option>
                         <?php foreach ($alumnos as $alumno) : ?>
-                            <option value="<?php echo $alumno->alumno_id; ?>"><?php echo $alumno->alumno_nombre; ?></option>
+                            <option value="<?= $alumno['alumno_id'] ?>"> <?= $alumno['alumno_nombre'] ?></option>';
                         <?php endforeach; ?>
                     </select>
                 </div>
-            </div>
-            <div class="row mb-3">
                 <div class="col">
                     <label for="asistencia_curso">Seleccione un Cruso</label>
                     <select name="asistencia_curso" id="asistencia_curso" class="form-control">
                         <option value="">Seleccione un curso</option>
                         <?php foreach ($cursos as $curso) : ?>
-                            <option value="<?php echo $curso->curso_id; ?>"><?php echo $curso->curso_nombre; ?></option>
+                            <option value="<?= $curso['curso_id'] ?>"> <?= $curso['curso_nombre'] ?></option>';
                         <?php endforeach; ?>
                     </select>
                 </div>
