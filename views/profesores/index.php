@@ -1,6 +1,6 @@
 <h1 class="text-center">INGRESE DATOS PARA REGISTRAR A UN PROFESOR</h1>
 <div class="row justify-content-center mb-5">
-    <form class="col-lg-8 border bg-light p-3" id="formularioProfesor">
+<form id="formularioProfesor" class="border shadow p-4 col-lg-10">
         <input type="hidden" name="profesor_id" id="profesor_id">
         <div class="row mb-3">
             <div class="col">

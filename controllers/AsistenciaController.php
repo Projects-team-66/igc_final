@@ -11,7 +11,7 @@ use MVC\Router;
 class AsistenciaController
 {
     public static function index(Router $router) {
-        $alumnos = Alumno::obtenerAlumnos();
+        $alumnos = Alumno::obtenerAlumnosconQuery();
         $cursos = Curso::obtenerCursos();
         
         $router->render('asistencia/index', [
