@@ -3,40 +3,34 @@
 namespace Controllers;
 
 use Exception;
-use Model\Alumno;
-use Model\Tutor;
+use Model\Grado;
 use MVC\Router;
 
-class AlumnoController
+class GradoController
 {
     public static function index(Router $router)
     {
-        // Usar el método del modelo para obtener los tutores
-        $tutores = Tutor::obtenertutorconQuery(); // Usar el método del modelo que ya implementaste
 
-        // Pasar los tutores a la vista
-        $router->render('alumnos/index', [
-            'tutores' => $tutores
-        ]);
+        $router->render('grado/index', []);
     }
 
     public static function guardarAPI()
     {
-        $_POST['alumno_nombre'] = htmlspecialchars($_POST['alumno_nombre']);
+        $_POST['grado_nombre'] = htmlspecialchars($_POST['grado_nombre']);
 
         try {
-            $alumno = new Alumno($_POST);
-            $resultado = $alumno->crear();
+            $grado = new Grado($_POST);
+            $resultado = $grado->crear();
             http_response_code(200);
             echo json_encode([
                 'codigo' => 1,
-                'mensaje' => 'Alumno Guardado Exitosamente',
+                'mensaje' => 'Grado Guardado Exitosamente',
             ]);
         } catch (Exception $e) {
             http_response_code(500);
             echo json_encode([
                 'codigo' => 0,
-                'mensaje' => 'Error al guardar Alumno',
+                'mensaje' => 'Error al guardar Grado',
                 'detalle' => $e->getMessage(),
             ]);
         }
@@ -46,19 +40,19 @@ class AlumnoController
      {
          try {
              
-             $alumnos = Alumno::obtenerAlumnosconQuery();
+             $grados = Grado::obtenerGradoconQuery();
              http_response_code(200);
              echo json_encode([
                  'codigo' => 1,
                  'mensaje' => 'Datos encontrados',
                  'detalle' => '',
-                 'datos' => $alumnos
+                 'datos' => $grados
              ]);
          } catch (Exception $e) {
              http_response_code(500);
              echo json_encode([
                  'codigo' => 0,
-                 'mensaje' => 'Error al buscar Alumnos',
+                 'mensaje' => 'Error al buscar grados',
                  'detalle' => $e->getMessage(),
              ]);
          }
@@ -66,17 +60,17 @@ class AlumnoController
 
      public static function modificarAPI()
      {
-         $_POST['alumno_nombre'] = htmlspecialchars($_POST['alumno_nombre']);
-         $id = filter_var($_POST['alumno_id'], FILTER_SANITIZE_NUMBER_INT);
+         $_POST['grado_nombre'] = htmlspecialchars($_POST['grado_nombre']);
+         $id = filter_var($_POST['grado_id'], FILTER_SANITIZE_NUMBER_INT);
          try {
 
-             $alumno = Alumno::find($id);
-             $alumno->sincronizar($_POST);
-             $alumno->actualizar();
+             $grado = Grado::find($id);
+             $grado->sincronizar($_POST);
+             $grado->actualizar();
              http_response_code(200);
              echo json_encode([
                  'codigo' => 1,
-                 'mensaje' => 'Datos del Alumno Modificados Exitosamente',
+                 'mensaje' => 'Datos del Grado Modificados Exitosamente',
              ]);
          } catch (Exception $e) {
              http_response_code(500);
@@ -88,25 +82,26 @@ class AlumnoController
          }
      }
 
+
      public static function eliminarAPI()
      {
 
-         $id = filter_var($_POST['alumno_id'], FILTER_SANITIZE_NUMBER_INT);
+         $id = filter_var($_POST['grado_id'], FILTER_SANITIZE_NUMBER_INT);
 
          try {
 
-             $alumno = Alumno::find($id);
-             $alumno->eliminar();
+             $grado = Grado::find($id);
+             $grado->eliminar();
              http_response_code(200);
              echo json_encode([
                  'codigo' => 1,
-                 'mensaje' => 'Alumno Eliminado Exitosamente',
+                 'mensaje' => 'Grado Eliminado Exitosamente',
              ]);
          } catch (Exception $e) {
              http_response_code(500);
              echo json_encode([
                  'codigo' => 0,
-                 'mensaje' => 'Error al Eliminar Alumno',
+                 'mensaje' => 'Error al Eliminar grado',
                  'detalle' => $e->getMessage(),
              ]);
          }
