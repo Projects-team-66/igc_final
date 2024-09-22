@@ -1,7 +1,6 @@
 <h1 class="text-center">Registro de Asistencia</h1>
-<div class="container">
     <div class="row justify-content-center mb-5">
-        <form class="col-lg-8 border bg-light p-3" id="formularioAsistencia">
+    <form id="formularioAsistencia" class="border shadow p-4 col-lg-10">
             <input type="hidden" name="asistencia_id" id="asistencia_id">
             <div class="row mb-3">
                 <div class="col">
@@ -23,12 +22,12 @@
                     </select>
                 </div>
             </div>
-            <div class="row mb-3">
-                <div class="col-md-4">
+            <div class="row mb-6">
+                <div class="col-md mb-2">
                     <label for="asistencia_fecha">Fecha</label>
                     <input type="date" name="asistencia_fecha" id="asistencia_fecha" class="form-control" required>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md mb-2">
                     <label for="asistencia_estado">Selecione</label>
                     <select name="asistencia_estado" id="asistencia_estado" class="form-control" required>
                         <option value="">SELECCIONE...</option>
@@ -61,5 +60,4 @@
             </table>
         </div>
     </div>
-</div>
 <script src="<?= asset('./build/js/asistencia/index.js') ?>"></script>
