@@ -15,6 +15,7 @@ module.exports = {
     'js/pago/index' : './src/js/pago/index.js',
     'js/reporte_asistencia/index' : './src/js/reporte_asistencia/index.js',
     'js/asignacionalumno/index' : './src/js/asignacionalumno/index.js',
+    'js/asignacionprofesor/index' : './src/js/asignacionprofesor/index.js',
   },
   output: {
     filename: '[name].js',

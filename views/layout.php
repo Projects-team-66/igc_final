@@ -36,6 +36,12 @@
             transition: color 0.4s ease;
         }
 
+        .icon-large {
+            font-size: 80px;
+            text-align: center;
+        }
+
+
         .navbar-nav .nav-link:hover {
             color: #a88f5f;
         }

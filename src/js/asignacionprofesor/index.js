@@ -4,8 +4,8 @@ import Swal from "sweetalert2";
 import DataTable from "datatables.net-bs5";
 import { lenguaje } from "../lenguaje";
 
-const formulario = document.getElementById('formularioAsignacionAlumno');
-const tabla = document.getElementById('tablaAsignacionAlumno');
+const formulario = document.getElementById('formularioAsignacionProfesor');
+const tabla = document.getElementById('tablaAsignacionProfesor');
 const btnGuardar = document.getElementById('btnGuardar');
 const btnModificar = document.getElementById('btnModificar');
 const btnCancelar = document.getElementById('btnCancelar');
@@ -17,7 +17,7 @@ btnModificar.parentElement.style.display = 'none';
 btnCancelar.disabled = true;
 btnCancelar.parentElement.style.display = 'none'
 
-const datatable = new DataTable('#tablaAsignacionAlumno', {
+const datatable = new DataTable('#tablaAsignacionProfesor', {
     data: null,
     language: lenguaje,
     pageLength: '15',
@@ -25,37 +25,37 @@ const datatable = new DataTable('#tablaAsignacionAlumno', {
     columns: [
         {
             title: 'No.',
-            data: 'asisgnacion_id',
+            data: 'profesor_seccion_id',
             width: '2%',
             render: (data, type, row, meta) => {
                 return meta.row + 1;
             }
         },
         {
-            title: 'Nombre',
-            data: 'alumno_nombre' // Cambiar a 'alumno_nombre' para mostrar el nombre
+            title: 'Profesor Nombre',
+            data: 'profesor_nombre'
         },
         {
-            title: 'Apellido',
-            data: 'alumno_apellido' // Cambiar a 'alumno_nombre' para mostrar el nombre
+            title: 'Profesor Apellido',
+            data: 'profesor_apellido'
         },
         {
             title: 'Grado',
-            data: 'grado_nombre' // Cambiar a 'curso_nombre' para mostrar el nombre
+            data: 'grado_nombre'
         },
         {
             title: 'Seccion',
-            data: 'seccion_nombre' // Cambiar a 'curso_nombre' para mostrar el nombre
+            data: 'seccion_nombre'
         },
         {
             title: 'Acciones',
-            data: 'asignacion_id',
+            data: 'profesor_seccion_id',
             searchable: false,
             orderable: false,
             render: (data, type, row, meta) => {
                 let html = `
-                <button class='btn btn-warning modificar' data-asignacion_id="${data}" data-alumno_id="${row.alumno_nombre}" data-alumno_id="${row.alumno_apellido}" data-grado="${row.grado_nombre}" data-seccion_id="${row.seccion_nombre}><i class='bi bi-pencil-square'></i>Modificar</button>
-                <button class='btn btn-danger eliminar' data-asignacion_id="${data}">Eliminar</button>
+                <button class='btn btn-warning modificar' data-profesor_seccion_id="${data}" data-seccion_id="${row.seccion_nombre}" data-profesor_id="${row.profesor_nombre}" data-profesor_id="${row.profesor_apellido}" ><i class='bi bi-pencil-square'></i>Modificar</button>
+                <button class='btn btn-danger eliminar' data-profesor_seccion_id="${data}">Eliminar</button>
                 `;
                 return html;
             }
@@ -67,7 +67,7 @@ const datatable = new DataTable('#tablaAsignacionAlumno', {
 const guardar = async (e) => {
     e.preventDefault();
 
-    if (!validarFormulario(formulario, ['asignacion_id'])) {
+    if (!validarFormulario(formulario, ['profesor_seccion_id'])) {
         Swal.fire({
             title: "Campos vacíos",
             text: "Debe llenar todos los campos",
@@ -78,7 +78,7 @@ const guardar = async (e) => {
 
     try {
         const body = new FormData(formulario);
-        const url = "/igc_final/API/asignacionalumno/guardar";
+        const url = "/igc_final/API/asignacionprofesor/guardar";
         const config = {
             method: 'POST',
             body
@@ -110,7 +110,7 @@ const guardar = async (e) => {
 
 const buscar = async () => {
     try {
-        const url = "/igc_final/API/asignacionalumno/buscar";
+        const url = "/igc_final/API/asignacionprofesor/buscar";
         const config = {
             method: 'GET',
         };
@@ -135,16 +135,15 @@ buscar();
 const traerDatos = (e) => {
     const elemento = e.currentTarget.dataset;
 
-    formulario.asignacion_id.value = elemento.asignacion_id;
-    formulario.asignacion_alumno.value = elemento.alumno_id; // Cambiar a 'alumno_id'
-    formulario.asignacion_seccion.value = elemento.seccion_id; // Cambiar a 'seccion_id'
+    formulario.profesor_seccion_id.value = elemento.profesor_seccion_id;
+    formulario.profesor_sec.value = elemento.seccion_id; // Cambiar a 'alumno_id'
+    formulario.profesor_prof.value = elemento.profesor_id; // Cambiar a 'seccion_id'
 
     tabla.parentElement.parentElement.style.display = 'none';
-
     btnGuardar.parentElement.style.display = 'none';
     btnGuardar.disabled = true;
-    btnModificar.parentElement.style.display = 'none';
-    btnModificar.disabled = true;
+    btnModificar.parentElement.style.display = '';
+    btnModificar.disabled = false;
     btnCancelar.parentElement.style.display = '';
     btnCancelar.disabled = false;
 }
@@ -176,7 +175,7 @@ const modificar = async (e) => {
 
     try {
         const body = new FormData(formulario);
-        const url = "/igc_final/API/asignacionalumno/modificar";
+        const url = "/igc_final/API/asignacionprofesor/modificar";
         const config = {
             method: 'POST',
             body
@@ -208,7 +207,7 @@ const modificar = async (e) => {
 
 
 const eliminar = async (e) => {
-    const asignacion_id = e.currentTarget.dataset.asignacion_id;
+    const profesor_seccion_id = e.currentTarget.dataset.profesor_seccion_id;
 
     let confirmacion = await Swal.fire({
         icon: 'question',
@@ -224,8 +223,8 @@ const eliminar = async (e) => {
     if (confirmacion.isConfirmed) {
         try {
             const body = new FormData();
-            body.append('asignacion_id', asignacion_id);
-            const url = "/igc_final/API/asignacionalumno/eliminar";
+            body.append('profesor_seccion_id', profesor_seccion_id);
+            const url = "/igc_final/API/asignacionprofesor/eliminar";
             const config = {
                 method: 'POST',
                 body

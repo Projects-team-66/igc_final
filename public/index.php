@@ -14,6 +14,7 @@ use Controllers\PagoController;
 use Controllers\SolvenciaController;
 use Controllers\ReporteAsistenciaController;
 use Controllers\AsignacionAlumnoController;
+use Controllers\AsignacionProfesorController;
 
 $router = new Router();
 $router->setBaseURL('/' . $_ENV['APP_NAME']);
@@ -83,5 +84,15 @@ $router->get('/API/asignacionalumno/buscar', [AsignacionAlumnoController::class,
 $router->post('/API/asignacionalumno/guardar', [AsignacionAlumnoController::class, 'guardarAPI']);
 $router->post('/API/asignacionalumno/modificar', [AsignacionAlumnoController::class, 'modificarAPI']);
 $router->post('/API/asignacionalumno/eliminar', [AsignacionAlumnoController::class, 'eliminarAPI']);
+
+
+//ASIGNACION PROFESORES
+$router->get('/asignacionprofesor', [AsignacionProfesorController::class, 'index']);
+$router->get('/API/asignacionprofesor/buscar', [AsignacionProfesorController::class, 'buscarAPI']);
+$router->post('/API/asignacionprofesor/guardar', [AsignacionProfesorController::class, 'guardarAPI']);
+$router->post('/API/asignacionprofesor/modificar', [AsignacionProfesorController::class, 'modificarAPI']);
+$router->post('/API/asignacionprofesor/eliminar', [AsignacionProfesorController::class, 'eliminarAPI']);
+
+
 // Comprueba y valida las rutas, que existan y les asigna las funciones del Controlador
 $router->comprobarRutas();

@@ -3,35 +3,36 @@
 namespace Controllers;
 
 use Exception;
-use Model\Alumno;
+use Model\Profesores;
 use Model\Seccion;
-use Model\AsignacionAlumnos;
+use Model\AsignacionProfesor;
 use MVC\Router;
 
-class AsignacionAlumnoController
+class AsignacionProfesorController
 {
     public static function index(Router $router) {
-        $alumnos = Alumno::obtenerAlumnosconQuery();
+        $profesores = Profesores::obtenerProfesores();
         $secciones = Seccion::obtenerSecciones();
         
-        $router->render('asignacionalumno/index', [
-            'alumnos' => $alumnos,
+        $router->render('asignacionprofesor/index', [
+            'profesores' => $profesores,
             'secciones' => $secciones
         ]);
     }
 
  public static function guardarAPI()
 {
-    $_POST['asignacion_alumno'] = htmlspecialchars($_POST['asignacion_alumno']);    
+    $_POST['profesor_sec'] = htmlspecialchars($_POST['profesor_sec']);
+    
 
     try {
-        $asignacionalumno = new AsignacionAlumnos($_POST);
-        $resultado = $asignacionalumno->crear();
+        $asignacionprofesor = new AsignacionProfesor($_POST);
+        $resultado = $asignacionprofesor->crear();
         if ($resultado) {
             http_response_code(200);
             echo json_encode([
                 'codigo' => 1,
-                'mensaje' => 'Alumno Asignado Correctamente',
+                'mensaje' => 'Profesor Asignado Correctamente',
             ]);
         } else {
             throw new Exception('Error al guardar en la base de datos');
@@ -40,7 +41,7 @@ class AsignacionAlumnoController
         http_response_code(500);
         echo json_encode([
             'codigo' => 0,
-            'mensaje' => 'Error al Asignar Alumno',
+            'mensaje' => 'Error al Asignar Profesor',
             'detalle' => $e->getMessage(),
             'trace' => $e->getTraceAsString() // Agrega esto para más información
         ]);
@@ -51,7 +52,7 @@ class AsignacionAlumnoController
     public static function buscarAPI()
     {
         try {
-            $asignaciones = AsignacionAlumnos::obtenerAsignaciones();
+            $asignaciones = AsignacionProfesor::obtenerProfesores();
             http_response_code(200);
             echo json_encode([
                 'codigo' => 1,
@@ -71,11 +72,11 @@ class AsignacionAlumnoController
 
     public static function modificarAPI()
     {
-        $_POST['asignacion_alumno'] = htmlspecialchars($_POST['asignacion_alumno']);
-        $id = filter_var($_POST['asignacion_id'], FILTER_SANITIZE_NUMBER_INT);
+        $_POST['profesor_sec'] = htmlspecialchars($_POST['profesor_sec']);
+        $id = filter_var($_POST['profesor_seccion_id'], FILTER_SANITIZE_NUMBER_INT);
         
         try {
-            $asignacion = AsignacionAlumnos::find($id);
+            $asignacion = AsignacionProfesor::find($id);
             $asignacion->sincronizar($_POST);
             $asignacion->actualizar();
             http_response_code(200);
@@ -95,10 +96,10 @@ class AsignacionAlumnoController
 
     public static function eliminarAPI()
     {
-        $id = filter_var($_POST['asignacion_id'], FILTER_SANITIZE_NUMBER_INT);
+        $id = filter_var($_POST['profesor_seccion_id'], FILTER_SANITIZE_NUMBER_INT);
 
         try {
-            $asignacion = AsignacionAlumnos::find($id);
+            $asignacion = AsignacionProfesor::find($id);
             $asignacion->eliminar();
             http_response_code(200);
             echo json_encode([
