@@ -92,7 +92,7 @@
                         </a>
                         <ul class="dropdown-menu" style="margin: 0;">
                             <li>
-                                <a class="dropdown-item nav-link text-white " href="/igc_final/alumnos"><i class="bi bi-person-plus"></i> Registro de Alumnos</a>
+                                <a class="dropdown-item nav-link text-white " href="/igc_final/alumnos"><i class="bi bi-person-plus"></i> Regístro de Alumnos</a>
                             </li>
                             <li>
                                 <a class="dropdown-item nav-link text-white " href="/igc_final/alumnos"><i class="bi bi-journal-text"></i> Reporte de Asistencias</a>
@@ -113,15 +113,15 @@
                         </ul>
                     </div>
                     <div class="nav-item dropdown ">
-                        <a class="nav-link dropdown-toggle" href="/igc_final/profesores" data-bs-toggle="dropdown">
-                            <i class="bi bi-person-video3"></i> Profesores
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                            <i class="bi bi-person-video3"></i> Gestión Profesores
                         </a>
                         <ul class="dropdown-menu" style="margin: 0;">
                             <li>
-                                <a class="dropdown-item nav-link text-white " href="/igc_final/profesores"><i class="bi bi-person-fill-add"></i> Registro de Profesores</a>
+                                <a class="dropdown-item nav-link text-white " href="/igc_final/profesores"><i class="bi bi-person-fill-add"></i> Regístro de Profesores</a>
                             </li>
                             <li>
-                                <a class="dropdown-item nav-link text-white " href="/igc_final/asistencia"><i class="bi bi-journal-text"></i> Aistencia de Alumnos</a>
+                                <a class="dropdown-item nav-link text-white " href="/igc_final/asistencia"><i class="bi bi-journal-text"></i> Asistencia de Alumnos</a>
                             </li>
                             <li>
                                 <a class="dropdown-item nav-link text-white " href="/igc_final/pdfconductas"><i class="bi bi-flag"></i> Generar Reporte de Conducta</a>
@@ -134,20 +134,36 @@
                     </div>
                     <div class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="bi bi-bank"></i> Administracion
+                            <i class="bi bi-pencil-fill"></i> Gestión Academica
                         </a>
                         <ul class="dropdown-menu" style="margin: 0;">
                             <li>
-                                <a class="dropdown-item" href="/igc_final/grado"><i class="bi bi-clipboard2-check"></i> Grados</a>
+                                <a class="dropdown-item" href="/igc_final/grado"><i class="bi bi-clipboard2-check"></i> Regístro Grados</a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="/igc_final/seccion"><i class="bi bi-clipboard2-check-fill"></i> Secciones</a>
+                                <a class="dropdown-item" href="/igc_final/seccion"><i class="bi bi-clipboard2-check-fill"></i> Regístro Secciones</a>
                             </li>
                             <li>
                                 <a class="dropdown-item" href="/igc_final/asignacionalumno"><i class="bi bi-person-check-fill"></i> Asignación Alumnos</a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="/igc_final/grados"><i class="bi bi-briefcase-fill"></i> Asignación Profesores</a>
+                                <a class="dropdown-item" href="/igc_final/asignacionprofesor"><i class="bi bi-briefcase-fill"></i> Asignación Profesores</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="/igc_final/estadisticas"><i class="bi bi-graph-up-arrow"></i> Estadísticas Grados</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-bank"></i> Administración
+                        </a>
+                        <ul class="dropdown-menu" style="margin: 0;">
+                            <li>
+                                <a class="dropdown-item" href="/igc_final/pago"><i class="bi bi-cash-coin"></i> Regístro de Pagos</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="/igc_final/solvencias"><i class="bi bi-newspaper"></i> Certificados de Solvencia</a>
                             </li>
                         </ul>
                     </div>

@@ -5,28 +5,29 @@ namespace Controllers;
 use Exception;
 use Model\Alumno;
 use Model\Seccion;
-use Model\AsignacionAlumno;
+use Model\AsignacionAlumnos;
 use MVC\Router;
 
 class AsignacionAlumnoController
 {
     public static function index(Router $router) {
         $alumnos = Alumno::obtenerAlumnosconQuery();
-        $seccion = Seccion::obtenerSeccionconQuery();
+        $secciones = Seccion::obtenerSecciones();
         
         $router->render('asignacionalumno/index', [
             'alumnos' => $alumnos,
-            'seccion' => $seccion
+            'secciones' => $secciones
         ]);
     }
 
  public static function guardarAPI()
 {
     $_POST['asignacion_alumno'] = htmlspecialchars($_POST['asignacion_alumno']);
-    $_POST['asignacion_seccion'] = htmlspecialchars($_POST['asignacion_fseccion']);
+    $_POST['asignacion_seccion'] = htmlspecialchars($_POST['asignacion_seccion']);
+    
 
     try {
-        $asignacionalumno = new AsignacionAlumno($_POST);
+        $asignacionalumno = new AsignacionAlumnos($_POST);
         $resultado = $asignacionalumno->crear();
         if ($resultado) {
             http_response_code(200);
@@ -52,7 +53,7 @@ class AsignacionAlumnoController
     public static function buscarAPI()
     {
         try {
-            $asignaciones = AsignacionAlumno::obtenerAlumnosAsignados();
+            $asignaciones = AsignacionAlumnos::obtenerAsignaciones();
             http_response_code(200);
             echo json_encode([
                 'codigo' => 1,
@@ -76,7 +77,7 @@ class AsignacionAlumnoController
         $id = filter_var($_POST['asignacion_id'], FILTER_SANITIZE_NUMBER_INT);
         
         try {
-            $asignacion = AsignacionAlumno::find($id);
+            $asignacion = AsignacionAlumnos::find($id);
             $asignacion->sincronizar($_POST);
             $asignacion->actualizar();
             http_response_code(200);
@@ -99,7 +100,7 @@ class AsignacionAlumnoController
         $id = filter_var($_POST['asignacion_id'], FILTER_SANITIZE_NUMBER_INT);
 
         try {
-            $asignacion = AsignacionAlumno::find($id);
+            $asignacion = AsignacionAlumnos::find($id);
             $asignacion->eliminar();
             http_response_code(200);
             echo json_encode([

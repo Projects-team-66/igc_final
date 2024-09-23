@@ -30,6 +30,10 @@ const datatable = new DataTable('#tablaGrado', {
             data: 'grado_nombre'
         },
         {
+            title: 'Grado',
+            data: 'grado_monto'
+        },
+        {
             title: 'Acciones',
             data: 'grado_id',
             searchable: false,
@@ -38,7 +42,8 @@ const datatable = new DataTable('#tablaGrado', {
                 return `
                     <button class='btn btn-warning modificar' 
                         data-grado_id="${data}" 
-                        data-grado_nombre="${row.grado_nombre}">
+                        data-grado_nombre="${row.grado_nombre}"
+                        data-grado_nombre="${row.grado_monto}">
                         <i class='bi bi-pencil-square'></i>Modificar
                     </button>
                     <button class='btn btn-danger eliminar' data-grado_id="${data}">Eliminar</button>`;
@@ -122,6 +127,7 @@ const traerDatos = (e) => {
 
     formulario.grado_id.value = elemento.grado_id;
     formulario.grado_nombre.value = elemento.grado_nombre;
+    formulario.grado_monto.value = elemento.grado_monto;
     tabla.parentElement.parentElement.style.display = 'none';
 
     btnGuardar.parentElement.style.display = 'none';
