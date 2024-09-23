@@ -75,5 +75,33 @@ class Asistencia extends ActiveRecord
 
         return self::fetchArray($sql, $params);
     }
+
+    public static function obtenerReporteAsistencia()
+    {
+        $sql = "
+            SELECT 
+                a.alumno_nombre || ' ' || a.alumno_apellido AS nombre_completo,
+                g.grado_nombre AS grado,
+                s.seccion_nombre AS seccion,
+                c.curso_nombre AS curso,
+                asis.asistencia_estado AS asistencia
+            FROM
+                alumnos a
+            INNER JOIN 
+                asignacion_alumnos aa ON a.alumno_id = aa.asignacion_alumno
+            INNER JOIN 
+                seccion s ON aa.asignacion_seccion = s.seccion_id
+            INNER JOIN 
+                grado g ON s.seccion_grado = g.grado_id
+            INNER JOIN 
+                asistencia asis ON a.alumno_id = asis.asistencia_alumno
+            INNER JOIN 
+                curso c ON asis.asistencia_curso = c.curso_id
+            WHERE
+                a.alumno_situacion = 1
+        ";
+
+        return self::fetchArray($sql); // Ejecuta la consulta y retorna los resultados como array
+    }
 }
 

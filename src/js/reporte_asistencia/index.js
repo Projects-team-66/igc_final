@@ -8,7 +8,6 @@ const formulario = document.getElementById('formularioReporte1');
 const tabla = document.getElementById('tablaReporte1');
 const btnBuscar = document.getElementById('btnBuscar');
 
-// Inicializar el DataTable para mostrar los reportes de asistencia
 const datatable = new DataTable('#tablaReporte1', {
     data: null,
     language: lenguaje,
@@ -41,8 +40,8 @@ const datatable = new DataTable('#tablaReporte1', {
 
 // Función para buscar los reportes de asistencia en función del grado y la sección seleccionados
 const buscarAsistencia = async () => {
-    const grado_id = document.getElementById('reporte_asis_grado').value; // Asegúrate de que este ID exista
-    const seccion_id = document.getElementById('reporte_asis_seccion').value;
+    const grado_id = document.getElementById('aisistencia_grado').value; 
+    const seccion_id = document.getElementById('asistencia_seccion').value;
 
     if (!grado_id || !seccion_id) {
         Swal.fire({
@@ -79,5 +78,5 @@ const buscarAsistencia = async () => {
     }
 }
 
-// Event listeners
+
 btnBuscar.addEventListener('click', buscarAsistencia);
