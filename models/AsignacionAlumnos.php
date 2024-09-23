@@ -2,7 +2,7 @@
 
 namespace Model;
 
-class AsignacionAlumno extends ActiveRecord
+class AsignacionAlumnos extends ActiveRecord
 {
     protected static $tabla = 'asignacion_alumnos';
     protected static $columnasDB = [
@@ -20,8 +20,8 @@ class AsignacionAlumno extends ActiveRecord
     public $asignacion_situacion;
 
     // // Nuevas propiedades para los nombres
-    // public $alumno_nombre; // Nombre del alumno
-    // public $curso_nombre;  // Nombre del curso
+    public $alumno_nombre;
+    public $curso_nombre;
 
     public function __construct($args = [])
     {
@@ -30,9 +30,9 @@ class AsignacionAlumno extends ActiveRecord
         $this->asignacion_seccion = $args['asignacion_seccion'] ?? null;
         $this->asignacion_situacion = $args['asignacion_situacion'] ?? 1;
 
-        // Asignar los nombres si están presentes
-        // $this->alumno_nombre = $args['alumno_nombre'] ?? '';
-        // $this->curso_nombre = $args['curso_nombre'] ?? '';
+        // Asignar los nombres ajenos
+        $this->alumno_nombre = $args['alumno_nombre'] ?? '';
+        $this->curso_nombre = $args['curso_nombre'] ?? '';
     }
 
     public static function obtenerAlumnosAsignados()

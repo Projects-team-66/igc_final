@@ -1,5 +1,5 @@
-<h1 class="text-center">Bienvenido a Asignacion de Alumnos</h1>
-<h2 class="text-center">Inscripcion de Alumnos</h2>
+<h1 class="text-center">Bienvenido a Inscripcion de Alumnos</h1>
+<h2 class="text-center">Asigne un Alumnos a su Seccion y Grado Correspondiente</h2>
     <div class="row justify-content-center mb-5">
     <form id="formularioAsistencia" class="border shadow p-4 col-lg-10">
             <input type="hidden" name="asistencia_id" id="asistencia_id">

@@ -10,7 +10,7 @@
             <div class="col">
                     <label for="seccion_grado">Seleccione un Grado</label>
                     <select name="seccion_grado" id="seccion_grado" class="form-control">
-                        <option value="">Grados...</option>
+                        <option value="">Grados..</option>
                         <?php foreach ($grados as $grado) : ?>
                             <option value="<?= $grado['grado_id'] ?>"> <?= $grado['grado_nombre'] ?></option>';
                         <?php endforeach; ?>
