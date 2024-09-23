@@ -36,4 +36,5 @@ class Tutor extends ActiveRecord
 
         return self::fetchArray($sql);
     }
+
 }
