@@ -10,6 +10,7 @@ use Controllers\AsistenciaController;
 use Controllers\TutorController;
 use Controllers\SeccionController;
 use Controllers\GradoController;
+use Controllers\ReporteAsistenciaController;
 use Controllers\AsignacionAlumnoController;
 
 $router = new Router();
@@ -57,6 +58,11 @@ $router->get('/API/asistencia/buscar', [AsistenciaController::class, 'buscarAPI'
 $router->post('/API/asistencia/guardar', [AsistenciaController::class, 'guardarAPI']);
 $router->post('/API/asistencia/modificar', [AsistenciaController::class, 'modificarAPI']);
 $router->post('/API/asistencia/eliminar', [AsistenciaController::class, 'eliminarAPI']);
+
+//REPORTE DE ASISTENCIA
+$router->get('/reporte_asistencia', [ReporteAsistenciaController::class, 'index']);
+
+
 
 
 //ASIGNACION ALUMNOS
