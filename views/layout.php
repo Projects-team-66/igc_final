@@ -113,7 +113,7 @@
                         </ul>
                     </div>
                     <div class="nav-item dropdown ">
-                        <a class="nav-link dropdown-toggle" href="/igc_final/profesores" data-bs-toggle="dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
                             <i class="bi bi-person-video3"></i> Profesores
                         </a>
                         <ul class="dropdown-menu" style="margin: 0;">
@@ -122,6 +122,9 @@
                             </li>
                             <li>
                                 <a class="dropdown-item nav-link text-white " href="/igc_final/asistencia"><i class="bi bi-journal-text"></i> Aistencia de Alumnos</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item nav-link text-white " href="/igc_final/pdfconductas"><i class="bi bi-flag"></i> Generar Reporte de Asistencia</a>
                             </li>
                             <li>
                                 <a class="dropdown-item nav-link text-white " href="/igc_final/pdfconductas"><i class="bi bi-flag"></i> Generar Reporte de Conducta</a>
