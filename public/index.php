@@ -10,6 +10,8 @@ use Controllers\AsistenciaController;
 use Controllers\TutorController;
 use Controllers\SeccionController;
 use Controllers\GradoController;
+use Controllers\PagoController;
+use Controllers\SolvenciaController;
 
 $router = new Router();
 $router->setBaseURL('/' . $_ENV['APP_NAME']);
@@ -54,6 +56,20 @@ $router->get('/API/asistencia/buscar', [AsistenciaController::class, 'buscarAPI'
 $router->post('/API/asistencia/guardar', [AsistenciaController::class, 'guardarAPI']);
 $router->post('/API/asistencia/modificar', [AsistenciaController::class, 'modificarAPI']);
 $router->post('/API/asistencia/eliminar', [AsistenciaController::class, 'eliminarAPI']);
+
+//SOLVENCIA
+$router->get('/solvencia', [SolvenciaController::class, 'index']);
+$router->get('/API/solvencia/buscar', [SolvenciaController::class, 'buscarAPI']);
+$router->post('/API/solvencia/guardar', [SolvenciaController::class, 'guardarAPI']);
+$router->post('/API/solvencia/modificar', [SolvenciaController::class, 'modificarAPI']);
+$router->post('/API/solvencia/eliminar', [SolvenciaController::class, 'eliminarAPI']);
+
+//PAGOS
+$router->get('/pago', [PagoController::class, 'index']);
+$router->get('/API/pago/buscar', [PagoController::class, 'buscarAPI']);
+$router->post('/API/pago/guardar', [PagoController::class, 'guardarAPI']);
+$router->post('/API/pago/modificar', [PagoController::class, 'modificarAPI']);
+$router->post('/API/pago/eliminar', [PagoController::class, 'eliminarAPI']);
 
 
 

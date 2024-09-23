@@ -11,6 +11,8 @@ module.exports = {
     'js/asistencia/index' : './src/js/asistencia/index.js',
     'js/seccion/index' : './src/js/seccion/index.js',
     'js/grado/index' : './src/js/grado/index.js',
+    'js/solvencia/index' : './src/js/solvencia/index.js',
+    'js/pago/index' : './src/js/pago/index.js',
   },
   output: {
     filename: '[name].js',

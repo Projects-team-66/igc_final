@@ -6,7 +6,7 @@ class Seccion extends ActiveRecord
 {
     protected static $tabla = 'seccion';
     protected static $idTabla = 'seccion_id';
-    protected static $columnasDB = ['seccion_nombre', seccion_grado];
+    protected static $columnasDB = ['seccion_nombre', 'seccion_grado'];
 
     public $seccion_id;
     public $seccion_nombre;
@@ -22,7 +22,7 @@ class Seccion extends ActiveRecord
 
     public static function obtenerGradoconQuery()
     {
-        $sql = "SELECT * FROM seccion;
+        $sql = "SELECT * FROM seccion";
         return self::fetchArray($sql);
     }
 
