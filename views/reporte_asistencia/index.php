@@ -24,10 +24,7 @@
         </div>
         <div class="row ">
         <div class="col">
-                <button type="button" id="btnBuscar" class="btn btn-danger w-100"> <i class="bi bi-search"></i> Buscar</button>
-            </div>
-            <div class="col">
-                <button type="button" id="btnCancelar" class="btn btn-danger w-100"> <i class="bi bi-x-circle"></i> Cancelar</button>
+                <button type="button" id="btnBuscar" class="btn btn-primary w-100"> <i class="bi bi-search"></i> Buscar</button>
             </div>
         </div>
     </form>

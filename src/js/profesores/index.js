@@ -9,7 +9,6 @@ const tabla = document.getElementById('tablaProfesor')
 const btnGuardar = document.getElementById('btnGuardar')
 const btnModificar = document.getElementById('btnModificar')
 const btnCancelar = document.getElementById('btnCancelar')
-const btnBuscar = document.getElementById('btnBuscar')
 
 let contador = 1;
 btnModificar.disabled = true;
