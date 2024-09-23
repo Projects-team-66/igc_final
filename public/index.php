@@ -76,7 +76,7 @@ $router->post('/API/pago/modificar', [PagoController::class, 'modificarAPI']);
 $router->post('/API/pago/eliminar', [PagoController::class, 'eliminarAPI']);
 //REPORTE DE ASISTENCIA
 $router->get('/reporte_asistencia', [ReporteAsistenciaController::class, 'index']);
-
+$router->get('/API/reporte-asistencia/buscar', [ReporteAsistenciaController::class, 'buscarAPI']);
 
 //ASIGNACION ALUMNOS
 $router->get('/asignacionalumno', [AsignacionAlumnoController::class, 'index']);
