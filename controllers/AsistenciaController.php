@@ -45,7 +45,6 @@ class AsistenciaController
             'codigo' => 0,
             'mensaje' => 'Error al registrar asistencia',
             'detalle' => $e->getMessage(),
-            'trace' => $e->getTraceAsString() // Agrega esto para más información
         ]);
     }
 }
