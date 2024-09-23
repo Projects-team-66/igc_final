@@ -1,54 +1,65 @@
 <?php
-
 namespace Controllers;
 
-use Exception;
-use Model\Asistencia;
 use Model\Grado;
-use Model\ReporteAsistencia;
 use Model\Seccion;
+use Models\ReporteAsistencia as ModelsReporteAsistencia;
 use MVC\Router;
 
-class ReporteAsistenciaController
+class ReporteAsistenciaController 
 {
     public static function index(Router $router) {
-        $grados = Grado::obtenerGradoconQuery();  
-        $secciones = Seccion::obtenerSecciones(); 
-
+        $secciones = Seccion::obtenerSecciones();
+        $grados = Grado::obtenerGradoconQuery();
+        
         $router->render('reporte_asistencia/index', [
-            'grados' => $grados,
-            'secciones' => $secciones
+            'secciones' => $secciones,
+            'grados' => $grados
         ]);
     }
+    
+    public static function buscarAPI(Router $router) {
+        if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+            $grado = $_GET['grado'] ?? null;
+            $seccion = $_GET['seccion'] ?? null;
 
-    public static function buscarAPI()
-    {
-        try {
-            $asistencias = Asistencia::obtenerReporteAsistencia();
-            http_response_code(200);
-            echo json_encode([
-                'codigo' => 1,
-                'mensaje' => 'Datos encontrados',
-                'detalle' => '',
-                'datos' => $asistencias
-            ]);
-        } catch (Exception $e) {
-            http_response_code(500);
-            echo json_encode([
-                'codigo' => 0,
-                'mensaje' => 'Error al buscar asistencias',
-                'detalle' => $e->getMessage(),
-            ]);
+            if ($grado && $seccion) {
+                // Consulta para obtener el reporte de asistencia
+                $sql = "
+                    SELECT 
+                        alumno_nombre || ' ' || alumno_apellido AS nombre_completo,  
+                        grado_nombre AS grado,
+                        seccion_nombre AS seccion,
+                        curso_nombre AS curso,
+                        asistencia_estado AS asistencia
+                    FROM
+                        alumnos
+                    INNER JOIN 
+                        asignacion_alumnos ON alumno_id = asignacion_alumno
+                    INNER JOIN 
+                        seccion ON asignacion_seccion = seccion_id
+                    INNER JOIN 
+                        grado ON seccion_grado = grado_id
+                    INNER JOIN 
+                        asistencia ON alumno_id = asistencia_alumno
+                    INNER JOIN 
+                        curso ON asistencia_curso = curso_id
+                    WHERE
+                        seccion_id = :seccion_id
+                    AND 
+                        grado_id = :grado_id
+                ";
+
+                $params = [
+                    ':seccion_id' => $seccion,
+                    ':grado_id' => $grado
+                ];
+
+                $reportes = ModelsReporteAsistencia::fetchArray($sql, $params);
+                // Aquí puedes devolver los reportes como JSON o manejar la respuesta
+            } else {
+                // Manejar el caso donde grado o sección no están definidos
+            }
         }
-    }
-
-    public static function obtenerAsistencia(Router $router)
-    {
-        $seccion_id = $_POST['seccion_id'];
-
-        // Realiza la consulta para obtener la asistencia
-        $asistencias = Asistencia::obtenerAsistenciaPorSeccion($seccion_id);
-
-        echo json_encode($asistencias);
     }
 }

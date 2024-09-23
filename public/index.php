@@ -61,10 +61,7 @@ $router->post('/API/asistencia/eliminar', [AsistenciaController::class, 'elimina
 
 //REPORTE DE ASISTENCIA
 $router->get('/reporte_asistencia', [ReporteAsistenciaController::class, 'index']);
-$router->get('/API/asistencia/buscar', [ReporteAsistenciaController::class, 'buscarAPI']);
-
-
-
+$router->get('/API/reporte-asistencia/buscar', [ReporteAsistenciaController::class, 'buscarAPI']);
 
 
 //ASIGNACION ALUMNOS

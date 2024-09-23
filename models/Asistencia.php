@@ -1,6 +1,8 @@
 <?php
 namespace Model;
 
+use PDO;
+
 class Asistencia extends ActiveRecord
 {
     protected static $tabla = 'asistencia';
@@ -10,7 +12,6 @@ class Asistencia extends ActiveRecord
         'asistencia_fecha', 
         'asistencia_estado', 
         'asistencia_situacion',
-
     ];
     protected static $idTabla = 'asistencia_id';
 
@@ -20,6 +21,7 @@ class Asistencia extends ActiveRecord
     public $asistencia_fecha;
     public $asistencia_estado;
     public $asistencia_situacion;
+
     // Nuevas propiedades para que reconozca los nombres de alumnos y cursos en el select
     public $alumno_nombre; // Nombre del alumno
     public $curso_nombre;  // Nombre del curso
@@ -50,58 +52,29 @@ class Asistencia extends ActiveRecord
         return self::fetchArray($sql);
     }
 
-    public static function obtenerAsistenciaPorSeccion($seccion_id)
+    public static function obtenerAsistenciaPorSeccion($grado_id, $seccion_id)
     {
         $sql = "
             SELECT 
-                a.asistencia_id, 
-                a.fecha, 
-                a.estado, 
-                al.alumno_nombre, 
-                al.alumno_apellido, 
-                g.grado_nombre, 
-                s.seccion_nombre 
+                al.alumno_nombre || ' ' || al.alumno_apellido AS nombre_completo,  
+                g.grado_nombre AS grado,
+                s.seccion_nombre AS seccion,
+                c.curso_nombre AS curso,
+                a.asistencia_estado AS asistencia
             FROM asistencia a
-            JOIN asignacion_alumnos aa ON a.alumno_id = aa.alumno_id
-            JOIN alumnos al ON aa.alumno_id = al.alumno_id
-            JOIN seccion s ON aa.seccion_id = s.seccion_id
-            JOIN grado g ON s.grado_id = g.grado_id
-            WHERE s.seccion_id = :seccion_id
+            INNER JOIN asignacion_alumnos aa ON a.asistencia_alumno = aa.alumno_id
+            INNER JOIN alumnos al ON aa.alumno_id = al.alumno_id
+            INNER JOIN seccion s ON aa.seccion_id = s.seccion_id
+            INNER JOIN grado g ON s.grado_id = g.grado_id
+            INNER JOIN curso c ON a.asistencia_curso = c.curso_id
+            WHERE s.seccion_id = :seccion_id AND g.grado_id = :grado_id
         ";
 
         $params = [
-            ':seccion_id' => $seccion_id
+            ':seccion_id' => $seccion_id,
+            ':grado_id' => $grado_id
         ];
 
         return self::fetchArray($sql, $params);
     }
-
-    public static function obtenerReporteAsistencia()
-    {
-        $sql = "
-            SELECT 
-                a.alumno_nombre || ' ' || a.alumno_apellido AS nombre_completo,
-                g.grado_nombre AS grado,
-                s.seccion_nombre AS seccion,
-                c.curso_nombre AS curso,
-                asis.asistencia_estado AS asistencia
-            FROM
-                alumnos a
-            INNER JOIN 
-                asignacion_alumnos aa ON a.alumno_id = aa.asignacion_alumno
-            INNER JOIN 
-                seccion s ON aa.asignacion_seccion = s.seccion_id
-            INNER JOIN 
-                grado g ON s.seccion_grado = g.grado_id
-            INNER JOIN 
-                asistencia asis ON a.alumno_id = asis.asistencia_alumno
-            INNER JOIN 
-                curso c ON asis.asistencia_curso = c.curso_id
-            WHERE
-                a.alumno_situacion = 1
-        ";
-
-        return self::fetchArray($sql); // Ejecuta la consulta y retorna los resultados como array
-    }
 }
-
