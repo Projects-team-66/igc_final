@@ -6,17 +6,19 @@ class Grado extends ActiveRecord
 {
     protected static $tabla = 'grado';
     protected static $idTabla = 'grado_id';
-    protected static $columnasDB = ['grado_nombre', 'grado_situacion'];
+    protected static $columnasDB = ['grado_nombre', 'grado_situacion', 'grado_monto'];
 
     public $grado_id;
     public $grado_nombre;
     public $grado_situacion;
+    public $grado_monto;
 
 
     public function __construct($args = [])
     {
         $this->grado_id = $args['grado_id'] ?? null;
         $this->grado_nombre = $args['grado_nombre'] ?? '';
+        $this->grado_monto = $args['grado_monto'] ?? '';
         $this->grado_situacion = $args['grado_situacion'] ?? 1;
     }
 

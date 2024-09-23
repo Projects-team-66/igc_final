@@ -7,6 +7,18 @@
                 <label for="grado_nombre">Nombre del Grado</label>
                 <input type="text" name="grado_nombre" id="grado_nombre" class="form-control">
             </div>
+            <div class="col">
+                <label for="grado_monto" class="form-label">Selecciones Monto</label>
+                <select name="grado_monto" id="grado_monto" class="form-control">
+                    <option value="#">Seleccione Monto Según Grado</option>
+                    <option value="200">Q.200.00 (PRIMERO PRIMARIA)</option>
+                    <option value="400">Q.400.00 (SEGUNDO PRIMARIA)</option>
+                    <option value="800">Q.800.00 (TERCERO PRIMARIA)</option>
+                    <option value="1000">Q.1000.00 (CUARTO PRIMARIA)</option>
+                    <option value="1200">Q.1200.00 (QUINTO PRIMARIA)</option>
+                    <option value="1400">Q.1400.00 (SEXTO PRIMARIA)</option>
+                </select>
+            </div>
         </div>
         <div class="row mb-5">
             <div class="col">
@@ -15,7 +27,7 @@
             <div class="col">
                 <button type="button" id="btnModificar" class="btn btn-warning w-100">Modificar</button>
             </div>
-            
+
             <div class="col">
                 <button type="button" id="btnCancelar" class="btn btn-danger w-100">Cancelar</button>
             </div>
