@@ -4,65 +4,72 @@ import Swal from "sweetalert2";
 import DataTable from "datatables.net-bs5";
 import { lenguaje } from "../lenguaje";
 
-const formulario = document.getElementById('formularioGrado');
-const tabla = document.getElementById('tablaGrado');
+const formulario = document.getElementById('formularioAsignacionProfesor');
+const tabla = document.getElementById('tablaAsignacionProfesor');
 const btnGuardar = document.getElementById('btnGuardar');
 const btnModificar = document.getElementById('btnModificar');
 const btnCancelar = document.getElementById('btnCancelar');
 
-let contador = 1;
 
-const datatable = new DataTable('#tablaGrado', {
+let contador = 1;
+btnModificar.disabled = true;
+btnModificar.parentElement.style.display = 'none';
+btnCancelar.disabled = true;
+btnCancelar.parentElement.style.display = 'none'
+
+const datatable = new DataTable('#tablaAsignacionProfesor', {
+    data: null,
     language: lenguaje,
     pageLength: '15',
     lengthMenu: [3, 9, 11, 25, 100],
     columns: [
         {
             title: 'No.',
-            data: 'tutor_id',
+            data: 'profesor_seccion_id',
             width: '2%',
             render: (data, type, row, meta) => {
                 return meta.row + 1;
             }
         },
         {
+            title: 'Profesor Nombre',
+            data: 'profesor_nombre'
+        },
+        {
+            title: 'Profesor Apellido',
+            data: 'profesor_apellido'
+        },
+        {
             title: 'Grado',
             data: 'grado_nombre'
         },
         {
-            title: 'Grado',
-            data: 'grado_monto'
+            title: 'Seccion',
+            data: 'seccion_nombre'
         },
         {
             title: 'Acciones',
-            data: 'grado_id',
+            data: 'profesor_seccion_id',
             searchable: false,
             orderable: false,
             render: (data, type, row, meta) => {
-                return `
-                    <button class='btn btn-warning modificar' 
-                        data-grado_id="${data}" 
-                        data-grado_nombre="${row.grado_nombre}"
-                        data-grado_nombre="${row.grado_monto}">
-                        <i class='bi bi-pencil-square'></i>Modificar
-                    </button>
-                    <button class='btn btn-danger eliminar' data-grado_id="${data}">Eliminar</button>`;
+                let html = `
+                <button class='btn btn-warning modificar' data-profesor_seccion_id="${data}" data-seccion_id="${row.seccion_nombre}" data-profesor_id="${row.profesor_nombre}" data-profesor_id="${row.profesor_apellido}" ><i class='bi bi-pencil-square'></i>Modificar</button>
+                <button class='btn btn-danger eliminar' data-profesor_seccion_id="${data}">Eliminar</button>
+                `;
+                return html;
             }
         }
     ]
 });
 
-btnModificar.parentElement.style.display = 'none';
-btnModificar.disabled = true;
-btnCancelar.parentElement.style.display = 'none';
-btnCancelar.disabled = true;
 
 const guardar = async (e) => {
     e.preventDefault();
 
-    if (!validarFormulario(formulario, ['grado_id'])) {
+    if (!validarFormulario(formulario, ['profesor_seccion_id'])) {
         Swal.fire({
-            title: "Campos vacios",
+            title: "Campos vacíos",
             text: "Debe llenar todos los campos",
             icon: "info"
         });
@@ -71,7 +78,7 @@ const guardar = async (e) => {
 
     try {
         const body = new FormData(formulario);
-        const url = "/igc_final/API/grado/guardar";
+        const url = "/igc_final/API/asignacionprofesor/guardar";
         const config = {
             method: 'POST',
             body
@@ -98,45 +105,49 @@ const guardar = async (e) => {
     } catch (error) {
         console.log(error);
     }
-};
+}
+
 
 const buscar = async () => {
     try {
-        const url = "/igc_final/API/grado/buscar";
+        const url = "/igc_final/API/asignacionprofesor/buscar";
         const config = {
-            method: 'GET'
+            method: 'GET',
         };
 
         const respuesta = await fetch(url, config);
         const data = await respuesta.json();
-        const { datos } = data; // Obtén los datos correctamente
+        const { codigo, mensaje, detalle, datos } = data;
 
-        datatable.clear().draw(); // Limpia la tabla antes de añadir los nuevos datos
+        datatable.clear().draw();
 
         if (datos) {
-            datatable.rows.add(datos).draw(); // Añade los datos a la tabla y dibuja
+            datatable.rows.add(datos).draw();
+
         }
+
     } catch (error) {
         console.log(error);
     }
-};
+}
 buscar();
 
 const traerDatos = (e) => {
     const elemento = e.currentTarget.dataset;
 
-    formulario.grado_id.value = elemento.grado_id;
-    formulario.grado_nombre.value = elemento.grado_nombre;
-    formulario.grado_monto.value = elemento.grado_monto;
-    tabla.parentElement.parentElement.style.display = 'none';
+    formulario.profesor_seccion_id.value = elemento.profesor_seccion_id;
+    formulario.profesor_sec.value = elemento.seccion_id; // Cambiar a 'alumno_id'
+    formulario.profesor_prof.value = elemento.profesor_id; // Cambiar a 'seccion_id'
 
+    tabla.parentElement.parentElement.style.display = 'none';
     btnGuardar.parentElement.style.display = 'none';
     btnGuardar.disabled = true;
     btnModificar.parentElement.style.display = '';
     btnModificar.disabled = false;
     btnCancelar.parentElement.style.display = '';
     btnCancelar.disabled = false;
-};
+}
+
 
 const cancelar = () => {
     tabla.parentElement.parentElement.style.display = '';
@@ -147,14 +158,15 @@ const cancelar = () => {
     btnModificar.disabled = true;
     btnCancelar.parentElement.style.display = 'none';
     btnCancelar.disabled = true;
-};
+}
+
 
 const modificar = async (e) => {
     e.preventDefault();
 
     if (!validarFormulario(formulario)) {
         Swal.fire({
-            title: "Campos vacios",
+            title: "Campos vacíos",
             text: "Debe llenar todos los campos",
             icon: "info"
         });
@@ -163,7 +175,7 @@ const modificar = async (e) => {
 
     try {
         const body = new FormData(formulario);
-        const url = "/igc_final/API/grado/modificar";
+        const url = "/igc_final/API/asignacionprofesor/modificar";
         const config = {
             method: 'POST',
             body
@@ -191,28 +203,28 @@ const modificar = async (e) => {
     } catch (error) {
         console.log(error);
     }
-};
+}
+
 
 const eliminar = async (e) => {
-    const grado_id = e.currentTarget.dataset.grado_id;
-    console.log("ID a eliminar:", grado_id); 
+    const profesor_seccion_id = e.currentTarget.dataset.profesor_seccion_id;
 
     let confirmacion = await Swal.fire({
         icon: 'question',
-        title: 'Confirmacion',
+        title: 'Confirmación',
         text: '¿Está seguro que desea eliminar este registro?',
         showCancelButton: true,
-        confirmButtonText: 'Si, eliminar',
+        confirmButtonText: 'Sí, eliminar',
         cancelButtonText: 'No, cancelar',
         confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33'
+        cancelButtonColor: '#d33',
     });
 
     if (confirmacion.isConfirmed) {
         try {
             const body = new FormData();
-            body.append('grado_id', grado_id);
-            const url = "/igc_final/API/grado/eliminar";
+            body.append('profesor_seccion_id', profesor_seccion_id);
+            const url = "/igc_final/API/asignacionprofesor/eliminar";
             const config = {
                 method: 'POST',
                 body
@@ -235,11 +247,12 @@ const eliminar = async (e) => {
                 icon: icon,
                 title: mensaje
             });
+
         } catch (error) {
             console.log(error);
         }
     }
-};
+}
 
 formulario.addEventListener('submit', guardar);
 btnCancelar.addEventListener('click', cancelar);

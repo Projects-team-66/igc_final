@@ -26,8 +26,8 @@ class AsignacionAlumnos extends ActiveRecord
     public function __construct($args = [])
     {
         $this->asignacion_id = $args['asignacion_id'] ?? null;
-        $this->asignacion_alumno = $args['asignacion_alumno'] ?? null;
-        $this->asignacion_seccion = $args['asignacion_seccion'] ?? null;
+        $this->asignacion_alumno = $args['asignacion_alumno'] ?? '';
+        $this->asignacion_seccion = $args['asignacion_seccion'] ?? '';
         $this->asignacion_situacion = $args['asignacion_situacion'] ?? 1;
 
         // Asignar los nombres ajenos
@@ -35,16 +35,35 @@ class AsignacionAlumnos extends ActiveRecord
         $this->curso_nombre = $args['curso_nombre'] ?? '';
     }
 
-    public static function obtenerAlumnosAsignados()
+
+    public static function obtenerAsignaciones()
     {
         $sql = "
-            SELECT aa.*, al.alumno_nombre, al.alumno_apellido, s.seccion_nombre, g.grado_nombre
-            FROM asignacion_alumnos aa
-            JOIN alumnos al ON aa.asignacion_alumno = al.alumno_id
-            JOIN seccion s ON aa.asignacion_seccion = s.seccion_id
-            JOIN grado g ON s.seccion_grado = g.grado_id
-            WHERE aa.asignacion_situacion = 1;
-        ";
+            SELECT 
+    aa.asignacion_id,
+    a.alumno_nombre,      -- Primero el nombre del alumno
+    a.alumno_apellido,    -- Luego el apellido del alumno
+    g.grado_nombre,       -- Luego el grado
+    s.seccion_nombre      -- Finalmente la sección
+FROM 
+    asignacion_alumnos aa
+JOIN 
+    alumnos a ON aa.asignacion_alumno = a.alumno_id
+JOIN 
+    seccion s ON aa.asignacion_seccion = s.seccion_id
+JOIN 
+    grado g ON s.seccion_grado = g.grado_id
+WHERE 
+    aa.asignacion_situacion = 1
+    AND s.seccion_situacion = 1 
+    AND g.grado_situacion = 1";
+        return self::fetchArray($sql);
+    }
+
+    public static function obtenerAsignacionconQuery()
+    {
+        $sql = "SELECT * FROM asignacion_alumnos WHERE asignacion_situacion = 1";
+
         return self::fetchArray($sql);
     }
 }
