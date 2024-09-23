@@ -20,8 +20,7 @@ class Asistencia extends ActiveRecord
     public $asistencia_fecha;
     public $asistencia_estado;
     public $asistencia_situacion;
-
-    // Nuevas propiedades para los nombres
+    // Nuevas propiedades para que reconozca los nombres de alumnos y cursos en el select
     public $alumno_nombre; // Nombre del alumno
     public $curso_nombre;  // Nombre del curso
 
@@ -34,7 +33,7 @@ class Asistencia extends ActiveRecord
         $this->asistencia_estado = $args['asistencia_estado'] ?? null;
         $this->asistencia_situacion = $args['asistencia_situacion'] ?? 1;
 
-        // Asignar los nombres si están presentes
+        // Asignar los nombres si están presentes en las tablas
         $this->alumno_nombre = $args['alumno_nombre'] ?? '';
         $this->curso_nombre = $args['curso_nombre'] ?? '';
     }

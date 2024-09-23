@@ -8,7 +8,7 @@
                     <select name="asistencia_alumno" id="asistencia_alumno" class="form-control">
                         <option value="">Seleccione un alumno</option>
                         <?php foreach ($alumnos as $alumno) : ?>
-                            <option value="<?= $alumno['alumno_id'] ?>"> <?= $alumno['alumno_nombre'] ?></option>';
+                            <option value="<?= $alumno['alumno_id'] ?>"> <?= $alumno['alumno_nombre'] ?> <?= $alumno['alumno_apellido'] ?></option>';
                         <?php endforeach; ?>
                     </select>
                 </div>
@@ -52,11 +52,10 @@
             </div>
         </form>
     </div>
-    <h1>Datatable de Asistencia</h1>
+    <h1 class="text-center">Asistencia de los Alumnos</h1>
     <div class="row justify-content-center">
         <div class="col table-responsive">
             <table id="tablaAsistencia" class="table table-bordered table-hover">
-                <!-- Contenido de la tabla aquí -->
             </table>
         </div>
     </div>

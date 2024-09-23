@@ -30,13 +30,13 @@ class Curso extends ActiveRecord
 
     public static function find($id = [])
     {
-        // Asegúrate de que se proporciona un ID en el array
-        if (isset($id[static::$idTabla])) {
+    //Funcion para que busque los nombres de los cursos por medio del ID, el id se iguala como array ya que de no ser asi daba conflicto con la function find($id) del Modelo ActiveRecord
+    if (isset($id[static::$idTabla])) {
             $idValor = filter_var($id[static::$idTabla], FILTER_SANITIZE_NUMBER_INT);
             $query = "SELECT * FROM " . static::$tabla . " WHERE " . static::$idTabla . " = " . self::$db->quote($idValor) . " LIMIT 1";
             $resultado = self::consultarSQL($query);
             return !empty($resultado) ? new self($resultado[0]) : null; // Devuelve una instancia de Curso o null si no se encuentra
         }
-        return null; // Retorna null si no se proporcionó un ID
+        return null; // Retorna null si no se le da un ID
     }
 }
