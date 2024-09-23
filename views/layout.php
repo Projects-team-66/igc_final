@@ -133,7 +133,7 @@
                                 <a class="dropdown-item nav-link text-white " href="/igc_final/reporte_asistencia"><i class="bi bi-flag"></i> Generar Reporte de Asistencia</a>
                             </li>
                             <li>
-                                <a class="dropdown-item nav-link text-white " href="/igc_final/reporte_conducta"><i class="bi bi-flag"></i> Generar Reporte de Conducta</a>
+                                <a class="dropdown-item nav-link text-white " href="/igc_final/reporteconducta"><i class="bi bi-flag"></i> Generar Reporte de Conducta</a>
                             </li>
                             <li>
                                 <a class="dropdown-item nav-link text-white " href="/igc_final/actividades"><i class="bi bi-file-text-fill"></i> Ingresar Actividades</a>
