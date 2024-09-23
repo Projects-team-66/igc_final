@@ -41,13 +41,39 @@ class Asistencia extends ActiveRecord
     public static function obtenerAsistencias()
     {
         $sql = "
-            SELECT a.*, al.alumno_nombre, c.curso_nombre
+            SELECT a.*, al.alumno_nombre, al.alumno_apellido, c.curso_nombre
             FROM asistencia a
             JOIN alumnos al ON a.asistencia_alumno = al.alumno_id
             JOIN curso c ON a.asistencia_curso = c.curso_id
             WHERE a.asistencia_situacion = 1
         ";
         return self::fetchArray($sql);
+    }
+
+    public static function obtenerAsistenciaPorSeccion($seccion_id)
+    {
+        $sql = "
+            SELECT 
+                a.asistencia_id, 
+                a.fecha, 
+                a.estado, 
+                al.alumno_nombre, 
+                al.alumno_apellido, 
+                g.grado_nombre, 
+                s.seccion_nombre 
+            FROM asistencia a
+            JOIN asignacion_alumnos aa ON a.alumno_id = aa.alumno_id
+            JOIN alumnos al ON aa.alumno_id = al.alumno_id
+            JOIN seccion s ON aa.seccion_id = s.seccion_id
+            JOIN grado g ON s.grado_id = g.grado_id
+            WHERE s.seccion_id = :seccion_id
+        ";
+
+        $params = [
+            ':seccion_id' => $seccion_id
+        ];
+
+        return self::fetchArray($sql, $params);
     }
 }
 
