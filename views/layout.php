@@ -147,7 +147,7 @@
                                 <a class="dropdown-item" href="/igc_final/seccion"><i class="bi bi-clipboard2-check-fill"></i> Secciones</a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="/igc_final/grados"><i class="bi bi-person-check-fill"></i> Asignación Alumnos</a>
+                                <a class="dropdown-item" href="/igc_final/asignacionalumno"><i class="bi bi-person-check-fill"></i> Asignación Alumnos</a>
                             </li>
                             <li>
                                 <a class="dropdown-item" href="/igc_final/grados"><i class="bi bi-briefcase-fill"></i> Asignación Profesores</a>

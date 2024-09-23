@@ -12,8 +12,7 @@ module.exports = {
     'js/seccion/index' : './src/js/seccion/index.js',
     'js/grado/index' : './src/js/grado/index.js',
     'js/reporte_asistencia/index' : './src/js/reporte_asistencia/index.js',
-
-
+    'js/asignacionalumno/index' : './src/js/asignacionalumno/index.js',
   },
   output: {
     filename: '[name].js',
