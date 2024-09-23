@@ -15,6 +15,7 @@ use Controllers\SolvenciaController;
 use Controllers\ReporteAsistenciaController;
 use Controllers\AsignacionAlumnoController;
 use Controllers\AsignacionProfesorController;
+use Controllers\MapaController;
 
 $router = new Router();
 $router->setBaseURL('/' . $_ENV['APP_NAME']);
@@ -92,6 +93,10 @@ $router->get('/API/asignacionprofesor/buscar', [AsignacionProfesorController::cl
 $router->post('/API/asignacionprofesor/guardar', [AsignacionProfesorController::class, 'guardarAPI']);
 $router->post('/API/asignacionprofesor/modificar', [AsignacionProfesorController::class, 'modificarAPI']);
 $router->post('/API/asignacionprofesor/eliminar', [AsignacionProfesorController::class, 'eliminarAPI']);
+
+//MAPA
+$router->get('/mapa', [MapaController::class, 'index']);
+
 
 
 // Comprueba y valida las rutas, que existan y les asigna las funciones del Controlador

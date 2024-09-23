@@ -159,7 +159,7 @@
                                 <a class="dropdown-item" href="/igc_final/asignacionprofesor"><i class="bi bi-briefcase-fill"></i> Asignación Profesores</a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="/igc_final/estadisticas"><i class="bi bi-graph-up-arrow"></i> Estadísticas Grados</a>
+                                <a class="dropdown-item" href="/igc_final/estadistica"><i class="bi bi-graph-up-arrow"></i> Estadísticas Grados</a>
                             </li>
                         </ul>
                     </div>
