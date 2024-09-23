@@ -51,4 +51,3 @@ class Seccion extends ActiveRecord
     }
     
 }
-
