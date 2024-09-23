@@ -34,11 +34,11 @@ const datatable = new DataTable('#tablaAsistencia', {
         },
         {
             title: 'Alumno',
-            data: 'alumno_nombre' // Cambiar a 'alumno_nombre' para mostrar el nombre
+            data: 'alumno_nombre'
         },
         {
             title: 'Curso',
-            data: 'curso_nombre' // Cambiar a 'curso_nombre' para mostrar el nombre
+            data: 'curso_nombre' 
         },
         {
             title: 'Fecha',
@@ -55,8 +55,12 @@ const datatable = new DataTable('#tablaAsistencia', {
             orderable: false,
             render: (data, type, row, meta) => {
                 let html = `
-                <button class='btn btn-warning modificar' data-asistencia_id="${data}" data-alumno_id="${row.asistencia_alumno}" data-curso_id="${row.asistencia_curso}" data-asistencia_fecha="${row.asistencia_fecha}" data-asistencia_estado="${row.asistencia_estado}">Modificar</button>
-                <button class='btn btn-danger eliminar' data-asistencia_id="${data}">Eliminar</button>
+                <button class='btn btn-warning modificar' data-asistencia_id="${data}" data-alumno_id="${row.asistencia_alumno}" data-curso_id="${row.asistencia_curso}" data-asistencia_fecha="${row.asistencia_fecha}" data-asistencia_estado="${row.asistencia_estado}">
+                    <i class='bi bi-pencil-square'></i> 
+                </button>
+                <button class='btn btn-danger eliminar' data-asistencia_id="${data}"> 
+                    <i class='bi bi-trash'></i> 
+                </button>
                 `;
                 return html;
             }

@@ -15,9 +15,7 @@ let contador = 1;
 btnModificar.disabled = true;
 btnModificar.parentElement.style.display = 'none';
 btnCancelar.disabled = true;
-btnCancelar.parentElement.style.display = 'none';
-btnBuscar.disabled = true;
-btnBuscar.parentElement.style.display = 'none';
+
 
 
 const datatable = new DataTable('#tablaProfesor', {
@@ -62,9 +60,11 @@ const datatable = new DataTable('#tablaProfesor', {
             render: (data, type, row, meta) => {
                 let html = `
                 <button class='btn btn-warning modificar' data-profesor_id="${data}" data-profesor_nombre="${row.profesor_nombre}" data-profesor_apellido="${row.profesor_apellido}" data-profesor_telefono="${row.profesor_telefono}" data-profesor_email="${row.profesor_email}" data-profesor_direccion="${row.profesor_direccion}">
-                 Modificar
+                    <i class='bi bi-pencil-square'></i> 
                 </button>
-                <button class='btn btn-danger eliminar' data-profesor_id="${data}">Eliminar</button>
+                <button class='btn btn-danger eliminar' data-profesor_id="${data}">
+                  <i class='bi bi-trash'></i> 
+                </button>
             `;
             
                 return html;

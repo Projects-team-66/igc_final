@@ -37,14 +37,14 @@
             </div>
         </div>
         <div class="row ">
-            <div class="col-lg">
-                <button type="submit" form="formularioAsistencia" id="btnGuardar" class="btn btn-primary btn-block">Guardar</button>
+            <div class="col">
+                <button type="submit" form="formularioAsistencia" id="btnGuardar" class="btn btn-success w-100"> <i class="bi bi-save"></i> Guardar</button>
             </div>
             <div class="col">
-                <button type="button" id="btnModificar" class="btn btn-warning btn-block">Modificar</button>
+                <button type="button" id="btnModificar" class="btn btn-warning w-100">Modificar</button>
             </div>
             <div class="col">
-                <button type="button" id="btnCancelar" class="btn btn-danger btn-block">Cancelar</button>
+                <button type="button" id="btnCancelar" class="btn btn-danger w-100">Cancelar</button>
             </div>
         </div>
     </form>
