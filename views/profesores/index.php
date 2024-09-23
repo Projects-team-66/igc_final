@@ -15,11 +15,11 @@
         <div class="row mb-3">
             <div class="col">
                 <label for="profesor_email">Correo Electrónico</label>
-                <input type="text" name="profesor_email" id="profesor_email" class="form-control">
+                <input type="email" name="profesor_email" id="profesor_email" class="form-control">
             </div>
             <div class="col">
                 <label for="profesor_telefono">Teléfono</label>
-                <input type="text" name="profesor_telefono" id="profesor_telefono" class="form-control">
+                <input type="tel" name="profesor_telefono" id="profesor_telefono" class="form-control">
             </div>
         </div>
         <div class="row mb-3">

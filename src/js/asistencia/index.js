@@ -9,13 +9,14 @@ const tabla = document.getElementById('tablaAsistencia')
 const btnGuardar = document.getElementById('btnGuardar')
 const btnModificar = document.getElementById('btnModificar')
 const btnCancelar = document.getElementById('btnCancelar')
-const btnBuscar = document.getElementById('btnBuscar')
+
 
 let contador = 1;
 btnModificar.disabled = true;
 btnModificar.parentElement.style.display = 'none';
 btnCancelar.disabled = true;
-btnCancelar.parentElement.style.display = 'none'
+btnCancelar.parentElement.style.display = 'none';
+
 
 const datatable = new DataTable('#tablaAsistencia', {
     data: null,
@@ -54,7 +55,7 @@ const datatable = new DataTable('#tablaAsistencia', {
             orderable: false,
             render: (data, type, row, meta) => {
                 let html = `
-                <button class='btn btn-warning modificar' data-asistencia_id="${data}" data-alumno_id="${row.asistencia_alumno}" data-curso_id="${row.asistencia_curso}" data-asistencia_fecha="${row.asistencia_fecha}" data-asistencia_estado="${row.asistencia_estado}"><i class='bi bi-pencil-square'></i>Modificar</button>
+                <button class='btn btn-warning modificar' data-asistencia_id="${data}" data-alumno_id="${row.asistencia_alumno}" data-curso_id="${row.asistencia_curso}" data-asistencia_fecha="${row.asistencia_fecha}" data-asistencia_estado="${row.asistencia_estado}">Modificar</button>
                 <button class='btn btn-danger eliminar' data-asistencia_id="${data}">Eliminar</button>
                 `;
                 return html;
@@ -135,8 +136,8 @@ const traerDatos = (e) => {
     const elemento = e.currentTarget.dataset;
 
     formulario.asistencia_id.value = elemento.asistencia_id;
-    formulario.asistencia_alumno.value = elemento.alumno_id; // Cambiar a 'alumno_id'
-    formulario.asistencia_curso.value = elemento.curso_id; // Cambiar a 'curso_id'
+    formulario.asistencia_alumno.value = elemento.alumno_id;
+    formulario.asistencia_curso.value = elemento.curso_id; 
     formulario.asistencia_fecha.value = elemento.asistencia_fecha;
     formulario.asistencia_estado.value = elemento.asistencia_estado;
 
@@ -144,8 +145,6 @@ const traerDatos = (e) => {
 
     btnGuardar.parentElement.style.display = 'none';
     btnGuardar.disabled = true;
-    btnBuscar.parentElement.style.display = 'none';
-    btnBuscar.disabled = true;
     btnModificar.parentElement.style.display = '';
     btnModificar.disabled = false;
     btnCancelar.parentElement.style.display = '';
