@@ -4,22 +4,22 @@ import Swal from "sweetalert2";
 import DataTable from "datatables.net-bs5";
 import { lenguaje } from "../lenguaje";
 
-const formulario = document.getElementById('formularioSolvencia');
-const tabla = document.getElementById('tablaSolvencia');
+const formulario = document.getElementById('formularioPago');
+const tabla = document.getElementById('tablaPago');
 const btnGuardar = document.getElementById('btnGuardar');
 const btnModificar = document.getElementById('btnModificar');
 const btnCancelar = document.getElementById('btnCancelar');
 
 let contador = 1;
 
-const datatable = new DataTable('#tablaSolvencia', {
+const datatable = new DataTable('#tablaPago', {
     language: lenguaje,
     pageLength: '15',
     lengthMenu: [3, 9, 11, 25, 100],
     columns: [
         {
             title: 'No.',
-            data: 'matricula_id',
+            data: 'pago_id',
             width: '2%',
             render: (data, type, row, meta) => {
                 return meta.row + 1;
@@ -30,33 +30,43 @@ const datatable = new DataTable('#tablaSolvencia', {
             data: 'alumno_nombre'
         },
         {
-            title: 'Curso',
-            data: 'curso_nombre'
+            title: 'Grado',
+            data: 'grado_nombre'
         },
         {
-            title: 'Fecha',
-            data: 'matricula_fecha'
+            title: 'Monto',
+            data: 'grado_monto'
+        },
+        {
+            title: 'Mes',
+            data: 'pago_mes'
+        },
+        {
+            title: 'Fecha de Pago',
+            data: 'pago_fecha'
         },
         {
             title: 'Estado',
-            data: 'matricula_estado'
+            data: 'pago_estado'
         },
         {
             title: 'Acciones',
-            data: 'matricula_id',
+            data: 'pago_id',
             searchable: false,
             orderable: false,
             render: (data, type, row, meta) => {
                 return `
                     <button class='btn btn-warning modificar' 
-                        data-matricula_id="${data}" 
-                        data-alumno_id="${row.alumno_nombre}" 
-                        data-curso_id="${row.curso_nombre}" 
-                        data-matricula_fecha="${row.matricula_fecha}" 
-                        data-matricula_estado="${row.matricula_estado}" >
+                        data-pago_id="${data}" 
+                        data-alumno_nombre="${row.alumno_nombre}"  
+                        data-grado_nombre="${row.grado_nombre}"
+                        data-grado_monto="${row.grado_monto}" 
+                        data-pago_mes="${row.pago_mes}" 
+                        data-pago_fecha="${row.pago_fecha}"
+                        data-pago_estado="${row.pago_estado}" >
                         <i class='bi bi-pencil-square'></i>Modificar
                     </button>
-                    <button class='btn btn-danger eliminar' data-matricula_id="${data}">Eliminar</button>`;
+                    <button class='btn btn-danger eliminar' data-pago_id="${data}">Eliminar</button>`;
             }
         }
     ]
@@ -70,7 +80,7 @@ btnCancelar.disabled = true;
 const guardar = async (e) => {
     e.preventDefault();
 
-    if (!validarFormulario(formulario, ['matricula_id'])) {
+    if (!validarFormulario(formulario, ['pago_id'])) {
         Swal.fire({
             title: "Campos vacios",
             text: "Debe llenar todos los campos",
@@ -81,7 +91,7 @@ const guardar = async (e) => {
 
     try {
         const body = new FormData(formulario);
-        const url = "/igc_final/API/solvencia/guardar";
+        const url = "/igc_final/API/pago/guardar";
         const config = {
             method: 'POST',
             body
@@ -112,7 +122,7 @@ const guardar = async (e) => {
 
 const buscar = async () => {
     try {
-        const url = "/igc_final/API/solvencia/buscar";
+        const url = "/igc_final/API/pago/buscar";
         const config = {
             method: 'GET'
         };
@@ -135,11 +145,16 @@ buscar();
 const traerDatos = (e) => {
     const elemento = e.currentTarget.dataset;
 
-    formulario.matricula_id.value = elemento.matricula_id;
-    formulario.matricula_alumno.value = elemento.matricula_alumno;
-    formulario.matricula_curso.value = elemento.matricula_curso;
-    formulario.matricula_fecha.value = elemento.matricula_fecha;
-    formulario.matricula_estado.value = elemento.matricula_estado;
+    formulario.pago_id.value = elemento.pago_id;
+    formulario.pago_alumno.value = elemento.pago_alumno;
+    formulario.pago_mes.value = elemento.pago_mes;
+    formulario.pago_fecha.value = elemento.pago_fecha;
+    formulario.pago_estado.value = elemento.pago_estado;
+
+
+    
+
+
     tabla.parentElement.parentElement.style.display = 'none';
 
     btnGuardar.parentElement.style.display = 'none';
@@ -175,7 +190,7 @@ const modificar = async (e) => {
 
     try {
         const body = new FormData(formulario);
-        const url = "/igc_final/API/solvencia/modificar";
+        const url = "/igc_final/API/pago/modificar";
         const config = {
             method: 'POST',
             body
@@ -206,7 +221,7 @@ const modificar = async (e) => {
 };
 
 const eliminar = async (e) => {
-    const matricula_id = e.currentTarget.dataset.matricula_id;
+    const pago_id = e.currentTarget.dataset.pago_id;
 
     let confirmacion = await Swal.fire({
         icon: 'question',
@@ -222,8 +237,8 @@ const eliminar = async (e) => {
     if (confirmacion.isConfirmed) {
         try {
             const body = new FormData();
-            body.append('matricula_id', matricula_id);
-            const url = "/igc_final/API/solvencia/eliminar";
+            body.append('pago_id', pago_id);
+            const url = "/igc_final/API/pago/eliminar";
             const config = {
                 method: 'POST',
                 body

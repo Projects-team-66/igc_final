@@ -60,12 +60,14 @@ $router->get('/API/asistencia/buscar', [AsistenciaController::class, 'buscarAPI'
 $router->post('/API/asistencia/guardar', [AsistenciaController::class, 'guardarAPI']);
 $router->post('/API/asistencia/modificar', [AsistenciaController::class, 'modificarAPI']);
 $router->post('/API/asistencia/eliminar', [AsistenciaController::class, 'eliminarAPI']);
+
 //SOLVENCIA
+// Rutas de la aplicación
+$router->get('/', [AppController::class, 'index']);
 $router->get('/solvencia', [SolvenciaController::class, 'index']);
 $router->get('/API/solvencia/buscar', [SolvenciaController::class, 'buscarAPI']);
-$router->post('/API/solvencia/guardar', [SolvenciaController::class, 'guardarAPI']);
-$router->post('/API/solvencia/modificar', [SolvenciaController::class, 'modificarAPI']);
-$router->post('/API/solvencia/eliminar', [SolvenciaController::class, 'eliminarAPI']);
+
+
 
 //PAGOS
 $router->get('/pago', [PagoController::class, 'index']);
@@ -73,6 +75,8 @@ $router->get('/API/pago/buscar', [PagoController::class, 'buscarAPI']);
 $router->post('/API/pago/guardar', [PagoController::class, 'guardarAPI']);
 $router->post('/API/pago/modificar', [PagoController::class, 'modificarAPI']);
 $router->post('/API/pago/eliminar', [PagoController::class, 'eliminarAPI']);
+
+
 //REPORTE DE ASISTENCIA
 $router->get('/reporte_asistencia', [ReporteAsistenciaController::class, 'index']);
 

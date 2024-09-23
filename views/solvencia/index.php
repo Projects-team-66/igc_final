@@ -1,62 +1,53 @@
-<h1 class="text-center">Registro de Solvencia</h1>
+<h1 class="text-center">Solvencia</h1>
 <div class="row justify-content-center mb-4">
     <form id="formularioSolvencia" class="border shadow p-4 col-lg-10">
-        <input type="hidden" name="matricula_id" id="matricula_id">
+        <input type="hidden" name="pago_id" id="pago_id">
         <div class="row mb-3">
             <div class="col">
-                <label for="matricula_alumno">Alumno</label>
-                <select name="matricula_alumno" id="matricula_alumno" class="form-control">
+                <label for="pago_mes" class="form-label">Mes</label>
+                <select name="pago_mes" id="pago_mes" class="form-control">
                     <option value="#">Seleccione...</option>
-                    <?php foreach ($alumnos as $alumno) : ?>
-                        <option value="<?= $alumno['alumno_id'] ?>"> <?= $alumno['alumno_nombre'] ?> <?= $alumno['alumno_apellido'] ?></option>';
-                    <?php endforeach ?>
+                    <option value="ENERO">Enero</option>
+                    <option value="FEBRERO">Febrero</option>
+                    <option value="MARZO">Marzo</option>
+                    <option value="ABRIL">Abril</option>
+                    <option value="MAYO">Mayo</option>
+                    <option value="JUNIO">Junio</option>
+                    <option value="JULIO">Julio</option>
+                    <option value="AGOSTO">Agosto</option>
+                    <option value="SEPTIEMBRE">Septiembre</option>
+                    <option value="OCTUBRE">Octubre</option>
+                    <option value="NOVIEMBRE">Noviembre</option>
+                    <option value="DICIEMBRE">Diciembre</option>
                 </select>
             </div>
         </div>
-        <div class="row mb-3">
+        <div class="row text-center mb-3">
             <div class="col">
-                <label for="matricula_curso">Curso</label>
-                <select name="matricula_curso" id="matricula_curso" class="form-control">
-                    <option value="#">Seleccione...</option>
-                    <?php foreach ($cursos as $curso) : ?>
-                        <option value="<?= $curso['curso_id'] ?>"> <?= $curso['curso_nombre'] ?></option>';
-                    <?php endforeach ?>
-                </select>
-            </div>
-        </div>
-        <div class="row mb-3">
-            <div class="col-md-6">
-                <label for="matricula_fecha" class="form-label">Fecha</label>
-                <input type="date" name="matricula_fecha" id="matricula_fecha" class="form-control">
-            </div>
-            <div class="col-md-6">
-                <label for="matricula_estado" class="form-label">Estado</label>
-                <select name="matricula_estado" id="matricula_estado" class="form-control">
-                <option value="#">Seleccione...</option>
-                    <option value="SOLVENTE">Solvente</option>
-                    <option value="PENDIENTE">Pendiente</option>
-                </select>
-            </div>
-        </div>
-        <div class="row text-center">
-            <div class="col">
-                <button type="submit" form="formularioSolvencia" id="btnGuardar" class="btn btn-primary w-100">Guardar</button>
-            </div>
-            <div class="col">
-                <button type="button" id="btnModificar" class="btn btn-warning w-100">Modificar</button>
-            </div>
-            <div class="col">
-                <button type="button" id="btnCancelar" class="btn btn-danger w-100">Cancelar</button>
+                <button type="button" id="btnBuscar" class="btn btn-primary w-100">Buscar</button>
             </div>
         </div>
     </form>
 </div>
-<h2 class="text-center mb-4">Solvencias Registradas</h2>
+
+<h2 class="text-center mb-4">Solvencia Registrada</h2>
 <div class="row">
     <div class="col table-responsive">
         <table class="table table-bordered table-hover w-100" id="tablaSolvencia">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Grado</th>
+                    <th>Monto</th>
+                    <th>Fecha</th>
+                    <th>Estado</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Aquí se llenará la tabla con los datos -->
+            </tbody>
         </table>
     </div>
 </div>
-</div>
+
 <script src="<?= asset('./build/js/solvencia/index.js') ?>"></script>
