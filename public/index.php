@@ -12,6 +12,8 @@ use Controllers\SeccionController;
 use Controllers\GradoController;
 use Controllers\PagoController;
 use Controllers\SolvenciaController;
+use Controllers\ReporteAsistenciaController;
+use Controllers\AsignacionAlumnoController;
 
 $router = new Router();
 $router->setBaseURL('/' . $_ENV['APP_NAME']);
@@ -35,12 +37,14 @@ $router->post('/API/tutor/eliminar', [TutorController::class, 'eliminarAPI']);
 $router->get('/grado', [GradoController::class, 'index']);
 $router->get('/API/grado/buscar', [GradoController::class, 'buscarAPI']);
 $router->post('/API/grado/guardar', [GradoController::class, 'guardarAPI']);
+$router->post('/API/grado/modificar', [GradoController::class, 'modificarAPI']);
 $router->post('/API/grado/eliminar', [GradoController::class, 'eliminarAPI']);
 
 //SECCION
 $router->get('/seccion', [SeccionController::class, 'index']);
 $router->get('/API/seccion/buscar', [SeccionController::class, 'buscarAPI']);
 $router->post('/API/seccion/guardar', [SeccionController::class, 'guardarAPI']);
+$router->post('/API/seccion/modificar', [SeccionController::class, 'modificarAPI']);
 $router->post('/API/seccion/eliminar', [SeccionController::class, 'eliminarAPI']);
 
 //PROFESORES
@@ -56,7 +60,6 @@ $router->get('/API/asistencia/buscar', [AsistenciaController::class, 'buscarAPI'
 $router->post('/API/asistencia/guardar', [AsistenciaController::class, 'guardarAPI']);
 $router->post('/API/asistencia/modificar', [AsistenciaController::class, 'modificarAPI']);
 $router->post('/API/asistencia/eliminar', [AsistenciaController::class, 'eliminarAPI']);
-
 //SOLVENCIA
 $router->get('/solvencia', [SolvenciaController::class, 'index']);
 $router->get('/API/solvencia/buscar', [SolvenciaController::class, 'buscarAPI']);
@@ -70,8 +73,15 @@ $router->get('/API/pago/buscar', [PagoController::class, 'buscarAPI']);
 $router->post('/API/pago/guardar', [PagoController::class, 'guardarAPI']);
 $router->post('/API/pago/modificar', [PagoController::class, 'modificarAPI']);
 $router->post('/API/pago/eliminar', [PagoController::class, 'eliminarAPI']);
+//REPORTE DE ASISTENCIA
+$router->get('/reporte_asistencia', [ReporteAsistenciaController::class, 'index']);
 
 
-
+//ASIGNACION ALUMNOS
+$router->get('/asignacionalumno', [AsignacionAlumnoController::class, 'index']);
+$router->get('/API/asignacionalumno/buscar', [AsignacionAlumnoController::class, 'buscarAPI']);
+$router->post('/API/asignacionalumno/guardar', [AsignacionAlumnoController::class, 'guardarAPI']);
+$router->post('/API/asignacionalumno/modificar', [AsignacionAlumnoController::class, 'modificarAPI']);
+$router->post('/API/asignacionalumno/eliminar', [AsignacionAlumnoController::class, 'eliminarAPI']);
 // Comprueba y valida las rutas, que existan y les asigna las funciones del Controlador
 $router->comprobarRutas();

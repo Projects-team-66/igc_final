@@ -187,49 +187,48 @@ const cancelar = () => {
 }
 
 const modificar = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
     if (!validarFormulario(formulario)) {
         Swal.fire({
             title: "Campos vacios",
             text: "Debe llenar todos los campos",
             icon: "info"
-        })
-        return
+        });
+        return;
     }
 
     try {
-        const body = new FormData(formulario)
-        const url = "/igc_final/API/alumnos/modificar"
+        const body = new FormData(formulario);
+        const url = "/igc_final/API/alumnos/modificar";
         const config = {
             method: 'POST',
             body
-        }
+        };
 
         const respuesta = await fetch(url, config);
         const data = await respuesta.json();
         const { codigo, mensaje, detalle } = data;
-        console.log(data);
-        let icon = 'info'
+        let icon = 'info';
         if (codigo == 1) {
-            icon = 'success'
+            icon = 'success';
             formulario.reset();
             buscar();
             cancelar();
         } else {
-            icon = 'error'
+            icon = 'error';
             console.log(detalle);
         }
 
         Toast.fire({
             icon: icon,
             title: mensaje
-        })
+        });
 
     } catch (error) {
         console.log(error);
     }
-}
+};
 
 const eliminar = async (e) => {
     const alumno_id = e.currentTarget.dataset.alumno_id

@@ -3,33 +3,36 @@
 namespace Controllers;
 
 use Exception;
-use Model\Grado;
+use Model\Alumno;
 use Model\Seccion;
+use Model\AsignacionAlumno;
 use MVC\Router;
 
-class SeccionController
+class AsignacionAlumnoController
 {
     public static function index(Router $router) {
-        $grados = Grado::obtenerGradoconQuery();
+        $alumnos = Alumno::obtenerAlumnosconQuery();
+        $seccion = Seccion::obtenerSeccionconQuery();
         
-        $router->render('seccion/index', [
-            'grados' => $grados
+        $router->render('asignacionalumno/index', [
+            'alumnos' => $alumnos,
+            'seccion' => $seccion
         ]);
     }
 
  public static function guardarAPI()
 {
-    $_POST['seccion_nombre'] = htmlspecialchars($_POST['seccion_nombre']);
-    $_POST['seccion_grado'] = filter_var($_POST['seccion_grado'], FILTER_SANITIZE_NUMBER_INT);
+    $_POST['asignacion_alumno'] = htmlspecialchars($_POST['asignacion_alumno']);
+    $_POST['asignacion_seccion'] = htmlspecialchars($_POST['asignacion_fseccion']);
 
     try {
-        $seccion = new Seccion($_POST);
-        $resultado = $seccion->crear();
+        $asignacionalumno = new AsignacionAlumno($_POST);
+        $resultado = $asignacionalumno->crear();
         if ($resultado) {
             http_response_code(200);
             echo json_encode([
                 'codigo' => 1,
-                'mensaje' => 'Seccion Registrada Correctamente',
+                'mensaje' => 'Alumno Asignado Correctamente',
             ]);
         } else {
             throw new Exception('Error al guardar en la base de datos');
@@ -38,7 +41,7 @@ class SeccionController
         http_response_code(500);
         echo json_encode([
             'codigo' => 0,
-            'mensaje' => 'Error al registrar Seccion',
+            'mensaje' => 'Error al Asignar Alumno',
             'detalle' => $e->getMessage(),
             'trace' => $e->getTraceAsString() // Agrega esto para más información
         ]);
@@ -49,19 +52,19 @@ class SeccionController
     public static function buscarAPI()
     {
         try {
-            $secciones = Seccion::obtenerSecciones();
+            $asignaciones = AsignacionAlumno::obtenerAlumnosAsignados();
             http_response_code(200);
             echo json_encode([
                 'codigo' => 1,
                 'mensaje' => 'Datos encontrados',
                 'detalle' => '',
-                'datos' => $secciones
+                'datos' => $asignaciones
             ]);
         } catch (Exception $e) {
             http_response_code(500);
             echo json_encode([
                 'codigo' => 0,
-                'mensaje' => 'Error al buscar Secciones',
+                'mensaje' => 'Error al buscar Asignaciones',
                 'detalle' => $e->getMessage(),
             ]);
         }
@@ -69,23 +72,23 @@ class SeccionController
 
     public static function modificarAPI()
     {
-        $_POST['seccion_nombre'] = htmlspecialchars($_POST['seccion_nombre']);
-        $id = filter_var($_POST['seccion_id'], FILTER_SANITIZE_NUMBER_INT);
+        $_POST['asignacion_alumno'] = htmlspecialchars($_POST['asignacion_alumno']);
+        $id = filter_var($_POST['asignacion_id'], FILTER_SANITIZE_NUMBER_INT);
         
         try {
-            $seccion = Seccion::find($id);
-            $seccion->sincronizar($_POST);
-            $seccion->actualizar();
+            $asignacion = AsignacionAlumno::find($id);
+            $asignacion->sincronizar($_POST);
+            $asignacion->actualizar();
             http_response_code(200);
             echo json_encode([
                 'codigo' => 1,
-                'mensaje' => 'Datos de la Seccion modificados exitosamente',
+                'mensaje' => 'Modificacion Exitosa',
             ]);
         } catch (Exception $e) {
             http_response_code(500);
             echo json_encode([
                 'codigo' => 0,
-                'mensaje' => 'Error al modificar los datos',
+                'mensaje' => 'Error al Modificar los datos',
                 'detalle' => $e->getMessage(),
             ]);
         }
@@ -93,21 +96,21 @@ class SeccionController
 
     public static function eliminarAPI()
     {
-        $id = filter_var($_POST['seccion_id'], FILTER_SANITIZE_NUMBER_INT);
+        $id = filter_var($_POST['asignacion_id'], FILTER_SANITIZE_NUMBER_INT);
 
         try {
-            $seccion = Seccion::find($id);
-            $seccion->eliminar();
+            $asignacion = AsignacionAlumno::find($id);
+            $asignacion->eliminar();
             http_response_code(200);
             echo json_encode([
                 'codigo' => 1,
-                'mensaje' => 'Seccion eliminada exitosamente',
+                'mensaje' => 'Asignacion Eliminada',
             ]);
         } catch (Exception $e) {
             http_response_code(500);
             echo json_encode([
                 'codigo' => 0,
-                'mensaje' => 'Error al eliminar la Seccion',
+                'mensaje' => 'Error al eliminar la Asignacion',
                 'detalle' => $e->getMessage(),
             ]);
         }
