@@ -35,7 +35,7 @@ class LoginController
     {
         isAuth();
         hasPermission(['INSTITUTO_ADMIN']);
-        $router->render('pages/menu', [], 'layouts/menu' );
+        $router->render('pages/index', [], 'layouts/menu' );
     }
 
 
