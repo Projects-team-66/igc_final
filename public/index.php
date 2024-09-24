@@ -11,7 +11,6 @@ use Controllers\TutorController;
 use Controllers\SeccionController;
 use Controllers\GradoController;
 use Controllers\PagoController;
-use Controllers\SolvenciaController;
 use Controllers\ReporteAsistenciaController;
 use Controllers\AsignacionAlumnoController;
 
@@ -60,13 +59,6 @@ $router->get('/API/asistencia/buscar', [AsistenciaController::class, 'buscarAPI'
 $router->post('/API/asistencia/guardar', [AsistenciaController::class, 'guardarAPI']);
 $router->post('/API/asistencia/modificar', [AsistenciaController::class, 'modificarAPI']);
 $router->post('/API/asistencia/eliminar', [AsistenciaController::class, 'eliminarAPI']);
-
-//SOLVENCIA
-// Rutas de la aplicación
-$router->get('/solvencia', [SolvenciaController::class, 'index']);
-$router->post('/solvencia/generar', [SolvenciaController::class, 'generarPdf']);
-
-
 
 //PAGOS
 $router->get('/pago', [PagoController::class, 'index']);
