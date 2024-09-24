@@ -7,47 +7,27 @@
                 <label for="pago_mes" class="form-label">Mes</label>
                 <select name="pago_mes" id="pago_mes" class="form-control">
                     <option value="#">Seleccione...</option>
-                    <option value="ENERO">Enero</option>
-                    <option value="FEBRERO">Febrero</option>
-                    <option value="MARZO">Marzo</option>
-                    <option value="ABRIL">Abril</option>
-                    <option value="MAYO">Mayo</option>
-                    <option value="JUNIO">Junio</option>
-                    <option value="JULIO">Julio</option>
-                    <option value="AGOSTO">Agosto</option>
-                    <option value="SEPTIEMBRE">Septiembre</option>
-                    <option value="OCTUBRE">Octubre</option>
-                    <option value="NOVIEMBRE">Noviembre</option>
-                    <option value="DICIEMBRE">Diciembre</option>
+                    <option value="1">Enero</option>
+                    <option value="2">Febrero</option>
+                    <option value="3">Marzo</option>
+                    <option value="4">Abril</option>
+                    <option value="5">Mayo</option>
+                    <option value="6">Junio</option>
+                    <option value="7">Julio</option>
+                    <option value="8">Agosto</option>
+                    <option value="9">Septiembre</option>
+                    <option value="10">Octubre</option>
+                    <option value="11">Noviembre</option>
+                    <option value="12">Diciembre</option>
                 </select>
             </div>
         </div>
         <div class="row text-center mb-3">
             <div class="col">
-                <button type="button" id="btnBuscar" class="btn btn-primary w-100">Buscar</button>
+                <button type="button" id="generarPdf" class="btn btn-warning w-100">Generar PDF</button>
             </div>
         </div>
     </form>
-</div>
-
-<h2 class="text-center mb-4">Solvencia Registrada</h2>
-<div class="row">
-    <div class="col table-responsive">
-        <table class="table table-bordered table-hover w-100" id="tablaSolvencia">
-            <thead>
-                <tr>
-                    <th>Nombre</th>
-                    <th>Grado</th>
-                    <th>Monto</th>
-                    <th>Fecha</th>
-                    <th>Estado</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Aquí se llenará la tabla con los datos -->
-            </tbody>
-        </table>
-    </div>
 </div>
 
 <script src="<?= asset('./build/js/solvencia/index.js') ?>"></script>

@@ -17,9 +17,9 @@
         }
     },
     "require": {
-        "mpdf/mpdf": "^8.1",
+        "mpdf/mpdf": "^8.2",
         "phpmailer/phpmailer": "^6.6",
-        "dompdf/dompdf": "^3.0",
+        "dompdf/dompdf": "^2.0",
         "vlucas/phpdotenv": "^5.5"
     }
 }

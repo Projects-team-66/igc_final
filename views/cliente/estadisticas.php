@@ -1,4 +1,4 @@
-<h1 class="class text-center">GRAFICA DE ESTADISTICAS</h1>
+<h1 class="class text-center">ESTADÍSTICAS CON CHART.JS</h1>
 
 
 <h3 class="class text-center">Ventas realizadas por los clientes</h3>

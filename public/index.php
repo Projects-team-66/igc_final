@@ -14,6 +14,7 @@ use Controllers\PagoController;
 use Controllers\SolvenciaController;
 use Controllers\ReporteAsistenciaController;
 use Controllers\AsignacionAlumnoController;
+use Controllers\DetalleController;
 
 $router = new Router();
 $router->setBaseURL('/' . $_ENV['APP_NAME']);
@@ -63,9 +64,8 @@ $router->post('/API/asistencia/eliminar', [AsistenciaController::class, 'elimina
 
 //SOLVENCIA
 // Rutas de la aplicación
-$router->get('/', [AppController::class, 'index']);
 $router->get('/solvencia', [SolvenciaController::class, 'index']);
-$router->get('/API/solvencia/buscar', [SolvenciaController::class, 'buscarAPI']);
+$router->post('/solvencia/generar', [SolvenciaController::class, 'generarPdf']);
 
 
 
@@ -89,3 +89,8 @@ $router->post('/API/asignacionalumno/modificar', [AsignacionAlumnoController::cl
 $router->post('/API/asignacionalumno/eliminar', [AsignacionAlumnoController::class, 'eliminarAPI']);
 // Comprueba y valida las rutas, que existan y les asigna las funciones del Controlador
 $router->comprobarRutas();
+
+//GRAFICA
+$router->get('/cliente/estadisticas', [DetalleController::class,'estadisticas']);
+$router->get('/API/detalle/estadistica', [DetalleController::class,'detalleVentasAPI']);
+

@@ -5,35 +5,25 @@ namespace Controllers;
 use Mpdf\Mpdf;
 use MVC\Router;
 use Model\Pago;
-use Model\Alumno;
-use Model\Grado;
 use Exception;
 
 class SolvenciaController
 {
     public static function index(Router $router)
     {
-        // Usar el método del modelo para obtener los Alumnos
-        $alumnos = Alumno::obtenerAlumnosconQuery();
-        $grados = Grado::obtenerGradoconQuery();
-
-        // Pasar los alumnos y grados a la vista
-        $router->render('solvencia/index', [
-            'alumnos' => $alumnos,
-            'grados' => $grados
-        ]);
+        // Renderiza la vista principal de solvencia
+        $router->render('solvencia/index', []); // Ajustar el nombre del archivo
     }
-    public static function ObtenerPago()
+
+    public static function ObtenerPagoPorMes($mes)
     {
         $sql = "SELECT 
                     p.pago_id,
                     a.alumno_nombre,
-                    s.seccion_nombre,
                     g.grado_nombre,
                     g.grado_monto,
                     p.pago_fecha,
-                    p.pago_estado,
-                    p.pago_mes
+                    p.pago_estado
                 FROM 
                     pago p
                 JOIN 
@@ -45,32 +35,45 @@ class SolvenciaController
                 JOIN 
                     grado g ON s.seccion_grado = g.grado_id
                 WHERE 
-                    p.pago_situacion = 1;";
+                    p.pago_situacion = 1 AND MONTH(p.pago_fecha) = ?"; // Filtra por mes
 
-        return Pago::fetchArray($sql); // Asegúrate de que esta función esté disponible en la clase Pago
+        return Pago::fetchArray($sql, [$mes]); // Pasa el mes como parámetro
     }
 
-    public static function pdf(Router $router)
+    public static function generarPdf(Router $router)
     {
-        $pagos = static::ObtenerPago(); // Obtén todos los pagos
+        try {
+            // Obtener el mes desde el POST
+            $mesSeleccionado = $_POST['pago_mes'];
 
-        // Crear un objeto mPDF
-        $mpdf = new Mpdf([
-            "orientation" => "P",
-            "default_font_size" => 12,
-            "default_font" => "arial",
-            "format" => "Letter",
-            "mode" => 'utf-8'
-        ]);
-        $mpdf->SetMargins(50, 40, 25);
+            // Obtener los pagos correspondientes al mes
+            $pagos = static::ObtenerPagoPorMes($mesSeleccionado);
 
-        // Cargar la vista para el PDF
-        $html = $router->load('solvencia/pdf', [
-            'pagos' => $pagos
-        ]);
+            // Crear un objeto mPDF
+            $mpdf = new Mpdf([
+                "orientation" => "P",
+                "default_font_size" => 12,
+                "default_font" => "arial",
+                "format" => "Letter",
+                "mode" => 'utf-8'
+            ]);
+            $mpdf->SetMargins(50, 40, 25);
 
-        // Escribir el HTML en el documento PDF
-        $mpdf->WriteHTML($html);
-        $mpdf->Output(); // Salida del PDF
+            // Capturar el HTML generado por la vista para el PDF
+            ob_start(); // Iniciar buffer de salida
+            $router->render('solvencia/generarPdf', [
+                'pagos' => $pagos,
+                'mes' => $mesSeleccionado
+            ]);
+            $html = ob_get_clean(); // Obtener el HTML generado
+
+            // Escribir el HTML en el documento PDF
+            $mpdf->WriteHTML($html);
+            $mpdf->Output(); // Salida del PDF
+
+        } catch (Exception $e) {
+            // Manejo de error
+            echo 'Se produjo un error al generar el PDF: ',  $e->getMessage();
+        }
     }
 }
