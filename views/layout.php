@@ -76,115 +76,6 @@
 
 <body>
 
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark navbar-custom fixed-top">
-        <div class="container-fluid">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <a class="navbar-brand" href="/igc_final/">
-                <!-- <img src="<?= asset('images/escudo1.png') ?>" width="35" alt="Logo"> -->
-                I G C
-            </a>
-            <div class="collapse navbar-collapse" id="navbarToggler">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="margin: 0;">
-                    <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="/igc_final/"><i class="bi bi-house-fill me-2"></i> Inicio</a>
-                    </li>
-
-                    <div class="nav-item dropdown ">
-                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
-                            <i class="bi bi-mortarboard"></i>Alumnos
-                        </a>
-                        <ul class="dropdown-menu" style="margin: 0;">
-                            <li>
-                                <a class="dropdown-item nav-link text-white " href="/igc_final/alumnos"><i class="bi bi-person-plus"></i> Regístro de Alumnos</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item nav-link text-white " href="/igc_final/alumnos"><i class="bi bi-journal-text"></i> Reporte de Asistencias</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item nav-link text-white " href="/igc_final/alumnos"><i class="bi bi-flag-fill"></i> Reporte de Alumnos</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="bi bi-fingerprint"></i> Tutores
-                        </a>
-                        <ul class="dropdown-menu" style="margin: 0;">
-                            <li>
-                                <a class="dropdown-item" href="/igc_final/tutor"><i class="bi bi-person-plus"></i> Registro</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="nav-item dropdown ">
-                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
-                            <i class="bi bi-person-video3"></i> Gestión Profesores
-                        </a>
-                        <ul class="dropdown-menu" style="margin: 0;">
-                            <li>
-                                <a class="dropdown-item nav-link text-white " href="/igc_final/profesores"><i class="bi bi-person-fill-add"></i> Regístro de Profesores</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item nav-link text-white " href="/igc_final/asistencia"><i class="bi bi-journal-text"></i> Asistencia de Alumnos</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item nav-link text-white " href="/igc_final/reporte_asistencia"><i class="bi bi-flag"></i> Generar Reporte de Asistencia</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item nav-link text-white " href="/igc_final/reporte_conducta"><i class="bi bi-flag"></i> Generar Reporte de Conducta</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item nav-link text-white " href="/igc_final/actividades"><i class="bi bi-file-text-fill"></i> Ingresar Actividades</a>
-                            </li>
-                        </ul>
-                                  
-                    </div>
-                    <div class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="bi bi-pencil-fill"></i> Gestión Academica
-                        </a>
-                        <ul class="dropdown-menu" style="margin: 0;">
-                            <li>
-                                <a class="dropdown-item" href="/igc_final/grado"><i class="bi bi-clipboard2-check"></i> Regístro Grados</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="/igc_final/seccion"><i class="bi bi-clipboard2-check-fill"></i> Regístro Secciones</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="/igc_final/asignacionalumno"><i class="bi bi-person-check-fill"></i> Asignación Alumnos</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="/igc_final/asignacionprofesor"><i class="bi bi-briefcase-fill"></i> Asignación Profesores</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="/igc_final/estadisticas"><i class="bi bi-graph-up-arrow"></i> Estadísticas Grados</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="bi bi-bank"></i> Administración
-                        </a>
-                        <ul class="dropdown-menu" style="margin: 0;">
-                            <li>
-                                <a class="dropdown-item" href="/igc_final/pago"><i class="bi bi-cash-coin"></i> Regístro de Pagos</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="/igc_final/solvencias"><i class="bi bi-newspaper"></i> Certificados de Solvencia</a>
-                            </li>
-                        </ul>
-                    </div>
-                </ul>
-
-                <div class="col-lg-1 d-grid mb-lg-0 mb-2">
-                    <a href="/menu/" class="btn btn-danger"><i class="bi bi-arrow-bar-left"></i> MENÚ</a>
-                </div>
-            </div>
-        </div>
-    </nav>
-
     <!-- Contenido principal -->
     <div class="container-fluid" id="contenidoPrincipal">
         <?php echo $contenido; ?>
@@ -199,13 +90,6 @@
     <div class="progress fixed-bottom" style="height: 6px;">
         <div class="progress-bar progress-bar-animated" id="bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
     </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var navbarHeight = document.querySelector('.navbar').offsetHeight;
-            document.getElementById('contenidoPrincipal').style.marginTop = navbarHeight + 'px';
-        });
-    </script>
 </body>
 
 </html>
