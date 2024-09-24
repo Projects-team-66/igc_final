@@ -13,17 +13,17 @@ function s($html) {
     return $s;
 }
 
-// Función que revisa que el usuario este autenticado
+// SI NO ESTA INICIADA LA SESION ESTA MANDA A LA RAIZ
 function isAuth() {
-    session_start();
-    if(!isset($_SESSION['login'])) {
-        header('Location: /');
+    if(!isset($_SESSION['user'])) {
+        header('Location: /igc_final');
     }
 }
+
 function isAuthApi() {
     getHeadersApi();
     session_start();
-    if(!isset($_SESSION['auth_user'])) {
+    if(!isset($_SESSION['user'])) {
         echo json_encode([    
             "mensaje" => "No esta autenticado",
 
@@ -32,15 +32,14 @@ function isAuthApi() {
         exit;
     }
 }
-
+//SI ESTA SE ACTIVA SIGNIFICA QUE ESTAMOS LOGEADOS
 function isNotAuth(){
-    session_start();
-    if(isset($_SESSION['auth'])) {
-        header('Location: /auth/');
+    if(isset($_SESSION['user'])) {
+        header('Location: menu');
     }
 }
 
-
+//PARA PERMISOS DE USUARIO
 function hasPermission(array $permisos){
 
     $comprobaciones = [];
@@ -51,7 +50,7 @@ function hasPermission(array $permisos){
     }
 
     if(array_search(true, $comprobaciones) !== false){}else{
-        header('Location: /');
+        header('Location: /igc_final/logout');
     }
 }
 
