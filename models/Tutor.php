@@ -32,10 +32,9 @@ class Tutor extends ActiveRecord
     public static function obtenertutorconQuery()
     {
         // Concatenar tutor_nombre y tutor_apellido con un espacio entre ellos
-        $sql = "SELECT tutor_id, tutor_nombre || ' ' || tutor_apellido AS tutor 
-                FROM tutor 
-                WHERE tutor_situacion = 1;";
+        $sql = "SELECT * FROM tutor WHERE tutor_situacion = 1";
 
         return self::fetchArray($sql);
     }
+
 }

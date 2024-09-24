@@ -37,4 +37,16 @@ class Alumno extends ActiveRecord
         $sql = "SELECT * FROM alumnos where alumno_situacion = 1";
         return self::fetchArray($sql);
     }
+
+    //Funcion para que busque los nombres de los alumnos por medio del ID, el id se iguala como array ya que de no ser asi daba conflicto con la function find($id) del Modelo ActiveRecord
+    public static function find($id = [])
+    {
+        if (isset($id[static::$idTabla])) {
+            $idValor = filter_var($id[static::$idTabla], FILTER_SANITIZE_NUMBER_INT);
+            $query = "SELECT * FROM " . static::$tabla . " WHERE " . static::$idTabla . " = " . self::$db->quote($idValor) . " LIMIT 1";
+            $resultado = self::consultarSQL($query);
+            return !empty($resultado) ? new self($resultado[0]) : null; // Devuelve una instancia de Alumno o null si no se encuentra
+        }
+        return null; // Retorna null si no se le da un ID
+    }
 }

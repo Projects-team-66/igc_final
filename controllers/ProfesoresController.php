@@ -14,7 +14,7 @@ class ProfesoresController
         $profesor = Profesores::find(2);
         $router->render('profesores/index', [
             'profesor' => $profesor
-        ]);
+        ], 'layouts/menu');
     }
 
 
@@ -63,7 +63,7 @@ class ProfesoresController
     {
         $_POST['profesor_nombre'] = htmlspecialchars($_POST['profesor_nombre']);
         $id = filter_var($_POST['profesor_id'], FILTER_SANITIZE_NUMBER_INT);
-        
+
         try {
             $profesor = Profesores::find($id);
             $profesor->sincronizar($_POST);
@@ -87,8 +87,27 @@ class ProfesoresController
     {
         $id = filter_var($_POST['profesor_id'], FILTER_SANITIZE_NUMBER_INT);
 
+        if (!$id) {
+            http_response_code(400);
+            echo json_encode([
+                'codigo' => 0,
+                'mensaje' => 'ID de profesor no válido',
+            ]);
+            return;
+        }
+
         try {
             $profesor = Profesores::find($id);
+
+            if (!$profesor) {
+                http_response_code(404);
+                echo json_encode([
+                    'codigo' => 0,
+                    'mensaje' => 'Profesor no encontrado',
+                ]);
+                return;
+            }
+
             $profesor->eliminar();
             http_response_code(200);
             echo json_encode([
