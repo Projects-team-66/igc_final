@@ -34,9 +34,23 @@ class LoginController
     public static function menu(Router $router)
     {
         isAuth();
-        hasPermission(['INSTITUTO_ADMIN']);
-        $router->render('pages/index', [], 'layouts/menu' );
+        hasPermission(['INSTITUTO_ADMIN', 'PROFESOR', 'TUTOR', 'ALUMNO']);
+        $router->render('pages/menu', [], 'layouts/menu' );
     }
+
+    // public static function profesor(Router $router)
+    // {
+    //     isAuth();
+    //     hasPermission(['PROFESOR']);
+    //     $router->render('pages/menu', [], 'layouts/menu' );
+    // }
+
+    // public static function tutor(Router $router)
+    // {
+    //     isAuth();
+    //     hasPermission(['TUTOR', 'ALUMNO']);
+    //     $router->render('pages/menu', [], 'layouts/menu' );
+    // }
 
 
     public static function registroAPI()
