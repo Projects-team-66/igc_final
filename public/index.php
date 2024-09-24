@@ -18,12 +18,23 @@ use Controllers\AsignacionProfesorController;
 use Controllers\CursoController;
 use Controllers\PDFController;
 use Controllers\ReporteConductaController;
+use Controllers\LoginController;
 
 $router = new Router();
 $router->setBaseURL('/' . $_ENV['APP_NAME']);
 
+//login
+$router->get('/', [LoginController::class, 'login']);
+$router->get('/logout', [LoginController::class, 'logout']);
+$router->get('/menu', [LoginController::class, 'menu']);
+$router->get('/profesor', [LoginController::class, 'profesor']);
+$router->get('/tutor', [LoginController::class, 'tutor']);
+$router->get('/registro', [LoginController::class, 'registro']);
+$router->post('/API/registro', [LoginController::class, 'registroAPI']);
+$router->post('/API/login', [LoginController::class, 'loginAPI']);
+
+
 //ALUMNO
-$router->get('/', [AppController::class, 'index']);
 $router->get('/alumnos', [AlumnoController::class, 'index']);
 $router->get('/API/alumnos/buscar', [AlumnoController::class, 'buscarAPI']);
 $router->post('/API/alumnos/guardar', [AlumnoController::class, 'guardarAPI']);
@@ -77,6 +88,8 @@ $router->get('/API/pago/buscar', [PagoController::class, 'buscarAPI']);
 $router->post('/API/pago/guardar', [PagoController::class, 'guardarAPI']);
 $router->post('/API/pago/modificar', [PagoController::class, 'modificarAPI']);
 $router->post('/API/pago/eliminar', [PagoController::class, 'eliminarAPI']);
+
+
 //REPORTE DE ASISTENCIA
 $router->get('/reporte_asistencia', [ReporteAsistenciaController::class, 'index']);
 $router->get('/API/reporte-asistencia/buscar', [ReporteAsistenciaController::class, 'buscarAPI']);
