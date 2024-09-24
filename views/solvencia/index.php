@@ -1,20 +1,30 @@
-<h1 class="text-center">Registro de Solvencia</h1>
+<h1 class="text-center">Solvencia</h1>
 <div class="row justify-content-center mb-4">
     <form id="formularioSolvencia" class="border shadow p-4 col-lg-10">
-        <input type="hidden" name="matricula_id" id="matricula_id">
+        <input type="hidden" name="pago_id" id="pago_id">
         <div class="row mb-3">
             <div class="col">
-                <label for="matricula_alumno">Alumno</label>
-                <select name="matricula_alumno" id="matricula_alumno" class="form-control">
+                <label for="pago_mes" class="form-label">Mes</label>
+                <select name="pago_mes" id="pago_mes" class="form-control">
                     <option value="#">Seleccione...</option>
-                    <?php foreach ($alumnos as $alumno) : ?>
-                        <option value="<?= $alumno['alumno_id'] ?>"> <?= $alumno['alumno_nombre'] ?> <?= $alumno['alumno_apellido'] ?></option>';
-                    <?php endforeach ?>
+                    <option value="1">Enero</option>
+                    <option value="2">Febrero</option>
+                    <option value="3">Marzo</option>
+                    <option value="4">Abril</option>
+                    <option value="5">Mayo</option>
+                    <option value="6">Junio</option>
+                    <option value="7">Julio</option>
+                    <option value="8">Agosto</option>
+                    <option value="9">Septiembre</option>
+                    <option value="10">Octubre</option>
+                    <option value="11">Noviembre</option>
+                    <option value="12">Diciembre</option>
                 </select>
             </div>
         </div>
-        <div class="row mb-3">
+        <div class="row text-center mb-3">
             <div class="col">
+                <button type="button" id="generarPdf" class="btn btn-warning w-100">Generar PDF</button>
                 <label for="matricula_curso">Curso</label>
                 <select name="matricula_curso" id="matricula_curso" class="form-control">
                     <option value="#">Seleccione...</option>
@@ -51,12 +61,5 @@
         </div>
     </form>
 </div>
-<h2 class="text-center mb-4">Solvencias Registradas</h2>
-<div class="row">
-    <div class="col table-responsive">
-        <table class="table table-bordered table-hover w-100" id="tablaSolvencia">
-        </table>
-    </div>
-</div>
-</div>
+
 <script src="<?= asset('./build/js/solvencia/index.js') ?>"></script>
