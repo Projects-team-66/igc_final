@@ -3,7 +3,7 @@
 <P>USUARIO ADMINISTRADOR</P>
 
 
-<?php var_dump();
+<?php var_dump($_SESSION);
 
 ?>
 
