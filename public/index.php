@@ -16,6 +16,7 @@ use Controllers\ReporteAsistenciaController;
 use Controllers\AsignacionAlumnoController;
 use Controllers\AsignacionProfesorController;
 use Controllers\CursoController;
+use Controllers\PDFController;
 use Controllers\ReporteConductaController;
 
 $router = new Router();
@@ -109,6 +110,8 @@ $router->post('/API/curso/guardar', [CursoController::class, 'guardarAPI']);
 $router->post('/API/curso/modificar', [CursoController::class, 'modificarAPI']);
 $router->post('/API/curso/eliminar', [CursoController::class, 'eliminarAPI']);
 
+//GENERAR PDF
+$router->post('/API/generarPDF', [PDFController::class, 'pdf']);
 
 
 // Comprueba y valida las rutas, que existan y les asigna las funciones del Controlador

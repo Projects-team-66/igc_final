@@ -64,6 +64,7 @@ const datatable = new DataTable('#tablaReporteConducta', {
                 <button class='btn btn-danger eliminar' data-reporte_conducta_id="${data}">
                   <i class='bi bi-trash'></i> 
                 </button>
+                <button class='btn btn-success mostrarpdf' data-reporte_conducta_id='${data}'><i class="bi bi-clipboard2-check-fill"></i></button>
             `;
 
                 return html;
@@ -286,6 +287,38 @@ const eliminar = async (e) => {
     }
 
 }
+
+const generarPDF = async (e) => {
+    const id = e.currentTarget.dataset.usuario;
+
+    console.log(id)
+    
+
+    try {
+        const body = new FormData();
+        body.append('reporte_conducta_id', id);
+
+        const url = '/igc_final/API/generarPDF';
+        const config = {
+            method: 'POST',
+            body,
+        };
+
+        const respuesta = await fetch(url, config);
+
+       
+        const blob = await respuesta.blob();
+
+        
+        const urlBlob = window.URL.createObjectURL(blob);
+        window.open(urlBlob, '_blank'); 
+
+    } catch (error) {
+        console.log('Error al generar el PDF:', error);
+    }
+
+    
+};
 
 formulario.addEventListener('submit', guardar)
 btnCancelar.addEventListener('click', cancelar)
