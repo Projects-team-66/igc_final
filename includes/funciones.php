@@ -39,7 +39,7 @@ function isNotAuth(){
     }
 }
 
-
+//PARA PERMISOS DE USUARIO
 function hasPermission(array $permisos){
 
     $comprobaciones = [];
@@ -50,7 +50,7 @@ function hasPermission(array $permisos){
     }
 
     if(array_search(true, $comprobaciones) !== false){}else{
-        header('Location: /');
+        header('Location: /igc_final/logout');
     }
 }
 
