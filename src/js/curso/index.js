@@ -49,9 +49,12 @@ const datatable = new DataTable('#tablaCurso', {
                         data-curso_nombre="${row.curso_nombre}"
                         data-curso_descripcion="${row.curso_descripcion}"
                         data-curso_creditos="${row.curso_creditos}">
-                        <i class='bi bi-pencil-square'></i>Modificar
-                    </button>
-                    <button class='btn btn-danger eliminar' data-curso_id="${data}">Eliminar</button>`;
+                        <i class='bi bi-pencil-square'></i> 
+                </button>
+                    <button class='btn btn-danger eliminar' data-curso_id="${data}">
+                     <i class='bi bi-trash'></i> 
+                </button>
+                `;
             }
         }
     ]
@@ -64,7 +67,7 @@ btnCancelar.disabled = true;
 
 const guardar = async (e) => {
     btnGuardar.disabled = true,
-    e.preventDefault();
+        e.preventDefault();
 
     if (!validarFormulario(formulario, ['curso_id'])) {
         Swal.fire({
@@ -119,12 +122,12 @@ const buscar = async () => {
 
         const respuesta = await fetch(url, config);
         const data = await respuesta.json();
-        const { datos } = data; 
+        const { datos } = data;
 
-        datatable.clear().draw(); 
+        datatable.clear().draw();
 
         if (datos) {
-            datatable.rows.add(datos).draw(); 
+            datatable.rows.add(datos).draw();
         }
     } catch (error) {
         console.log(error);
@@ -174,6 +177,7 @@ const modificar = async (e) => {
 
     try {
         const body = new FormData(formulario);
+        console.loge(formulario)
         const url = "/igc_final/API/curso/modificar";
         const config = {
             method: 'POST',
@@ -206,7 +210,7 @@ const modificar = async (e) => {
 
 const eliminar = async (e) => {
     const curso_id = e.currentTarget.dataset.curso_id;
-    console.log("ID a eliminar:", curso_id); 
+    console.log("ID a eliminar:", curso_id);
 
     let confirmacion = await Swal.fire({
         icon: 'question',
