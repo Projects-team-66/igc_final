@@ -152,6 +152,9 @@
                                 <a class="dropdown-item" href="/igc_final/seccion"><i class="bi bi-clipboard2-check-fill"></i> Regístro Secciones</a>
                             </li>
                             <li>
+                                <a class="dropdown-item" href="/igc_final/curso"><i class="bi bi-clipboard2-check"></i> Regístro Cursos</a>
+                            </li>
+                            <li>
                                 <a class="dropdown-item" href="/igc_final/asignacionalumno"><i class="bi bi-person-check-fill"></i> Asignación Alumnos</a>
                             </li>
                             <li>

@@ -17,6 +17,8 @@ module.exports = {
     'js/asignacionalumno/index' : './src/js/asignacionalumno/index.js',
     'js/asignacionprofesor/index' : './src/js/asignacionprofesor/index.js',
     'js/reporteconducta/index' : './src/js/reporteconducta/index.js',
+    'js/curso/index' : './src/js/curso/index.js',
+
 
   },
   output: {

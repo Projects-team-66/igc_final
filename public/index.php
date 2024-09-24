@@ -15,6 +15,7 @@ use Controllers\SolvenciaController;
 use Controllers\ReporteAsistenciaController;
 use Controllers\AsignacionAlumnoController;
 use Controllers\AsignacionProfesorController;
+use Controllers\CursoController;
 use Controllers\ReporteConductaController;
 
 $router = new Router();
@@ -101,6 +102,12 @@ $router->post('/API/reporteconducta/guardar', [ReporteConductaController::class,
 $router->post('/API/reporteconducta/modificar', [ReporteConductaController::class, 'modificarAPI']);
 $router->post('/API/reporteconducta/eliminar', [ReporteConductaController::class, 'eliminarAPI']);
 
+//REGISTRO CURSOS
+$router->get('/curso', [CursoController::class, 'index']);
+$router->get('/API/curso/buscar', [CursoController::class, 'buscarAPI']);
+$router->post('/API/curso/guardar', [CursoController::class, 'guardarAPI']);
+$router->post('/API/curso/modificar', [CursoController::class, 'modificarAPI']);
+$router->post('/API/curso/eliminar', [CursoController::class, 'eliminarAPI']);
 
 
 
