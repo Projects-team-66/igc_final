@@ -8,9 +8,7 @@ const formulario = document.getElementById('formularioReporte1');
 const tabla = document.getElementById('tablaReporte1');
 const btnBuscar = document.getElementById('btnBuscar');
 
-let contador = 1;
-
-// Inicializar el DataTable para mostrar los reportes de asistencia
+// Inicializar DataTable
 const datatable = new DataTable('#tablaReporte1', {
     data: null,
     language: lenguaje,
@@ -19,50 +17,43 @@ const datatable = new DataTable('#tablaReporte1', {
     columns: [
         {
             title: 'No.',
-            data: 'reporte_asistencia_id',
-            width: '2%',
+            data: null,
             render: (data, type, row, meta) => {
-                // console.log(meta.ro);
                 return meta.row + 1;
             }
         },
-        { title: 'Alumno', data: 'alumno_nombre' },
-        { title: 'Grado', data: 'grado_nombre' },
-        { title: 'Sección', data: 'seccion_nombre' },
-        { title: 'Curso', data: 'curso_nombre' },
-        { title: 'Asistencia', data: 'asistencia_estado' },
+        { title: 'Alumno', data: 'nombre_completo' }, // Cambiado
+        { title: 'Grado', data: 'grado' }, // Cambiado
+        { title: 'Sección', data: 'seccion' }, // Cambiado
+        { title: 'Curso', data: 'curso' }, // Cambiado
+        { title: 'Asistencia', data: 'asistencia' }, // Cambiado
         {
             title: 'Acciones',
-            data: 'profesor_id',
+            data: null,
             searchable: false,
             orderable: false,
-            render: (data, type, row, meta) => {
-                let html = `
-                <button class='btn btn-warning pdf' data-profesor_id="${data}">PDF </button>
-            `;
-            
-                return html;
+            render: (data, type, row) => {
+                return `<button class='btn btn-warning pdf' data-profesor_id="${data.profesor_id}">PDF</button>`;
             }
         },
     ]
 });
 
-// Función para buscar los reportes de asistencia en función del grado y la sección seleccionados
+// Función para buscar los reportes de asistencia
 const buscarAsistencia = async () => {
-    const grado_id = document.getElementById('reporte_asis_grado').value;
-    const seccion_id = document.getElementById('reporte_asis_seccion').value;
+    const seccion_id = document.getElementById('reporte_asis_seccion').value; // Cambiado
 
-    if (!grado_id || !seccion_id) {
+    if (!seccion_id) {
         Swal.fire({
-            title: "Campos vacíos",
-            text: "Debe seleccionar un grado y una sección",
+            title: "Campo vacío",
+            text: "Debe seleccionar una sección",
             icon: "info"
         });
         return;
     }
 
     try {
-        const url = `/igc_final/API/asistencia/buscar?grado_id=${grado_id}&seccion_id=${seccion_id}`;
+        const url = `/igc_final/API/reporte_asistencia/buscar?grado_id=${grado_id}&seccion_id=${seccion_id}`;
         const respuesta = await fetch(url, { method: 'GET' });
         const data = await respuesta.json();
 
@@ -87,6 +78,4 @@ const buscarAsistencia = async () => {
     }
 }
 
-// Event listeners
 btnBuscar.addEventListener('click', buscarAsistencia);
-

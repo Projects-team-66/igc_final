@@ -22,9 +22,7 @@ class AsignacionAlumnoController
 
  public static function guardarAPI()
 {
-    $_POST['asignacion_alumno'] = htmlspecialchars($_POST['asignacion_alumno']);
-    $_POST['asignacion_seccion'] = htmlspecialchars($_POST['asignacion_seccion']);
-    
+    $_POST['asignacion_alumno'] = htmlspecialchars($_POST['asignacion_alumno']);    
 
     try {
         $asignacionalumno = new AsignacionAlumnos($_POST);

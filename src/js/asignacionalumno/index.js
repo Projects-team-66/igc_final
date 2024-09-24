@@ -4,8 +4,8 @@ import Swal from "sweetalert2";
 import DataTable from "datatables.net-bs5";
 import { lenguaje } from "../lenguaje";
 
-const formulario = document.getElementById('formularioTutor');
-const tabla = document.getElementById('tablaTutor');
+const formulario = document.getElementById('formularioAsignacionAlumno');
+const tabla = document.getElementById('tablaAsignacionAlumno');
 const btnGuardar = document.getElementById('btnGuardar');
 const btnModificar = document.getElementById('btnModificar');
 const btnCancelar = document.getElementById('btnCancelar');
@@ -54,8 +54,17 @@ const datatable = new DataTable('#tablaAsignacionAlumno', {
             orderable: false,
             render: (data, type, row, meta) => {
                 let html = `
-                <button class='btn btn-warning modificar' data-asignacion_id="${data}" data-alumno_id="${row.alumno_nombre}" data-alumno_id="${row.alumno_apellido}" data-grado="${row.grado_nombre}" data-seccion_id="${row.seccion_nombre}><i class='bi bi-pencil-square'></i>Modificar</button>
-                <button class='btn btn-danger eliminar' data-asignacion_id="${data}">Eliminar</button>
+               <button class='btn btn-warning modificar' 
+        data-asignacion_id="${data}" 
+        data-alumno_nombre="${row.alumno_nombre}" 
+        data-alumno_apellido="${row.alumno_apellido}" 
+        data-grado="${row.grado_nombre}" 
+        data-seccion_id="${row.seccion_nombre}">
+        <i class='bi bi-pencil-square'></i>
+    </button>
+    <button class='btn btn-danger eliminar' data-asignacion_id="${data}">
+        <i class='bi bi-trash'></i> 
+    </button>
                 `;
                 return html;
             }

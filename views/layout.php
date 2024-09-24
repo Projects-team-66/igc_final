@@ -36,6 +36,12 @@
             transition: color 0.4s ease;
         }
 
+        .icon-large {
+            font-size: 80px;
+            text-align: center;
+        }
+
+
         .navbar-nav .nav-link:hover {
             color: #a88f5f;
         }
@@ -124,12 +130,19 @@
                                 <a class="dropdown-item nav-link text-white " href="/igc_final/asistencia"><i class="bi bi-journal-text"></i> Asistencia de Alumnos</a>
                             </li>
                             <li>
+
                                 <a class="dropdown-item nav-link text-white " href="/igc_final/grafica/estadistica"><i class="bi bi-flag"></i> Grafica de Asistencia</a>
+
+                                <a class="dropdown-item nav-link text-white " href="/igc_final/reporte_asistencia"><i class="bi bi-flag"></i> Generar Reporte de Asistencia</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item nav-link text-white " href="/igc_final/reporteconducta"><i class="bi bi-flag"></i> Generar Reporte de Conducta</a>
                             </li>
                             <li>
                                 <a class="dropdown-item nav-link text-white " href="/igc_final/actividades"><i class="bi bi-file-text-fill"></i> Ingresar Actividades</a>
                             </li>
-                        </ul>
+                      </ul>
+                        </ul>  
                     </div>
                     <div class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">
@@ -141,6 +154,9 @@
                             </li>
                             <li>
                                 <a class="dropdown-item" href="/igc_final/seccion"><i class="bi bi-clipboard2-check-fill"></i> Regístro Secciones</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="/igc_final/curso"><i class="bi bi-clipboard2-check"></i> Regístro Cursos</a>
                             </li>
                             <li>
                                 <a class="dropdown-item" href="/igc_final/asignacionalumno"><i class="bi bi-person-check-fill"></i> Asignación Alumnos</a>
@@ -167,7 +183,6 @@
                         </ul>
                     </div>
                 </ul>
-
                 <div class="col-lg-1 d-grid mb-lg-0 mb-2">
                     <a href="/menu/" class="btn btn-danger"><i class="bi bi-arrow-bar-left"></i> MENÚ</a>
                 </div>

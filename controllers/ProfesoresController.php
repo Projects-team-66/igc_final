@@ -14,7 +14,7 @@ class ProfesoresController
         $profesor = Profesores::find(2);
         $router->render('profesores/index', [
             'profesor' => $profesor
-        ]);
+        ], 'layouts/menu');
     }
 
 

@@ -56,17 +56,20 @@ const datatable = new DataTable('#tablaPago', {
             orderable: false,
             render: (data, type, row, meta) => {
                 return `
-                    <button class='btn btn-warning modificar' 
-                        data-pago_id="${data}" 
-                        data-alumno_nombre="${row.alumno_nombre}"  
-                        data-grado_nombre="${row.grado_nombre}"
-                        data-grado_monto="${row.grado_monto}" 
-                        data-pago_mes="${row.pago_mes}" 
-                        data-pago_fecha="${row.pago_fecha}"
-                        data-pago_estado="${row.pago_estado}" >
-                        <i class='bi bi-pencil-square'></i>Modificar
-                    </button>
-                    <button class='btn btn-danger eliminar' data-pago_id="${data}">Eliminar</button>`;
+          <button class='btn btn-warning modificar' 
+        data-pago_id="${data}" 
+        data-alumno_nombre="${row.alumno_nombre}"  
+        data-grado_nombre="${row.grado_nombre}"
+        data-grado_monto="${row.grado_monto}" 
+        data-pago_mes="${row.pago_mes}" 
+        data-pago_fecha="${row.pago_fecha}"
+        data-pago_estado="${row.pago_estado}">
+        <i class='bi bi-pencil-square'></i>
+    </button>
+    <button class='btn btn-danger eliminar' data-pago_id="${data}">
+        <i class='bi bi-trash'></i>
+    </button>
+`;
             }
         }
     ]
