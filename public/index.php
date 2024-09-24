@@ -15,6 +15,9 @@ use Controllers\SolvenciaController;
 use Controllers\ReporteAsistenciaController;
 use Controllers\AsignacionAlumnoController;
 use Controllers\AsignacionProfesorController;
+use Controllers\CursoController;
+use Controllers\PDFController;
+use Controllers\ReporteConductaController;
 use Controllers\LoginController;
 
 $router = new Router();
@@ -105,6 +108,23 @@ $router->get('/API/asignacionprofesor/buscar', [AsignacionProfesorController::cl
 $router->post('/API/asignacionprofesor/guardar', [AsignacionProfesorController::class, 'guardarAPI']);
 $router->post('/API/asignacionprofesor/modificar', [AsignacionProfesorController::class, 'modificarAPI']);
 $router->post('/API/asignacionprofesor/eliminar', [AsignacionProfesorController::class, 'eliminarAPI']);
+
+//REPORTE DE CONDUCTA
+$router->get('/reporteconducta', [ReporteConductaController::class, 'index']);
+$router->get('/API/reporteconducta/buscar', [ReporteConductaController::class, 'buscarAPI']);
+$router->post('/API/reporteconducta/guardar', [ReporteConductaController::class, 'guardarAPI']);
+$router->post('/API/reporteconducta/modificar', [ReporteConductaController::class, 'modificarAPI']);
+$router->post('/API/reporteconducta/eliminar', [ReporteConductaController::class, 'eliminarAPI']);
+
+//REGISTRO CURSOS
+$router->get('/curso', [CursoController::class, 'index']);
+$router->get('/API/curso/buscar', [CursoController::class, 'buscarAPI']);
+$router->post('/API/curso/guardar', [CursoController::class, 'guardarAPI']);
+$router->post('/API/curso/modificar', [CursoController::class, 'modificarAPI']);
+$router->post('/API/curso/eliminar', [CursoController::class, 'eliminarAPI']);
+
+//GENERAR PDF
+$router->post('/API/generarPDF', [PDFController::class, 'pdf']);
 
 
 // Comprueba y valida las rutas, que existan y les asigna las funciones del Controlador

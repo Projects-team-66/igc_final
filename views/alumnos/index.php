@@ -45,7 +45,7 @@
         </div>
         <div class="row text-center">
             <div class="col">
-                <button type="submit" form="formularioAlumnos" id="btnGuardar" class="btn btn-primary w-100">Guardar</button>
+                <button type="submit" form="formularioAlumnos" id="btnGuardar" class="btn btn-success w-100"> <i class="bi bi-save"></i> Guardar</button>
             </div>
             <div class="col">
                 <button type="button" id="btnModificar" class="btn btn-warning w-100">Modificar</button>

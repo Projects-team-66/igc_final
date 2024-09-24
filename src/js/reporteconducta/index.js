@@ -4,15 +4,20 @@ import Swal from "sweetalert2";
 import DataTable from "datatables.net-bs5";
 import { lenguaje } from "../lenguaje";
 
-
-const formulario = document.getElementById('formularioAlumnos')
-const tabla = document.getElementById('tablaAlumnos')
+const formulario = document.getElementById('formularioReporteConducta');
+const tabla = document.getElementById('tablaReporteConducta')
 const btnGuardar = document.getElementById('btnGuardar')
 const btnModificar = document.getElementById('btnModificar')
 const btnCancelar = document.getElementById('btnCancelar')
 
 let contador = 1;
-const datatable = new DataTable('#tablaAlumnos', {
+btnModificar.disabled = true;
+btnModificar.parentElement.style.display = 'none';
+btnCancelar.disabled = true;
+
+
+
+const datatable = new DataTable('#tablaReporteConducta', {
     data: null,
     language: lenguaje,
     pageLength: '15',
@@ -20,7 +25,7 @@ const datatable = new DataTable('#tablaAlumnos', {
     columns: [
         {
             title: 'No.',
-            data: 'alumno_id',
+            data: 'reporte_conducta_id',
             width: '2%',
             render: (data, type, row, meta) => {
                 // console.log(meta.ro);
@@ -28,82 +33,73 @@ const datatable = new DataTable('#tablaAlumnos', {
             }
         },
         {
-            title: 'Nombre',
-            data: 'alumno_nombre'
+            title: 'Nombre Completo',
+            data: 'reporte_alumno'
         },
         {
-            title: 'Apellido',
-            data: 'alumno_apellido'
+            title: 'Grado',
+            data: 'grado_nombre'
+        }, {
+            title: 'Seccion',
+            data: 'seccion_nombre'
         },
         {
-            title: 'Fecha de Nacimiento',
-            data: 'alumno_fecha_nacimiento'
+            title: 'Conducta',
+            data: 'reporte_conducta'
         },
         {
-            title: 'Direccion',
-            data: 'alumno_direccion'
-        },
-        {
-            title: 'Telefono',
-            data: 'alumno_telefono'
-        },
-        {
-            title: 'Email',
-            data: 'alumno_email'
-        },
-        {
-            title: 'Tutor',
-            data: 'alumno_tutor'
+            title: 'Fecha',
+            data: 'reporte_fecha'
         },
         {
             title: 'Acciones',
-            data: 'alumno_id',
+            data: 'reporte_conducta_id',
             searchable: false,
             orderable: false,
             render: (data, type, row, meta) => {
                 let html = `
-                <button class='btn btn-warning modificar' 
-        data-alumno_id="${data}" 
-        data-alumno_nombre="${row.alumno_nombre}" 
-        data-alumno_apellido="${row.alumno_apellido}"  
-        data-alumno_fecha_nacimiento="${row.alumno_fecha_nacimiento}" 
-        data-alumno_direccion="${row.alumno_direccion}" 
-        data-alumno_telefono="${row.alumno_telefono}"
-        data-alumno_email="${row.alumno_email}"  
-        data-alumno_tutor="${row.alumno_tutor}">
-        <i class='bi bi-pencil-square'></i>
-    </button>
-    <button class='btn btn-danger eliminar' data-alumno_id="${data}">
-        <i class='bi bi-trash'></i> 
-    </button>
-                `
+                <button class='btn btn-warning modificar' data-reporte_conducta_id="${data}" data-reporte_alumno="${row.reporte_alumno}" data-grado_nombre="${row.grado_nombre}" data-seccion_nombre="${row.seccion_nombre}" data-reporte_conducta="${row.reporte_conducta}" data-reporte_fecha="${row.reporte_fecha}">
+                    <i class='bi bi-pencil-square'></i> 
+                </button>
+                <button class='btn btn-danger eliminar' data-reporte_conducta_id="${data}">
+                  <i class='bi bi-trash'></i> 
+                </button>
+                <button class='btn btn-success mostrarpdf' data-reporte_conducta_id='${data}'><i class="bi bi-clipboard2-check-fill"></i></button>
+            `;
+
                 return html;
             }
         },
 
     ]
-})
+}
+);
+
 
 btnModificar.parentElement.style.display = 'none'
 btnModificar.disabled = true
 btnCancelar.parentElement.style.display = 'none'
 btnCancelar.disabled = true
 
-const guardar = async (e) => {
-    e.preventDefault()
 
-    if (!validarFormulario(formulario, ['alumno_id'])) {
+
+const guardar = async (e) => {
+    btnGuardar.disabled = true,
+        e.preventDefault()
+
+    if (!validarFormulario(formulario, ['reporte_conducta_id'])) {
         Swal.fire({
             title: "Campos vacios",
             text: "Debe llenar todos los campos",
             icon: "info"
         })
+        btnGuardar.disabled = false
         return
     }
 
     try {
         const body = new FormData(formulario)
-        const url = "/igc_final/API/alumnos/guardar"
+        const url = "/igc_final/API/reporteconducta/guardar"
         const config = {
             method: 'POST',
             body
@@ -117,7 +113,9 @@ const guardar = async (e) => {
             icon = 'success'
             formulario.reset();
             buscar();
+            btnGuardar.disabled = false
         } else {
+            btnGuardar.disabled = false
             icon = 'error'
             console.log(detalle);
         }
@@ -130,12 +128,15 @@ const guardar = async (e) => {
     } catch (error) {
         console.log(error);
     }
+    btnGuardar.disabled = false
 }
+
 
 
 const buscar = async () => {
     try {
-        const url = "/igc_final/API/alumnos/buscar"
+
+        const url = "/igc_final/API/reporteconducta/buscar"
         const config = {
             method: 'GET',
         }
@@ -143,15 +144,13 @@ const buscar = async () => {
         const respuesta = await fetch(url, config);
         const data = await respuesta.json();
         const { codigo, mensaje, detalle, datos } = data;
-
-        // tabla.tBodies[0].innerHTML = ''
-        // const fragment = document.createDocumentFragment();
         console.log(datos);
         datatable.clear().draw();
 
         if (datos) {
             datatable.rows.add(datos).draw();
         }
+
     } catch (error) {
         console.log(error);
     }
@@ -161,14 +160,12 @@ buscar();
 const traerDatos = (e) => {
     const elemento = e.currentTarget.dataset
 
-    formulario.alumno_id.value = elemento.alumno_id
-    formulario.alumno_nombre.value = elemento.alumno_nombre
-    formulario.alumno_apellido.value = elemento.alumno_apellido
-    formulario.alumno_fecha_nacimiento.value = elemento.alumno_fecha_nacimiento
-    formulario.alumno_direccion.value = elemento.alumno_direccion
-    formulario.alumno_telefono.value = elemento.alumno_telefono
-    formulario.alumno_email.value = elemento.alumno_email
-    formulario.alumno_tutor.value = elemento.alumno_tutor
+    formulario.profesor_id.value = elemento.profesor_id
+    formulario.profesor_nombre.value = elemento.profesor_nombre
+    formulario.profesor_apellido.value = elemento.profesor_apellido
+    formulario.profesor_telefono.value = elemento.profesor_telefono
+    formulario.profesor_email.value = elemento.profesor_email
+    formulario.profesor_direccion.value = elemento.profesor_direccion
     tabla.parentElement.parentElement.style.display = 'none'
 
     btnGuardar.parentElement.style.display = 'none'
@@ -190,53 +187,58 @@ const cancelar = () => {
     btnCancelar.disabled = true
 }
 
+
+
 const modificar = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
 
     if (!validarFormulario(formulario)) {
         Swal.fire({
             title: "Campos vacios",
             text: "Debe llenar todos los campos",
             icon: "info"
-        });
-        return;
+        })
+        return
     }
 
     try {
-        const body = new FormData(formulario);
-        const url = "/igc_final/API/alumnos/modificar";
+        const body = new FormData(formulario)
+        const url = "/igc_final/API/reporteconducta/modificar"
         const config = {
             method: 'POST',
             body
-        };
+        }
 
         const respuesta = await fetch(url, config);
         const data = await respuesta.json();
         const { codigo, mensaje, detalle } = data;
-        let icon = 'info';
+        console.log(data);
+        let icon = 'info'
         if (codigo == 1) {
-            icon = 'success';
+            icon = 'success'
             formulario.reset();
             buscar();
             cancelar();
         } else {
-            icon = 'error';
+            icon = 'error'
             console.log(detalle);
         }
 
         Toast.fire({
             icon: icon,
             title: mensaje
-        });
+        })
 
     } catch (error) {
         console.log(error);
     }
-};
+}
+
 
 const eliminar = async (e) => {
-    const alumno_id = e.currentTarget.dataset.alumno_id
+    const reporte_conducta_id = e.currentTarget.dataset.reporte_conducta_id
 
+    //console.log("ID a eliminar:", reporte_conducta_id); // Agrega esta línea
     let confirmacion = await Swal.fire({
         icon: 'question',
         title: 'Confirmacion',
@@ -252,18 +254,21 @@ const eliminar = async (e) => {
     if (confirmacion.isConfirmed) {
         try {
             const body = new FormData()
-            body.append('alumno_id', alumno_id)
-            const url = "/igc_final/API/alumnos/eliminar"
+            body.append('reporte_conducta_id', reporte_conducta_id)
+            const url = "/igc_final/API/reporteconducta/eliminar"
             const config = {
                 method: 'POST',
                 body
             }
 
             const respuesta = await fetch(url, config);
-            const data = await respuesta.json();
-            const { codigo, mensaje, detalle } = data;
+            const data = await respuesta.json(); // Obtener la respuesta como texto
+            
+
+            const {codigo, mensaje, detalle} = data;
+
             let icon = 'info'
-            if (codigo == 1) {
+            if (codigo === 1) {
                 icon = 'success'
                 formulario.reset();
                 buscar();
@@ -282,6 +287,38 @@ const eliminar = async (e) => {
     }
 
 }
+
+const generarPDF = async (e) => {
+    const id = e.currentTarget.dataset.usuario;
+
+    console.log(id)
+    
+
+    try {
+        const body = new FormData();
+        body.append('reporte_conducta_id', id);
+
+        const url = '/igc_final/API/generarPDF';
+        const config = {
+            method: 'POST',
+            body,
+        };
+
+        const respuesta = await fetch(url, config);
+
+       
+        const blob = await respuesta.blob();
+
+        
+        const urlBlob = window.URL.createObjectURL(blob);
+        window.open(urlBlob, '_blank'); 
+
+    } catch (error) {
+        console.log('Error al generar el PDF:', error);
+    }
+
+    
+};
 
 formulario.addEventListener('submit', guardar)
 btnCancelar.addEventListener('click', cancelar)

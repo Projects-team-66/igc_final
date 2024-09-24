@@ -4,72 +4,57 @@ import Swal from "sweetalert2";
 import DataTable from "datatables.net-bs5";
 import { lenguaje } from "../lenguaje";
 
-const formulario = document.getElementById('formularioPago');
-const tabla = document.getElementById('tablaPago');
+const formulario = document.getElementById('formularioCurso');
+const tabla = document.getElementById('tablaCurso');
 const btnGuardar = document.getElementById('btnGuardar');
 const btnModificar = document.getElementById('btnModificar');
 const btnCancelar = document.getElementById('btnCancelar');
 
 let contador = 1;
 
-const datatable = new DataTable('#tablaPago', {
+const datatable = new DataTable('#tablaCurso', {
     language: lenguaje,
     pageLength: '15',
     lengthMenu: [3, 9, 11, 25, 100],
     columns: [
         {
             title: 'No.',
-            data: 'pago_id',
+            data: 'curso_id',
             width: '2%',
             render: (data, type, row, meta) => {
                 return meta.row + 1;
             }
         },
         {
-            title: 'Alumno',
-            data: 'alumno_nombre'
+            title: 'Curso',
+            data: 'curso_nombre'
         },
         {
-            title: 'Grado',
-            data: 'grado_nombre'
+            title: 'Descripcion',
+            data: 'curso_descripcion'
         },
         {
-            title: 'Monto',
-            data: 'grado_monto'
-        },
-        {
-            title: 'Mes',
-            data: 'pago_mes'
-        },
-        {
-            title: 'Fecha de Pago',
-            data: 'pago_fecha'
-        },
-        {
-            title: 'Estado',
-            data: 'pago_estado'
+            title: 'Creditos',
+            data: 'curso_creditos'
         },
         {
             title: 'Acciones',
-            data: 'pago_id',
+            data: 'curso_id',
             searchable: false,
             orderable: false,
             render: (data, type, row, meta) => {
                 return `
-          <button class='btn btn-warning modificar' 
-        data-pago_id="${data}" 
-        data-alumno_nombre="${row.alumno_nombre}"  
-        data-grado_nombre="${row.grado_nombre}"
-        data-grado_monto="${row.grado_monto}" 
-        data-pago_mes="${row.pago_mes}" 
-        data-pago_fecha="${row.pago_fecha}"
-        data-pago_estado="${row.pago_estado}">
-        <i class='bi bi-pencil-square'></i>
-    </button>
-    <button class='btn btn-danger eliminar' data-pago_id="${data}">
-        <i class='bi bi-trash'></i>
-    </button>
-`;
+                    <button class='btn btn-warning modificar' 
+                        data-curso_id="${data}" 
+                        data-curso_nombre="${row.curso_nombre}"
+                        data-curso_descripcion="${row.curso_descripcion}"
+                        data-curso_creditos="${row.curso_creditos}">
+                        <i class='bi bi-pencil-square'></i> 
+                </button>
+                    <button class='btn btn-danger eliminar' data-curso_id="${data}">
+                     <i class='bi bi-trash'></i> 
+                </button>
+                `;
             }
         }
     ]
@@ -81,20 +66,22 @@ btnCancelar.parentElement.style.display = 'none';
 btnCancelar.disabled = true;
 
 const guardar = async (e) => {
-    e.preventDefault();
+    btnGuardar.disabled = true,
+        e.preventDefault();
 
-    if (!validarFormulario(formulario, ['pago_id'])) {
+    if (!validarFormulario(formulario, ['curso_id'])) {
         Swal.fire({
             title: "Campos vacios",
             text: "Debe llenar todos los campos",
             icon: "info"
-        });
-        return;
+        })
+        btnGuardar.disabled = false
+        return
     }
 
     try {
         const body = new FormData(formulario);
-        const url = "/igc_final/API/pago/guardar";
+        const url = "/igc_final/API/curso/guardar";
         const config = {
             method: 'POST',
             body
@@ -108,7 +95,9 @@ const guardar = async (e) => {
             icon = 'success';
             formulario.reset();
             buscar();
+            btnGuardar.disabled = false
         } else {
+            btnGuardar.disabled = false
             icon = 'error';
             console.log(detalle);
         }
@@ -121,23 +110,24 @@ const guardar = async (e) => {
     } catch (error) {
         console.log(error);
     }
+    btnGuardar.disabled = false
 };
 
 const buscar = async () => {
     try {
-        const url = "/igc_final/API/pago/buscar";
+        const url = "/igc_final/API/curso/buscar";
         const config = {
             method: 'GET'
         };
 
         const respuesta = await fetch(url, config);
         const data = await respuesta.json();
-        const { datos } = data; // Obtén los datos correctamente
+        const { datos } = data;
 
-        datatable.clear().draw(); // Limpia la tabla antes de añadir los nuevos datos
+        datatable.clear().draw();
 
         if (datos) {
-            datatable.rows.add(datos).draw(); // Añade los datos a la tabla y dibuja
+            datatable.rows.add(datos).draw();
         }
     } catch (error) {
         console.log(error);
@@ -148,16 +138,10 @@ buscar();
 const traerDatos = (e) => {
     const elemento = e.currentTarget.dataset;
 
-    formulario.pago_id.value = elemento.pago_id;
-    formulario.pago_alumno.value = elemento.pago_alumno;
-    formulario.pago_mes.value = elemento.pago_mes;
-    formulario.pago_fecha.value = elemento.pago_fecha;
-    formulario.pago_estado.value = elemento.pago_estado;
-
-
-    
-
-
+    formulario.curso_id.value = elemento.curso_id;
+    formulario.curso_nombre.value = elemento.curso_nombre;
+    formulario.curso_descripcion.value = elemento.curso_descripcion;
+    formulario.curso_creditos.value = elemento.curso_creditos;
     tabla.parentElement.parentElement.style.display = 'none';
 
     btnGuardar.parentElement.style.display = 'none';
@@ -193,7 +177,8 @@ const modificar = async (e) => {
 
     try {
         const body = new FormData(formulario);
-        const url = "/igc_final/API/pago/modificar";
+        console.loge(formulario)
+        const url = "/igc_final/API/curso/modificar";
         const config = {
             method: 'POST',
             body
@@ -224,7 +209,8 @@ const modificar = async (e) => {
 };
 
 const eliminar = async (e) => {
-    const pago_id = e.currentTarget.dataset.pago_id;
+    const curso_id = e.currentTarget.dataset.curso_id;
+    console.log("ID a eliminar:", curso_id);
 
     let confirmacion = await Swal.fire({
         icon: 'question',
@@ -240,8 +226,8 @@ const eliminar = async (e) => {
     if (confirmacion.isConfirmed) {
         try {
             const body = new FormData();
-            body.append('pago_id', pago_id);
-            const url = "/igc_final/API/pago/eliminar";
+            body.append('curso_id', curso_id);
+            const url = "/igc_final/API/curso/eliminar";
             const config = {
                 method: 'POST',
                 body
