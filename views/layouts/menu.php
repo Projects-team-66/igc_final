@@ -10,19 +10,6 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <title>Instituto Guatemalteco Central</title>
     <style>
-
-<h1>MENU PRINCIPAL DE LA APP</h1>
-<a href="/igc_final/logout" class="btn btn-danger"> SALIR</a>
-
-
-<?php if($_SESSION['user']['rol_nombre_ct'] == 'INSTITUTO_ADMIN') : ?>
-<P>USUARIO ADMINISTRADOR</P>
-
-<?php var_dump($_SESSION)   ?>
-<?php endif ?>
-
-
-
         /* Estilo para el cuerpo */
         body {
             background-color: #3c2f2f;
@@ -188,7 +175,7 @@
                                 <a class="dropdown-item" href="/igc_final/solvencias"><i class="bi bi-newspaper"></i> Certificados de Solvencia</a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="/igc_final/superusuario"><i class="bi bi-newspaper"></i> Configuracion de SuperUsuario</a>
+                                <a class="dropdown-item" href="/igc_final/registro"><i class="bi bi-newspaper"></i> Registro de Usuarios</a>
                             </li>
                         </ul>
                     </div>
@@ -200,9 +187,6 @@
             </div>
         </div>
     </nav>
-    <h1>INTERFAZ DE ADMINISTRADOR</h1>
-
-    <!-- Contenido principal -->
     <div class="container-fluid" id="contenidoPrincipal">
         <?php echo $contenido; ?>
     </div>
