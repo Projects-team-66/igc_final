@@ -83,6 +83,7 @@ btnCancelar.disabled = true
 
 
 const guardar = async (e) => {
+    btnGuardar.disabled = true,
     e.preventDefault()
 
     if (!validarFormulario(formulario, ['profesor_id'])) {
@@ -91,6 +92,7 @@ const guardar = async (e) => {
             text: "Debe llenar todos los campos",
             icon: "info"
         })
+        btnGuardar.disabled = false
         return
     }
 
@@ -110,7 +112,9 @@ const guardar = async (e) => {
             icon = 'success'
             formulario.reset();
             buscar();
+            btnGuardar.disabled = false
         } else {
+            btnGuardar.disabled = false
             icon = 'error'
             console.log(detalle);
         }
@@ -123,6 +127,7 @@ const guardar = async (e) => {
     } catch (error) {
         console.log(error);
     }
+    btnGuardar.disabled = false
 }
 
 

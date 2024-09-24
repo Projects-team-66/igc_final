@@ -40,13 +40,16 @@ const datatable = new DataTable('#tablaGrado', {
             orderable: false,
             render: (data, type, row, meta) => {
                 return `
-                    <button class='btn btn-warning modificar' 
-                        data-grado_id="${data}" 
-                        data-grado_nombre="${row.grado_nombre}"
-                        data-grado_nombre="${row.grado_monto}">
-                        <i class='bi bi-pencil-square'></i>Modificar
-                    </button>
-                    <button class='btn btn-danger eliminar' data-grado_id="${data}">Eliminar</button>`;
+                   <button class='btn btn-warning modificar' 
+        data-grado_id="${data}" 
+        data-grado_nombre="${row.grado_nombre}" 
+        data-grado_monto="${row.grado_monto}">
+        <i class='bi bi-pencil-square'></i>
+    </button>
+    <button class='btn btn-danger eliminar' data-grado_id="${data}">
+        <i class='bi bi-trash'></i>
+    </button>
+`;
             }
         }
     ]

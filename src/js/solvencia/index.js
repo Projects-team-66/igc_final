@@ -48,15 +48,18 @@ const datatable = new DataTable('#tablaSolvencia', {
             orderable: false,
             render: (data, type, row, meta) => {
                 return `
-                    <button class='btn btn-warning modificar' 
-                        data-matricula_id="${data}" 
-                        data-alumno_id="${row.alumno_nombre}" 
-                        data-curso_id="${row.curso_nombre}" 
-                        data-matricula_fecha="${row.matricula_fecha}" 
-                        data-matricula_estado="${row.matricula_estado}" >
-                        <i class='bi bi-pencil-square'></i>Modificar
-                    </button>
-                    <button class='btn btn-danger eliminar' data-matricula_id="${data}">Eliminar</button>`;
+                     <button class='btn btn-warning modificar' 
+        data-matricula_id="${data}" 
+        data-alumno_id="${row.alumno_nombre}" 
+        data-curso_id="${row.curso_nombre}" 
+        data-matricula_fecha="${row.matricula_fecha}" 
+        data-matricula_estado="${row.matricula_estado}">
+        <i class='bi bi-pencil-square'></i>
+    </button>
+    <button class='btn btn-danger eliminar' data-matricula_id="${data}">
+        <i class='bi bi-trash'></i>
+    </button>
+`;
             }
         }
     ]
