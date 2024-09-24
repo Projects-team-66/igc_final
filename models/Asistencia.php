@@ -49,5 +49,24 @@ class Asistencia extends ActiveRecord
         ";
         return self::fetchArray($sql);
     }
+
+    public static function graficaAsis()
+    {
+        $sql = "SELECT 
+    al.alumno_nombre AS nombre_alumno, 
+    cu.curso_nombre AS nombre_curso, 
+    COUNT(a.asistencia_id) AS total_asistencias
+FROM 
+    asistencia a
+JOIN 
+    alumnos al ON a.asistencia_alumno = al.alumno_id -- Ajusta si el nombre de la columna es diferente
+JOIN 
+    curso cu ON a.asistencia_curso = cu.curso_id -- Ajusta si el nombre de la columna es diferente
+GROUP BY 
+    al.alumno_nombre, 
+    cu.curso_nombre
+ORDER BY 
+    total_asistencias DESC";
+    }
 }
 
