@@ -63,15 +63,19 @@ const datatable = new DataTable('#tablaAlumnos', {
             render: (data, type, row, meta) => {
                 let html = `
                 <button class='btn btn-warning modificar' 
-                data-alumno_id="${data}" 
-                data-alumno_nombre="${row.alumno_nombre}" 
-                data-alumno_apellido="${row.alumno_apellido}"  
-                data-alumno_fecha_nacimiento="${row.alumno_fecha_nacimiento}" 
-                data-alumno_direccion="${row.alumno_direccion}" 
-                data-alumno_telefono="${row.alumno_telefono}"
-                data-alumno_email="${row.alumno_email}"  
-                data-alumno_tutor="${row.alumno_tutor}"<i class='bi bi-pencil-square'></i>Modificar</button>
-                <button class='btn btn-danger eliminar' data-alumno_id="${data}">Eliminar</button>
+        data-alumno_id="${data}" 
+        data-alumno_nombre="${row.alumno_nombre}" 
+        data-alumno_apellido="${row.alumno_apellido}"  
+        data-alumno_fecha_nacimiento="${row.alumno_fecha_nacimiento}" 
+        data-alumno_direccion="${row.alumno_direccion}" 
+        data-alumno_telefono="${row.alumno_telefono}"
+        data-alumno_email="${row.alumno_email}"  
+        data-alumno_tutor="${row.alumno_tutor}">
+        <i class='bi bi-pencil-square'></i>
+    </button>
+    <button class='btn btn-danger eliminar' data-alumno_id="${data}">
+        <i class='bi bi-trash'></i> 
+    </button>
                 `
                 return html;
             }

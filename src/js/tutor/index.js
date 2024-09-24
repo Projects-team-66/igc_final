@@ -56,17 +56,20 @@ const datatable = new DataTable('#tablaTutor', {
             orderable: false,
             render: (data, type, row, meta) => {
                 return `
-                    <button class='btn btn-warning modificar' 
-                        data-tutor_id="${data}" 
-                        data-tutor_nombre="${row.tutor_nombre}" 
-                        data-tutor_apellido="${row.tutor_apellido}" 
-                        data-tutor_telefono="${row.tutor_telefono}" 
-                        data-tutor_email="${row.tutor_email}" 
-                        data-tutor_direccion="${row.tutor_direccion}" 
-                        data-tutor_relacion="${row.tutor_relacion}">
-                        <i class='bi bi-pencil-square'></i>Modificar
-                    </button>
-                    <button class='btn btn-danger eliminar' data-tutor_id="${data}">Eliminar</button>`;
+             <button class='btn btn-warning modificar' 
+        data-tutor_id="${data}" 
+        data-tutor_nombre="${row.tutor_nombre}" 
+        data-tutor_apellido="${row.tutor_apellido}" 
+        data-tutor_telefono="${row.tutor_telefono}" 
+        data-tutor_email="${row.tutor_email}" 
+        data-tutor_direccion="${row.tutor_direccion}" 
+        data-tutor_relacion="${row.tutor_relacion}">
+        <i class='bi bi-pencil-square'></i>
+    </button>
+    <button class='btn btn-danger eliminar' data-tutor_id="${data}">
+        <i class='bi bi-trash'></i>
+    </button>
+`;
             }
         }
     ]

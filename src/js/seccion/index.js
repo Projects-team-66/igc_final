@@ -46,9 +46,16 @@ const datatable = new DataTable('#tablaSeccion', {
             orderable: false,
             render: (data, type, row, meta) => {
                 let html = `
-                <button class='btn btn-warning modificar' data-seccion_id="${data}" data-seccion_nombre="${row.seccion_nombre}" data-grado_id="${row.grado_nombre}" ><i class='bi bi-pencil-square'></i>Modificar</button>
-                <button class='btn btn-danger eliminar' data-seccion_id="${data}">Eliminar</button>
-                `;
+                 <button class='btn btn-warning modificar' 
+        data-seccion_id="${data}" 
+        data-seccion_nombre="${row.seccion_nombre}" 
+        data-grado_id="${row.grado_nombre}">
+        <i class='bi bi-pencil-square'></i>
+    </button>
+    <button class='btn btn-danger eliminar' data-seccion_id="${data}">
+        <i class='bi bi-trash'></i>
+    </button>
+`;
                 return html;
             }
         }
