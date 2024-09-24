@@ -1,3 +1,13 @@
+document.addEventListener('DOMContentLoaded', function() {
+    const btnGenerarPdf = document.querySelector('#generarPdf');
+    
+    btnGenerarPdf.addEventListener('click', function() {
+        const pagoMes = document.querySelector('#pago_mes').value;
+
+        // Validar que se haya seleccionado un mes
+        if (pagoMes === '#') {
+            alert('Por favor, seleccione un mes válido');
+            return;
 import { Dropdown } from "bootstrap";
 import { Toast, validarFormulario } from "../funciones";
 import Swal from "sweetalert2";
@@ -129,134 +139,26 @@ const buscar = async () => {
         if (datos) {
             datatable.rows.add(datos).draw(); // Añade los datos a la tabla y dibuja
         }
-    } catch (error) {
-        console.log(error);
-    }
-};
-buscar();
 
-const traerDatos = (e) => {
-    const elemento = e.currentTarget.dataset;
+        // Crear un objeto FormData para enviar el mes seleccionado
+        const datos = new FormData();
+        datos.append('pago_mes', pagoMes);
 
-    formulario.matricula_id.value = elemento.matricula_id;
-    formulario.matricula_alumno.value = elemento.matricula_alumno;
-    formulario.matricula_curso.value = elemento.matricula_curso;
-    formulario.matricula_fecha.value = elemento.matricula_fecha;
-    formulario.matricula_estado.value = elemento.matricula_estado;
-    tabla.parentElement.parentElement.style.display = 'none';
-
-    btnGuardar.parentElement.style.display = 'none';
-    btnGuardar.disabled = true;
-    btnModificar.parentElement.style.display = '';
-    btnModificar.disabled = false;
-    btnCancelar.parentElement.style.display = '';
-    btnCancelar.disabled = false;
-};
-
-const cancelar = () => {
-    tabla.parentElement.parentElement.style.display = '';
-    formulario.reset();
-    btnGuardar.parentElement.style.display = '';
-    btnGuardar.disabled = false;
-    btnModificar.parentElement.style.display = 'none';
-    btnModificar.disabled = true;
-    btnCancelar.parentElement.style.display = 'none';
-    btnCancelar.disabled = true;
-};
-
-const modificar = async (e) => {
-    e.preventDefault();
-
-    if (!validarFormulario(formulario)) {
-        Swal.fire({
-            title: "Campos vacios",
-            text: "Debe llenar todos los campos",
-            icon: "info"
-        });
-        return;
-    }
-
-    try {
-        const body = new FormData(formulario);
-        const url = "/igc_final/API/solvencia/modificar";
-        const config = {
+        // Realizar la petición al servidor para generar el PDF
+        fetch('/solvencia/generarPdf', {
             method: 'POST',
-            body
-        };
-
-        const respuesta = await fetch(url, config);
-        const data = await respuesta.json();
-        const { codigo, mensaje, detalle } = data;
-        let icon = 'info';
-        if (codigo == 1) {
-            icon = 'success';
-            formulario.reset();
-            buscar();
-            cancelar();
-        } else {
-            icon = 'error';
-            console.log(detalle);
-        }
-
-        Toast.fire({
-            icon: icon,
-            title: mensaje
-        });
-
-    } catch (error) {
-        console.log(error);
-    }
-};
-
-const eliminar = async (e) => {
-    const matricula_id = e.currentTarget.dataset.matricula_id;
-
-    let confirmacion = await Swal.fire({
-        icon: 'question',
-        title: 'Confirmacion',
-        text: '¿Está seguro que desea eliminar este registro?',
-        showCancelButton: true,
-        confirmButtonText: 'Si, eliminar',
-        cancelButtonText: 'No, cancelar',
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33'
-    });
-
-    if (confirmacion.isConfirmed) {
-        try {
-            const body = new FormData();
-            body.append('matricula_id', matricula_id);
-            const url = "/igc_final/API/solvencia/eliminar";
-            const config = {
-                method: 'POST',
-                body
-            };
-
-            const respuesta = await fetch(url, config);
-            const data = await respuesta.json();
-            const { codigo, mensaje, detalle } = data;
-            let icon = 'info';
-            if (codigo == 1) {
-                icon = 'success';
-                formulario.reset();
-                buscar();
+            body: datos
+        })
+        .then(response => {
+            if (response.ok) {
+                // Abrir el PDF en una nueva ventana
+                window.open('/solvencia/generarPdf', '_blank');
             } else {
-                icon = 'error';
-                console.log(detalle);
+                alert('Hubo un error al generar el PDF');
             }
-
-            Toast.fire({
-                icon: icon,
-                title: mensaje
-            });
-        } catch (error) {
-            console.log(error);
-        }
-    }
-};
-
-formulario.addEventListener('submit', guardar);
-btnCancelar.addEventListener('click', cancelar);
-btnModificar.addEventListener('click', modificar);
-datatable.on('click', '.modificar', traerDatos);
-datatable.on('click', '.eliminar', eliminar);
+        })
+        .catch(error => {
+            console.error('Error al generar el PDF:', error);
+        });
+    });
+});

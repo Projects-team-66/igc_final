@@ -11,14 +11,15 @@ use Controllers\TutorController;
 use Controllers\SeccionController;
 use Controllers\GradoController;
 use Controllers\PagoController;
-use Controllers\SolvenciaController;
 use Controllers\ReporteAsistenciaController;
 use Controllers\AsignacionAlumnoController;
+use Controllers\DetalleController;
 use Controllers\AsignacionProfesorController;
 use Controllers\CursoController;
 use Controllers\PDFController;
 use Controllers\ReporteConductaController;
 use Controllers\LoginController;
+
 
 $router = new Router();
 $router->setBaseURL('/' . $_ENV['APP_NAME']);
@@ -75,12 +76,6 @@ $router->get('/API/asistencia/buscar', [AsistenciaController::class, 'buscarAPI'
 $router->post('/API/asistencia/guardar', [AsistenciaController::class, 'guardarAPI']);
 $router->post('/API/asistencia/modificar', [AsistenciaController::class, 'modificarAPI']);
 $router->post('/API/asistencia/eliminar', [AsistenciaController::class, 'eliminarAPI']);
-//SOLVENCIA
-$router->get('/solvencia', [SolvenciaController::class, 'index']);
-$router->get('/API/solvencia/buscar', [SolvenciaController::class, 'buscarAPI']);
-$router->post('/API/solvencia/guardar', [SolvenciaController::class, 'guardarAPI']);
-$router->post('/API/solvencia/modificar', [SolvenciaController::class, 'modificarAPI']);
-$router->post('/API/solvencia/eliminar', [SolvenciaController::class, 'eliminarAPI']);
 
 //PAGOS
 $router->get('/pago', [PagoController::class, 'index']);
@@ -129,3 +124,8 @@ $router->post('/API/generarPDF', [PDFController::class, 'pdf']);
 
 // Comprueba y valida las rutas, que existan y les asigna las funciones del Controlador
 $router->comprobarRutas();
+
+//GRAFICA
+$router->get('/API/grafica/estadistica', [DetalleController::class,'detalleEnviosAPI']);
+
+

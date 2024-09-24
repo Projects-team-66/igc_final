@@ -35,26 +35,26 @@ class Pago extends ActiveRecord
     public static function obtenerPago()
     {
         $sql = "SELECT 
-                p.pago_id,
-                a.alumno_nombre,
-                s.seccion_nombre,
-                g.grado_nombre,
-                g.grado_monto,
-                p.pago_fecha,
-                p.pago_estado,
-                p.pago_mes
-FROM 
-    pago p
-JOIN 
-    alumnos a ON p.pago_alumno = a.alumno_id
-JOIN 
-    asignacion_alumnos aa ON a.alumno_id = aa.asignacion_alumno
-JOIN 
-    seccion s ON aa.asignacion_seccion = s.seccion_id
-JOIN 
-    grado g ON s.seccion_grado = g.grado_id
-WHERE 
-    p.pago_situacion = 1;";
+            p.pago_id,
+            a.alumno_nombre,
+            s.seccion_nombre,
+            g.grado_nombre,
+            g.grado_monto,
+            p.pago_fecha,
+            p.pago_estado,
+            p.pago_mes
+        FROM 
+            pago p
+        JOIN 
+            alumnos a ON p.pago_alumno = a.alumno_id
+        JOIN 
+            asignacion_alumnos aa ON a.alumno_id = aa.asignacion_alumno
+        JOIN 
+            seccion s ON aa.asignacion_seccion = s.seccion_id
+        JOIN 
+            grado g ON s.seccion_grado = g.grado_id
+        WHERE 
+            p.pago_situacion = 1;";
 
                 return self::fetchArray($sql);
     }

@@ -132,6 +132,7 @@ const buscar = async () => {
 
         const respuesta = await fetch(url, config);
         const data = await respuesta.json();
+        console.log(data)
         const { datos } = data; // Obtén los datos correctamente
 
         datatable.clear().draw(); // Limpia la tabla antes de añadir los nuevos datos

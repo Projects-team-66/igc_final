@@ -130,6 +130,9 @@
                                 <a class="dropdown-item nav-link text-white " href="/igc_final/asistencia"><i class="bi bi-journal-text"></i> Asistencia de Alumnos</a>
                             </li>
                             <li>
+
+                                <a class="dropdown-item nav-link text-white " href="/igc_final/grafica/estadistica"><i class="bi bi-flag"></i> Grafica de Asistencia</a>
+
                                 <a class="dropdown-item nav-link text-white " href="/igc_final/reporte_asistencia"><i class="bi bi-flag"></i> Generar Reporte de Asistencia</a>
                             </li>
                             <li>
@@ -138,6 +141,7 @@
                             <li>
                                 <a class="dropdown-item nav-link text-white " href="/igc_final/actividades"><i class="bi bi-file-text-fill"></i> Ingresar Actividades</a>
                             </li>
+                      </ul>
                         </ul>  
                     </div>
                     <div class="nav-item dropdown">
@@ -174,7 +178,7 @@
                                 <a class="dropdown-item" href="/igc_final/pago"><i class="bi bi-cash-coin"></i> Regístro de Pagos</a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="/igc_final/solvencias"><i class="bi bi-newspaper"></i> Certificados de Solvencia</a>
+                                <a class="dropdown-item" href="/igc_final/solvencia"><i class="bi bi-newspaper"></i> Certificados de Solvencia</a>
                             </li>
                         </ul>
                     </div>

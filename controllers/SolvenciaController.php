@@ -2,116 +2,78 @@
 
 namespace Controllers;
 
-use Exception;
-use Model\Alumno;
-use Model\Curso;
-use Model\Solvencia;
+use Mpdf\Mpdf;
 use MVC\Router;
+use Model\Pago;
+use Exception;
 
 class SolvenciaController
 {
     public static function index(Router $router)
     {
-        // Usar el método del modelo para obtener los Alumnos
-        $alumnos = Alumno::obtenerAlumnosconQuery();
-        $cursos = Curso::obtenerCursos();
-
-        // Pasar los alumnos y cursos a la vista
-        $router->render('solvencia/index', [
-            'alumnos' => $alumnos,
-            'cursos' => $cursos
-        ]);
+        // Renderiza la vista principal de solvencia
+        $router->render('solvencia/index', []); // Ajustar el nombre del archivo
     }
 
-    public static function guardarAPI()
+    public static function ObtenerPagoPorMes($mes)
     {
-        $_POST['matricula_alumno'] = htmlspecialchars($_POST['matricula_alumno']);
+        $sql = "SELECT 
+                    p.pago_id,
+                    a.alumno_nombre,
+                    g.grado_nombre,
+                    g.grado_monto,
+                    p.pago_fecha,
+                    p.pago_estado
+                FROM 
+                    pago p
+                JOIN 
+                    alumnos a ON p.pago_alumno = a.alumno_id
+                JOIN 
+                    asignacion_alumnos aa ON a.alumno_id = aa.asignacion_alumno
+                JOIN 
+                    seccion s ON aa.asignacion_seccion = s.seccion_id
+                JOIN 
+                    grado g ON s.seccion_grado = g.grado_id
+                WHERE 
+                    p.pago_situacion = 1 AND MONTH(p.pago_fecha) = ?"; // Filtra por mes
 
+        return Pago::fetchArray($sql, [$mes]); // Pasa el mes como parámetro
+    }
+
+    public static function generarPdf(Router $router)
+    {
         try {
-            $solvencia = new Solvencia($_POST);
-            $resultado = $solvencia->crear();
-            http_response_code(200);
-            echo json_encode([
-                'codigo' => 1,
-                'mensaje' => 'Solvencia Guardada Exitosamente',
+            // Obtener el mes desde el POST
+            $mesSeleccionado = $_POST['pago_mes'];
+
+            // Obtener los pagos correspondientes al mes
+            $pagos = static::ObtenerPagoPorMes($mesSeleccionado);
+
+            // Crear un objeto mPDF
+            $mpdf = new Mpdf([
+                "orientation" => "P",
+                "default_font_size" => 12,
+                "default_font" => "arial",
+                "format" => "Letter",
+                "mode" => 'utf-8'
             ]);
+            $mpdf->SetMargins(50, 40, 25);
+
+            // Capturar el HTML generado por la vista para el PDF
+            ob_start(); // Iniciar buffer de salida
+            $router->render('solvencia/generarPdf', [
+                'pagos' => $pagos,
+                'mes' => $mesSeleccionado
+            ]);
+            $html = ob_get_clean(); // Obtener el HTML generado
+
+            // Escribir el HTML en el documento PDF
+            $mpdf->WriteHTML($html);
+            $mpdf->Output(); // Salida del PDF
+
         } catch (Exception $e) {
-            http_response_code(500);
-            echo json_encode([
-                'codigo' => 0,
-                'mensaje' => 'Error al guardar Solvencia',
-                'detalle' => $e->getMessage(),
-            ]);
+            // Manejo de error
+            echo 'Se produjo un error al generar el PDF: ',  $e->getMessage();
         }
     }
-
-    public static function buscarAPI()
-     {
-         try {
-             
-             $solvencia = Solvencia::obtenerSolvencia();
-             http_response_code(200);
-             echo json_encode([
-                 'codigo' => 1,
-                 'mensaje' => 'Datos encontrados',
-                 'detalle' => '',
-                 'datos' => $solvencia
-             ]);
-         } catch (Exception $e) {
-             http_response_code(500);
-             echo json_encode([
-                 'codigo' => 0,
-                 'mensaje' => 'Error al buscar Alumnos',
-                 'detalle' => $e->getMessage(),
-             ]);
-         }
-     }
-
-     public static function modificarAPI()
-     {
-         $_POST['matricula_alumno'] = htmlspecialchars($_POST['matricula_alumno'], FILTER_SANITIZE_NUMBER_INT);
-         $id = filter_var($_POST['matricula_id'], FILTER_SANITIZE_NUMBER_INT);
-         try {
-
-             $solvencia = Solvencia::find($id);
-             $solvencia->sincronizar($_POST);
-             $solvencia->actualizar();
-             http_response_code(200);
-             echo json_encode([
-                 'codigo' => 1,
-                 'mensaje' => 'Datos de la Solvencia Modificados Exitosamente',
-             ]);
-         } catch (Exception $e) {
-             http_response_code(500);
-             echo json_encode([
-                 'codigo' => 0,
-                 'mensaje' => 'Error al Modificar Datos',
-                 'detalle' => $e->getMessage(),
-             ]);
-         }
-     }
-
-     public static function eliminarAPI()
-     {
-
-         $id = filter_var($_POST['matricula_id'], FILTER_SANITIZE_NUMBER_INT);
-
-         try {
-
-             $solvencia = Solvencia::find($id);
-             $solvencia->eliminar();
-             http_response_code(200);
-             echo json_encode([
-                 'codigo' => 1,
-                 'mensaje' => 'Solvencia Eliminado Exitosamente',
-             ]);
-         } catch (Exception $e) {
-             http_response_code(500);
-             echo json_encode([
-                 'codigo' => 0,
-                 'mensaje' => 'Error al Eliminar Solvencia',
-                 'detalle' => $e->getMessage(),
-             ]);
-         }
-     }
-};
+}
