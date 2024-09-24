@@ -49,4 +49,22 @@ class Alumno extends ActiveRecord
         }
         return null; // Retorna null si no se le da un ID
     }
+
+    public static function buscar()
+    {
+        $sql = "SELECT 
+    a.alumno_id,
+    (a.alumno_nombre || ' ' || a.alumno_apellido) AS reporte_alumno,
+    g.grado_nombre,
+    s.seccion_nombre
+FROM 
+    alumnos a
+JOIN 
+    asignacion_alumnos aa ON a.alumno_id = aa.asignacion_alumno
+JOIN 
+    seccion s ON aa.asignacion_seccion = s.seccion_id
+JOIN 
+    grado g ON s.seccion_grado = g.grado_id;";
+        return self::fetchArray($sql);
+    }
 }

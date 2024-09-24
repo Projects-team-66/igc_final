@@ -138,8 +138,7 @@
                             <li>
                                 <a class="dropdown-item nav-link text-white " href="/igc_final/actividades"><i class="bi bi-file-text-fill"></i> Ingresar Actividades</a>
                             </li>
-                        </ul>
-                                  
+                        </ul>  
                     </div>
                     <div class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">
@@ -177,7 +176,6 @@
                         </ul>
                     </div>
                 </ul>
-
                 <div class="col-lg-1 d-grid mb-lg-0 mb-2">
                     <a href="/menu/" class="btn btn-danger"><i class="bi bi-arrow-bar-left"></i> MENÚ</a>
                 </div>

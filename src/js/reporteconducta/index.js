@@ -4,8 +4,8 @@ import Swal from "sweetalert2";
 import DataTable from "datatables.net-bs5";
 import { lenguaje } from "../lenguaje";
 
-const formulario = document.getElementById('formularioProfesor');
-const tabla = document.getElementById('tablaProfesor')
+const formulario = document.getElementById('formularioReporteConducta');
+const tabla = document.getElementById('tablaReporteConducta')
 const btnGuardar = document.getElementById('btnGuardar')
 const btnModificar = document.getElementById('btnModificar')
 const btnCancelar = document.getElementById('btnCancelar')
@@ -17,7 +17,7 @@ btnCancelar.disabled = true;
 
 
 
-const datatable = new DataTable('#tablaProfesor', {
+const datatable = new DataTable('#tablaReporteConducta', {
     data: null,
     language: lenguaje,
     pageLength: '15',
@@ -25,7 +25,7 @@ const datatable = new DataTable('#tablaProfesor', {
     columns: [
         {
             title: 'No.',
-            data: 'profesor_id',
+            data: 'reporte_conducta_id',
             width: '2%',
             render: (data, type, row, meta) => {
                 // console.log(meta.ro);
@@ -33,39 +33,39 @@ const datatable = new DataTable('#tablaProfesor', {
             }
         },
         {
-            title: 'Nombre',
-            data: 'profesor_nombre'
+            title: 'Nombre Completo',
+            data: 'reporte_alumno'
         },
         {
-            title: 'Apellido',
-            data: 'profesor_apellido'
+            title: 'Grado',
+            data: 'grado_nombre'
         }, {
-            title: 'Correo Electrónico',
-            data: 'profesor_email'
+            title: 'Seccion',
+            data: 'seccion_nombre'
         },
         {
-            title: 'Telefono',
-            data: 'profesor_telefono'
+            title: 'Conducta',
+            data: 'reporte_conducta'
         },
         {
-            title: 'Dirección',
-            data: 'profesor_direccion'
+            title: 'Fecha',
+            data: 'reporte_fecha'
         },
         {
             title: 'Acciones',
-            data: 'profesor_id',
+            data: 'reporte_conducta_id',
             searchable: false,
             orderable: false,
             render: (data, type, row, meta) => {
                 let html = `
-                <button class='btn btn-warning modificar' data-profesor_id="${data}" data-profesor_nombre="${row.profesor_nombre}" data-profesor_apellido="${row.profesor_apellido}" data-profesor_telefono="${row.profesor_telefono}" data-profesor_email="${row.profesor_email}" data-profesor_direccion="${row.profesor_direccion}">
+                <button class='btn btn-warning modificar' data-reporte_conducta_id="${data}" data-reporte_alumno="${row.reporte_alumno}" data-grado_nombre="${row.grado_nombre}" data-seccion_nombre="${row.seccion_nombre}" data-reporte_conducta="${row.reporte_conducta}" data-reporte_fecha="${row.reporte_fecha}">
                     <i class='bi bi-pencil-square'></i> 
                 </button>
-                <button class='btn btn-danger eliminar' data-profesor_id="${data}">
+                <button class='btn btn-danger eliminar' data-reporte_conducta_id="${data}">
                   <i class='bi bi-trash'></i> 
                 </button>
             `;
-            
+
                 return html;
             }
         },
@@ -84,9 +84,9 @@ btnCancelar.disabled = true
 
 const guardar = async (e) => {
     btnGuardar.disabled = true,
-    e.preventDefault()
+        e.preventDefault()
 
-    if (!validarFormulario(formulario, ['profesor_id'])) {
+    if (!validarFormulario(formulario, ['reporte_conducta_id'])) {
         Swal.fire({
             title: "Campos vacios",
             text: "Debe llenar todos los campos",
@@ -98,7 +98,7 @@ const guardar = async (e) => {
 
     try {
         const body = new FormData(formulario)
-        const url = "/igc_final/API/profesores/guardar"
+        const url = "/igc_final/API/reporteconducta/guardar"
         const config = {
             method: 'POST',
             body
@@ -134,7 +134,8 @@ const guardar = async (e) => {
 
 const buscar = async () => {
     try {
-        const url = "/igc_final/API/profesores/buscar"
+
+        const url = "/igc_final/API/reporteconducta/buscar"
         const config = {
             method: 'GET',
         }
@@ -142,9 +143,6 @@ const buscar = async () => {
         const respuesta = await fetch(url, config);
         const data = await respuesta.json();
         const { codigo, mensaje, detalle, datos } = data;
-
-        // tabla.tBodies[0].innerHTML = ''
-        // const fragment = document.createDocumentFragment();
         console.log(datos);
         datatable.clear().draw();
 
@@ -204,7 +202,7 @@ const modificar = async (e) => {
 
     try {
         const body = new FormData(formulario)
-        const url = "/igc_final/API/profesores/modificar"
+        const url = "/igc_final/API/reporteconducta/modificar"
         const config = {
             method: 'POST',
             body
@@ -237,8 +235,9 @@ const modificar = async (e) => {
 
 
 const eliminar = async (e) => {
-    const profesor_id = e.currentTarget.dataset.profesor_id
-    console.log("ID a eliminar:", profesor_id); // Agrega esta línea
+    const reporte_conducta_id = e.currentTarget.dataset.reporte_conducta_id
+
+    //console.log("ID a eliminar:", reporte_conducta_id); // Agrega esta línea
     let confirmacion = await Swal.fire({
         icon: 'question',
         title: 'Confirmacion',
@@ -254,18 +253,21 @@ const eliminar = async (e) => {
     if (confirmacion.isConfirmed) {
         try {
             const body = new FormData()
-            body.append('profesor_id', profesor_id)
-            const url = "/igc_final/API/profesores/eliminar"
+            body.append('reporte_conducta_id', reporte_conducta_id)
+            const url = "/igc_final/API/reporteconducta/eliminar"
             const config = {
                 method: 'POST',
                 body
             }
 
             const respuesta = await fetch(url, config);
-            const data = await respuesta.json();
-            const { codigo, mensaje, detalle } = data;
+            const data = await respuesta.json(); // Obtener la respuesta como texto
+            
+
+            const {codigo, mensaje, detalle} = data;
+
             let icon = 'info'
-            if (codigo == 1) {
+            if (codigo === 1) {
                 icon = 'success'
                 formulario.reset();
                 buscar();
