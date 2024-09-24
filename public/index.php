@@ -14,7 +14,6 @@ use Controllers\PagoController;
 use Controllers\SolvenciaController;
 use Controllers\ReporteAsistenciaController;
 use Controllers\AsignacionAlumnoController;
-use Controllers\DetalleController;
 
 $router = new Router();
 $router->setBaseURL('/' . $_ENV['APP_NAME']);
@@ -90,7 +89,4 @@ $router->post('/API/asignacionalumno/eliminar', [AsignacionAlumnoController::cla
 // Comprueba y valida las rutas, que existan y les asigna las funciones del Controlador
 $router->comprobarRutas();
 
-//GRAFICA
-$router->get('/cliente/estadisticas', [DetalleController::class,'estadisticas']);
-$router->get('/API/detalle/estadistica', [DetalleController::class,'detalleVentasAPI']);
 
